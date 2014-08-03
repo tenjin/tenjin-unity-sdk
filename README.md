@@ -4,8 +4,8 @@ Tenjin Unity plugin
 
 Tenjin install/session integration:
 -------
-- Include the Assets folder in your Unity project
-- In your project's first `Start()` method write the following `Tenjin.getInstance("<API_KEY>").Connect();`
+- Include the `.unitypackage` in your Unity Project
+- In your project's first scene locate your `Start()` method write and the following `Tenjin.getInstance("<API_KEY>").Connect();`
 
 Here's an example of the code:
 ```
