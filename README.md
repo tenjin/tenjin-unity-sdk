@@ -35,3 +35,8 @@ public class TenjinExampleScript : MonoBehaviour {
   }
 }
 ```
+Additional Notes:
+------
+
+- This package contains example code in the `/Example` folder of the `.unitypackage`. This can be removed.
+- This package contains a `.manifest` for Android and can be modified for your specific project. Make sure to include the permissions found here: https://github.com/ordinance/tenjin-android-sdk
