@@ -35,19 +35,8 @@ public class TenjinExampleScript : MonoBehaviour {
   }
 }
 ```
+Additional Notes:
+------
 
-Tenjin custom event integration:
--------
-- Include the Assets folder in your Unity project
-- In your projects method for the custom event write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with a value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","0.99")`
-
-Here's an example of the code:
-```
-void MethodWithCustomEvent(){
-    //event with name
-    Tenjin.getInstance("API_KEY").SendEvent("name");
-
-    //event with name and value
-    Tenjin.getInstance("API_KEY").SendEvent("nameWithValue", "Value");
-}
-```
+- This package contains example code in the `/Example` folder of the `.unitypackage`. This can be removed.
+- This package contains a `.manifest` for Android and can be modified for your specific project. Make sure to include the permissions found here: https://github.com/ordinance/tenjin-android-sdk
