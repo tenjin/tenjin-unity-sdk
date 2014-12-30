@@ -4,8 +4,8 @@ Tenjin Unity plugin
 
 Tenjin install/session integration:
 -------
-- Include the `.unitypackage` in your Unity Project
-- In your project's first scene locate your `Start()` method write and the following `Tenjin.getInstance("<API_KEY>").Connect();`
+- Include the Assets folder in your Unity project
+- In your project's first `Start()` method write the following `Tenjin.getInstance("<API_KEY>").Connect();`
 
 Here's an example of the code:
 ```
@@ -35,10 +35,23 @@ public class TenjinExampleScript : MonoBehaviour {
   }
 }
 ```
+Tenjin purchase event integration instructions:
+-------
+Pass any in app purchase (IAP) transaction manually. To use this method you will need a `productId`, `currencyCode`, `quantity`, and `unitPrice`.
+
+```
+//Here is an example of how to implement the purchase in your post-validated purchase event
+void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice){
+  Tenjin.getInstance("API_KEY").Transaction(ProductId, CurrencyCode, Quantity, UnitPrice);
+
+  //any other code you want to handle in a completed purchase client side
+}
+```
+
 Tenjin custom event integration:
 -------
 - Include the Assets folder in your Unity project
-- In your projects method for the custom event write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with a value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","0.99")`
+- In your projects method for the custom event write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with a value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","value")`
 
 Here's an example of the code:
 ```
@@ -47,11 +60,6 @@ void MethodWithCustomEvent(){
     Tenjin.getInstance("API_KEY").SendEvent("name");
 
     //event with name and value
-    Tenjin.getInstance("API_KEY").SendEvent("nameWithValue", "Value");
+    Tenjin.getInstance("API_KEY").SendEvent("nameWithValue", "value");
 }
 ```
-Additional Notes:
-------
-
-- This package contains example code in the `/Example` folder of the `.unitypackage`. This can be removed.
-- This package contains a `.manifest` for Android and can be modified for your specific project. Make sure to include the permissions found here: https://github.com/ordinance/tenjin-android-sdk
