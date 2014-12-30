@@ -37,11 +37,13 @@ public class TenjinExampleScript : MonoBehaviour {
 ```
 Tenjin purchase event integration instructions:
 -------
-Pass any in app purchase (IAP) transaction manually. To use this method you will need a `productId`, `currencyCode`, `quantity`, and `unitPrice`.
+Pass any in app purchase (IAP) transaction manually. To use this method you will need a `string productId`, `string currencyCode`, `int quantity`, and `double unitPrice`.
 
 ```
 //Here is an example of how to implement the purchase in your post-validated purchase event
 void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice){
+  
+  //pass in the required data for the transaction
   Tenjin.getInstance("API_KEY").Transaction(ProductId, CurrencyCode, Quantity, UnitPrice);
 
   //any other code you want to handle in a completed purchase client side
