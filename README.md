@@ -1,6 +1,7 @@
 Tenjin Unity plugin
 =========
 - Allows unity developers to quickly integrate with Tenjin's install API
+- Please review the [iOS](https://github.com/Ordinance/tenjin-ios-sdk) and [Android](https://github.com/Ordinance/tenjin-android-sdk) SDK documentation to make sure your settings are applied to each of Unity's builds. Specifically, on iOS make sure the build settings are set properly in XCode, and for Android make sure you add the necessary `AndroidManifest.xml` requirements.
 
 Tenjin install/session integration:
 -------
