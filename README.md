@@ -11,7 +11,7 @@ Tenjin install/session integration:
 - In your project's first `Start()` method write the following `Tenjin.getInstance("<API_KEY>").Connect();`
 
 Here's an example of the code:
-```
+```csharp
 using UnityEngine;
 using System.Collections;
 
@@ -42,7 +42,7 @@ Tenjin purchase event integration instructions:
 -------
 Pass any in app purchase (IAP) transaction manually. To use this method you will need a `string productId`, `string currencyCode`, `int quantity`, and `double unitPrice`.
 
-```
+```csharp
 //Here is an example of how to implement the purchase in your post-validated purchase event
 void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice){
   
@@ -59,7 +59,7 @@ Tenjin custom event integration:
 - In your projects method for the custom event write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with a value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","value")`
 
 Here's an example of the code:
-```
+```csharp
 void MethodWithCustomEvent(){
     //event with name
     Tenjin.getInstance("API_KEY").SendEvent("name");
@@ -75,7 +75,7 @@ For Unity Android builds make sure you have a manifest file with the following r
 - Include Google Play Services within the application tags
 - Include Tenjin's INSTALL_REFERRER receiver
 
-```
+```xml
 <manifest>
   ...
     <application ...>
