@@ -56,6 +56,7 @@ void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, doub
 - `CurrencyCode` -> the currency code of the price
 - `Quantity` -> the number of products/purchases that the user is making
 - `UnitPrice` -> the unit price of the product
+
 Total Revenue will be calculated as `Quantity`*`UnitPrice`
 
 Tenjin custom event integration:
