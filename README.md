@@ -52,6 +52,11 @@ void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, doub
   //any other code you want to handle in a completed purchase client side
 }
 ```
+- `ProductId` -> the name or ID of the product/purchase that the user is making
+- `CurrencyCode` -> the currency code of the price
+- `Quantity` -> the number of products/purchases that the user is making
+- `UnitPrice` -> the unit price of the product
+Total Revenue will be calculated as `Quantity`*`UnitPrice`
 
 Tenjin custom event integration:
 -------
