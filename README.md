@@ -63,7 +63,7 @@ Total Revenue will be calculated as `Quantity`*`UnitPrice`
 Tenjin custom event integration:
 -------
 - Include the Assets folder in your Unity project
-- In your projects method for the custom event write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with a value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","value")`
+- In your projects method for the custom event write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with an integer value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","value")`
 
 Here's an example of the code:
 ```csharp
