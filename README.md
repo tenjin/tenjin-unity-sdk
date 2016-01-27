@@ -4,6 +4,7 @@ Tenjin Unity plugin
 - Review the [iOS](https://github.com/Ordinance/tenjin-ios-sdk) and [Android](https://github.com/Ordinance/tenjin-android-sdk) documentation and apply the proper platform settings to your builds. Most importantly:
   1. iOS: make sure you have the right build settings and you include the iOS frameworks you need (below).
   2. Android: make sure you add the necessary `AndroidManifest.xml` requirements (below).
+  3. Your "API_KEY" is located on your [Organizations tab](https://www.tenjin.io/dashboard/organizations)
 
 Tenjin install/session integration:
 -------
@@ -52,6 +53,12 @@ void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, doub
   //any other code you want to handle in a completed purchase client side
 }
 ```
+- `ProductId` -> the name or ID of the product/purchase that the user is making
+- `CurrencyCode` -> the currency code of the price
+- `Quantity` -> the number of products/purchases that the user is making
+- `UnitPrice` -> the unit price of the product
+
+Total Revenue will be calculated as `Quantity`*`UnitPrice`
 
 Tenjin custom event integration:
 -------
