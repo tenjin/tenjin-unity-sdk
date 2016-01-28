@@ -64,6 +64,7 @@ Tenjin custom event integration:
 -------
 - Include the Assets folder in your Unity project
 - In your projects method for the custom event write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with an integer value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","value")`
+- Make sure `value` passed is an integer. If `value` is not an integer, your event will not be passed.
 
 Here's an example of the code:
 ```csharp
@@ -71,7 +72,7 @@ void MethodWithCustomEvent(){
     //event with name
     Tenjin.getInstance("API_KEY").SendEvent("name");
 
-    //event with name and value
+    //event with name and integer value
     Tenjin.getInstance("API_KEY").SendEvent("nameWithValue", "value");
 }
 ```
