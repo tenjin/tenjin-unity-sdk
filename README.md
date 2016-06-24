@@ -76,6 +76,11 @@ void MethodWithCustomEvent(){
     Tenjin.getInstance("API_KEY").SendEvent("nameWithValue", "value");
 }
 ```
+
+`.SendEvent("name")` is for events that are static markers or milestones. This would include things like `tutorial_complete`, `registration`, or `level_1`.
+
+`.SendEvent("name", "value")` is for events that you want to do math on a property of that event. For example, `("coins_purchased", "100")` will let you analyze a sum or average of the coins that have been purchased for that event.
+
 Android Manifest Requirements
 -------
 For Unity Android builds make sure you have a manifest file with the following requirements. 
