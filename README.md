@@ -43,7 +43,7 @@ Tenjin purchase event integration instructions:
 -------
 Pass in app purchase (IAP) transactions to Tenjin manually. You can send `string productId`, `string currencyCode`, `int quantity`, and `double unitPrice` setting all other params to `null`. 
 
-Our Unity plugin for receipt validation is in beta. You can try sending additional parameters `string transactionId`, `string receipt`, and `string signature`. iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`). For Android, `receipt` and `signature` are required (`transactionId` is set to `null`).
+**Our Unity plugin for receipt validation is in beta.** You can try sending additional parameters `string transactionId`, `string receipt`, and `string signature`. iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`). For Android, `receipt` and `signature` are required (`transactionId` is set to `null`).
 
 ```csharp
 //Here is an example of how to implement the purchase in your post-validated purchase event
