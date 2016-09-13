@@ -43,7 +43,6 @@ Tenjin purchase event integration instructions:
 -------
 Pass in app purchase (IAP) transactions to Tenjin manually. You can send `string productId`, `string currencyCode`, `int quantity`, and `double unitPrice` setting all other params to `null`. 
 
-Our Unity plugin for receipt validation is in beta. You can try sending additional parameters `string transactionId`, `string receipt`, and `string signature`. iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`). For Android, `receipt` and `signature` are required (`transactionId` is set to `null`).
 
 ```csharp
 //Here is an example of how to implement the purchase in your post-validated purchase event
@@ -59,10 +58,36 @@ void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, doub
 - `CurrencyCode` -> the currency code of the price
 - `Quantity` -> the number of products/purchases that the user is making
 - `UnitPrice` -> the unit price of the product
+
+Our Unity plugin for receipt validation is in beta. You can try sending additional parameters `string transactionId`, `string receipt`, and `string signature` in that order. 
+
 - `transactionId` -> the `transactionId` for an iOS purchase (`null` for Android purchases)
 - `receipt` -> the `receipt` for an iOS or Android purchase
 - `signature` -> the `signature` for an Android purchase (`null` for iOS purchases)
 
+iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`). 
+
+```csharp
+//Here is an example of how to implement iOS transaction receipt validation (currently in beta)
+void CompletedIosPurchase(string ProductId, string CurrencyCode int Quantity, double UnitPrice, string TransactionId, string Receipt){
+  
+  #if UNTIY_IOS
+  //pass the necessary data including the transactionId and the receipt
+  Tenjin.getInstance("API_KEY").Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
+}
+```
+
+For Android, `receipt` and `signature` are required (`transactionId` is set to `null`).
+
+```csharp
+//Here is an example of how to implement iOS transaction receipt validation (currently in beta)
+void CompletedAndroidPurchase(string ProductId, string CurrencyCode int Quantity, double UnitPrice, string Receipt, string Signature){
+  
+  #if UNTIY_ANDROID
+  //pass the necessary data including the transactionId and the receipt
+  Tenjin.getInstance("API_KEY").Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
+}
+```
 
 Total Revenue will be calculated as `Quantity`*`UnitPrice`
 
