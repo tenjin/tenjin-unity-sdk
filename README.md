@@ -41,14 +41,16 @@ public class TenjinExampleScript : MonoBehaviour {
 ```
 Tenjin purchase event integration instructions:
 -------
-Pass any in app purchase (IAP) transaction manually. To use this method you will need a `string productId`, `string currencyCode`, `int quantity`, and `double unitPrice`.
+Pass in app purchase (IAP) transactions to Tenjin manually. You can send `string productId`, `string currencyCode`, `int quantity`, and `double unitPrice` setting all other params to `null`. 
+
+Our Unity plugin for receipt validation is in beta. You can try sending additional parameters `string transactionId`, `string receipt`, and `string signature`. iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`). For Android, `receipt` and `signature` are required (`transactionId` is set to `null`).
 
 ```csharp
 //Here is an example of how to implement the purchase in your post-validated purchase event
 void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice){
   
-  //pass in the required data for the transaction
-  Tenjin.getInstance("API_KEY").Transaction(ProductId, CurrencyCode, Quantity, UnitPrice);
+  //pass in the required data for the transaction without receipts
+  Tenjin.getInstance("API_KEY").Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, null, null);
 
   //any other code you want to handle in a completed purchase client side
 }
@@ -57,6 +59,10 @@ void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, doub
 - `CurrencyCode` -> the currency code of the price
 - `Quantity` -> the number of products/purchases that the user is making
 - `UnitPrice` -> the unit price of the product
+- `transactionId` -> the `transactionId` for an iOS purchase (`null` for Android purchases)
+- `receipt` -> the `receipt` for an iOS or Android purchase
+- `signature` -> the `signature` for an Android purchase (`null` for iOS purchases)
+
 
 Total Revenue will be calculated as `Quantity`*`UnitPrice`
 
