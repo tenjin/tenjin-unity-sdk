@@ -61,7 +61,7 @@ void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, doub
 **Our Unity plugin for receipt validation is in beta.** You can try sending additional parameters `string transactionId`, `string receipt`, and `string signature` in that order. 
 
 - `transactionId` -> the `transactionId` for an iOS purchase (`null` for Android purchases)
-- `receipt` -> the `receipt` for an iOS or Android purchase
+- `receipt` -> the `receipt` for an iOS (base64 encoded) or Android purchase
 - `signature` -> the `signature` for an Android purchase (`null` for iOS purchases)
 
 iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`). 
