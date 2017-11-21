@@ -1,3 +1,6 @@
+Please see our <a href="https://github.com/Ordinance/tenjin-unity-sdk/wiki">Release Notes</a> to see detailed version history.
+
+
 Tenjin Unity plugin
 =========
 - Allows unity developers to quickly integrate with Tenjin's install API
