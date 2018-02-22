@@ -89,7 +89,7 @@ You can try sending additional parameters `string transactionId`, `string receip
 iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).
 
 ```csharp
-//Here is an example of how to implement iOS transaction receipt validation (currently in beta)
+//Here is an example of how to implement iOS transaction receipt validation
 void CompletedIosPurchase(string ProductId, string CurrencyCode int Quantity, double UnitPrice, string TransactionId, string Receipt){
 
   #if UNTIY_IOS
@@ -101,7 +101,7 @@ void CompletedIosPurchase(string ProductId, string CurrencyCode int Quantity, do
 For Android, `receipt` and `signature` are required (`transactionId` is set to `null`).
 
 ```csharp
-//Here is an example of how to implement iOS transaction receipt validation (currently in beta)
+//Here is an example of how to implement iOS transaction receipt validation
 void CompletedAndroidPurchase(string ProductId, string CurrencyCode int Quantity, double UnitPrice, string Receipt, string Signature){
 
   #if UNTIY_ANDROID
