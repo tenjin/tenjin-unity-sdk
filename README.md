@@ -1,10 +1,10 @@
-Please see our <a href="https://github.com/Ordinance/tenjin-unity-sdk/wiki">Release Notes</a> to see detailed version history.
+Please see our <a href="https://github.com/tenjin/tenjin-unity-sdk/wiki">Release Notes</a> to see detailed version history.
 
 
 Tenjin Unity plugin
 =========
 - Allows unity developers to quickly integrate with Tenjin's install API
-- Review the [iOS](https://github.com/Ordinance/tenjin-ios-sdk) and [Android](https://github.com/Ordinance/tenjin-android-sdk) documentation and apply the proper platform settings to your builds. Most importantly:
+- Review the [iOS](https://github.com/tenjin/tenjin-ios-sdk) and [Android](https://github.com/tenjin/tenjin-android-sdk) documentation and apply the proper platform settings to your builds. Most importantly:
   1. iOS: make sure you have the right build settings and you include the iOS frameworks you need (below).
   2. Android: make sure you add the necessary `AndroidManifest.xml` requirements (below).
   3. Your "API_KEY" is located on your [Organizations tab](https://www.tenjin.io/dashboard/organizations)
@@ -150,7 +150,7 @@ public class TenjinExampleScript : MonoBehaviour {
   public void DeferredDeeplinkCallback(Dictionary<string, string> data) {
     bool clicked_tenjin_link = false;
     bool is_first_session = false;
-      
+
     if (data.ContainsKey("clicked_tenjin_link")) {
       //clicked_tenjin_link is a BOOL to handle if a user clicked on a tenjin link
       clicked_tenjin_link = (data["clicked_tenjin_link"] == "true");
