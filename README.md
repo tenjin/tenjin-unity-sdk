@@ -1,3 +1,5 @@
+# This repository has been moved to https://github.com/tenjin/tenjin-unity-sdk
+
 Please see our <a href="https://github.com/tenjin/tenjin-unity-sdk/wiki">Release Notes</a> to see detailed version history.
 
 
