@@ -1,5 +1,5 @@
-Please see our <a href="https://github.com/tenjin/tenjin-unity-sdk/wiki">Release Notes</a> to see detailed version history.
 
+Please see our <a href="https://github.com/tenjin/tenjin-unity-sdk/wiki">Release Notes</a> to see detailed version history.
 
 Tenjin Unity plugin
 =========
@@ -12,7 +12,7 @@ Tenjin Unity plugin
 Tenjin install/session integration:
 -------
 - Include the Assets folder in your Unity project
-- In your project's first `Start()` method write the following `Tenjin.getInstance("<API_KEY>").Connect();`
+- In your project's first `Start()` method write the following `BaseTenjin instance = Tenjin.getInstance("API_KEY")` and then `instance.Connect()`
 
 Here's an example of the code:
 
@@ -24,7 +24,9 @@ public class TenjinExampleScript : MonoBehaviour {
 
   // Use this for initialization
   void Start () {
-    Tenjin.getInstance ("API_KEY").Connect();
+
+    BaseTenjin instance = Tenjin.getInstance("API_KEY");
+    instance.Connect();
   }
 
   // Update is called once per frame
@@ -38,14 +40,98 @@ public class TenjinExampleScript : MonoBehaviour {
     }
     else
     {
-      Tenjin.getInstance ("API_KEY").Connect();
+      BaseTenjin instance = Tenjin.getInstance("API_KEY");
+      instance.Connect();
     }
   }
 }
 ```
 
-Tenjin install/session integration to handle deeplinks from other services. If you use other services to produce deferred deep links, you can pass tenjin those deep links to handle the attribution logic with your tenjin enabled deep links.
+Tenjin GDPR:
 -------
+As part of GDPR compliance, with Tenjin's SDK you can opt-in, opt-out devices/users, or select which specific params to opt-in or opt-out.  `OptOut()` will not send any API requests to Tenjin and we will not process any events.
+
+To opt-in/opt-out:
+```csharp
+void Start () {
+
+  BaseTenjin instance = Tenjin.getInstance("API_KEY");
+  
+  boolean userOptIn = CheckOptInValue();
+
+  if (userOptIn) {
+    instance.OptIn();
+  }
+  else {
+    instance.OptOut();
+  }
+
+  instance.Connect();
+}
+
+boolean CheckOptInValue(){
+  // check opt-in value
+  // return true; // if user opted-in
+  return false;
+}
+```
+
+To opt-in/opt-out specific device-related parameters, you can use the `OptInParams()` or `OptOutParams()`.  `OptInParams()` will only send device-related parameters that you specify.  `OptOutParams()` will send all device-related parameters except those you specify.  Please note that we require at least `advertising_id` and `limit_ad_tracking`, `referrer`, and `iad` to properly track devices in Tenjin's system.
+
+If you want to only get specific device-related parameters, use `OptInParams()`. In example below, we will only these device-related parameters: "advertising_id", "limit_ad_tracking", referrer", "iad":
+```csharp
+void Start () {
+
+  BaseTenjin instance = Tenjin.getInstance("API_KEY");
+  
+  List<string> optInParams = new List<string> {"advertising_id", "developer_device_id", "limit_ad_tracking", "referrer", "device_all", "iad"};
+  instance.OptInParams(optInParams);
+
+  instance.Connect();
+}
+
+```
+
+If you want to send ALL parameters except specfic device-related parameters, use `OptOutParams()`.  In example below, we will send ALL device-related parameters except: "county", "timezone", and "language" parameters.
+```csharp
+void Start () {
+
+  BaseTenjin instance = Tenjin.getInstance("API_KEY");
+  
+  List<string> optOutParams = new List<string> {"country", "timezone", "language"};
+  instance.OptOutParams(optOutParams);
+
+  instance.Connect();
+}
+
+```
+
+#### Device-Related Parameters
+
+| Param  | Description | Platform | Reference |
+| ------------- | ------------- | ------------- | ------------- |
+| advertising_id  | The device advertising ID | | [Android](https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.html#getAdvertisingIdInfo(android.content.Context)) |
+| developer_device_id | device ID for vendor | iOS | |
+| limit_ad_tracking  | limit ad tracking flag | | [Android](https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.Info.html#isLimitAdTrackingEnabled()) |
+| platform |  platform | All | |
+| os_version | operating vystem version | | [Android](https://developer.android.com/reference/android/os/Build.VERSION.html#SDK_INT) |
+| device | device name | | [Android](https://developer.android.com/reference/android/os/Build.html#DEVICE) |
+| device_manufacturer |  device manufactuer | | [Android](https://developer.android.com/reference/android/os/Build.html#MANUFACTURER) |
+| device_model | device model | | [Android](https://developer.android.com/reference/android/os/Build.html#MODEL) |
+| device_brand | device brand | | [Android](https://developer.android.com/reference/android/os/Build.html#BRAND) |
+| device_product | device product | | [Android](https://developer.android.com/reference/android/os/Build.html#PRODUCT) |
+| carrier | phone carrier | | [Android](https://developer.android.com/reference/android/telephony/TelephonyManager.html#getSimOperatorName()) |
+| connection_type | cellular or wifi | All | [Android](https://developer.android.com/reference/android/net/ConnectivityManager.html#getActiveNetworkInfo()) |
+| screen_width | device screen width | All | [Android](https://developer.android.com/reference/android/util/DisplayMetrics.html#widthPixels) |
+| screen_height | device screen height | All | [Android](https://developer.android.com/reference/android/util/DisplayMetrics.html#heightPixels) |
+| os_version_release | operating system version | All | [Android](https://developer.android.com/reference/android/os/Build.VERSION.html#RELEASE) |
+| build_id | build ID | All | [Android](https://developer.android.com/reference/android/os/Build.html) |
+| locale | device locale | All | [Android](https://developer.android.com/reference/java/util/Locale.html#getDefault()) |
+
+
+Tenjin install/session integration to handle deeplinks from other services.
+-------
+If you use other services to produce deferred deep links, you can pass tenjin those deep links to handle the attribution logic with your tenjin enabled deep links.
 
 ```csharp
 using UnityEngine;
@@ -55,7 +141,8 @@ public class TenjinExampleScript : MonoBehaviour {
 
   // Use this for initialization
   void Start () {
-    Tenjin.getInstance ("API_KEY").Connect("your_deeplink://path?test=123");
+    BaseTenjin instance = Tenjin.getInstance("API_KEY");
+    instance.Connect("your_deeplink://path?test=123");
   }
 
 }
@@ -70,7 +157,9 @@ Pass in app purchase (IAP) transactions to Tenjin manually. You can send `string
 void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice){
 
   //pass in the required data for the transaction without receipts
-  Tenjin.getInstance("API_KEY").Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, null, null);
+
+  BaseTenjin instance = Tenjin.getInstance ("API_KEY");
+  instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, null, null);
 
   //any other code you want to handle in a completed purchase client side
 }
@@ -94,7 +183,9 @@ void CompletedIosPurchase(string ProductId, string CurrencyCode int Quantity, do
 
   #if UNTIY_IOS
   //pass the necessary data including the transactionId and the receipt
-  Tenjin.getInstance("API_KEY").Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
+
+  BaseTenjin instance = Tenjin.getInstance("API_KEY");
+  instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
 }
 ```
 
@@ -106,7 +197,9 @@ void CompletedAndroidPurchase(string ProductId, string CurrencyCode int Quantity
 
   #if UNTIY_ANDROID
   //pass the necessary data including the transactionId and the receipt
-  Tenjin.getInstance("API_KEY").Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
+
+  BaseTenjin instance = Tenjin.getInstance("API_KEY");
+  instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
 }
 ```
 
@@ -122,10 +215,11 @@ Here's an example of the code:
 ```csharp
 void MethodWithCustomEvent(){
     //event with name
-    Tenjin.getInstance("API_KEY").SendEvent("name");
+    BaseTenjin instance = Tenjin.getInstance ("API_KEY");
+    instance.SendEvent("name");
 
     //event with name and integer value
-    Tenjin.getInstance("API_KEY").SendEvent("nameWithValue", "value");
+    instance.SendEvent("nameWithValue", "value");
 }
 ```
 
@@ -143,8 +237,9 @@ public class TenjinExampleScript : MonoBehaviour {
 
   // Use this for initialization
   void Start () {
-    Tenjin.getInstance ("YOUR_TENJIN_API_KEY").Connect();
-    Tenjin.getInstance ("YOUR_TENJIN_API_KEY").GetDeeplink (DeferredDeeplinkCallback);
+    BaseTenjin instance = Tenjin.getInstance("API_KEY");
+    instance.Connect();
+    instance.GetDeeplink(DeferredDeeplinkCallback);
   }
 
   public void DeferredDeeplinkCallback(Dictionary<string, string> data) {
