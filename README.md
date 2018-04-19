@@ -47,7 +47,7 @@ public class TenjinExampleScript : MonoBehaviour {
 }
 ```
 
-Tenjin GDPR:
+Tenjin and GDPR:
 -------
 As part of GDPR compliance, with Tenjin's SDK you can opt-in, opt-out devices/users, or select which specific params to opt-in or opt-out.  `OptOut()` will not send any API requests to Tenjin and we will not process any events.
 
