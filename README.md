@@ -1,4 +1,5 @@
 
+
 Please see our <a href="https://github.com/tenjin/tenjin-unity-sdk/wiki">Release Notes</a> to see detailed version history.
 
 Tenjin Unity plugin
@@ -35,11 +36,10 @@ public class TenjinExampleScript : MonoBehaviour {
   }
 
   void OnApplicationPause(bool pauseStatus){
-    if(pauseStatus){
+    if (pauseStatus) {
       //do nothing
     }
-    else
-    {
+    else {
       BaseTenjin instance = Tenjin.getInstance("API_KEY");
       instance.Connect();
     }
@@ -47,9 +47,9 @@ public class TenjinExampleScript : MonoBehaviour {
 }
 ```
 
-Tenjin and GDPR:
+Tenjin GDPR:
 -------
-As part of GDPR compliance, with Tenjin's SDK you can opt-in, opt-out devices/users, or select which specific params to opt-in or opt-out.  `OptOut()` will not send any API requests to Tenjin and we will not process any events.
+As part of GDPR compliance, with Tenjin's SDK you can opt-in, opt-out devices/users, or select which specific device-related params to opt-in or opt-out.  `OptOut()` will not send any API requests to Tenjin and we will not process any events.
 
 To opt-in/opt-out:
 ```csharp
@@ -76,58 +76,57 @@ boolean CheckOptInValue(){
 }
 ```
 
-To opt-in/opt-out specific device-related parameters, you can use the `OptInParams()` or `OptOutParams()`.  `OptInParams()` will only send device-related parameters that you specify.  `OptOutParams()` will send all device-related parameters except those you specify.  Please note that we require at least `advertising_id` and `limit_ad_tracking`, `referrer`, and `iad` to properly track devices in Tenjin's system.
+To opt-in/opt-out specific device-related parameters, you can use the `OptInParams()` or `OptOutParams()`.  `OptInParams()` will only send device-related parameters that are specified.  `OptOutParams()` will send all device-related parameters except ones that are specified.  **Please note that we require at least `ip_address`, `advertising_id`, `developer_device_id`, `limit_ad_tracking`, `referrer` (Android), and `iad` (iOS) to properly track devices in Tenjin's system.**
 
-If you want to only get specific device-related parameters, use `OptInParams()`. In example below, we will only these device-related parameters: "advertising_id", "limit_ad_tracking", referrer", "iad":
+If you want to only get specific device-related parameters, use `OptInParams()`. In example below, we will only these device-related parameters: `ip_address`, `advertising_id`, `developer_device_id`, `limit_ad_tracking`, `referrer`, and `iad`:
+
 ```csharp
-void Start () {
+BaseTenjin instance = Tenjin.getInstance("API_KEY");
 
-  BaseTenjin instance = Tenjin.getInstance("API_KEY");
-  
-  List<string> optInParams = new List<string> {"advertising_id", "developer_device_id", "limit_ad_tracking", "referrer", "device_all", "iad"};
-  instance.OptInParams(optInParams);
+List<string> optInParams = new List<string> {"ip_address", "advertising_id", "developer_device_id", "limit_ad_tracking", "referrer", "iad"};
+instance.OptInParams(optInParams);
 
-  instance.Connect();
-}
-
+instance.Connect();
 ```
 
-If you want to send ALL parameters except specfic device-related parameters, use `OptOutParams()`.  In example below, we will send ALL device-related parameters except: "county", "timezone", and "language" parameters.
+If you want to send ALL parameters except specfic device-related parameters, use `OptOutParams()`.  In example below, we will send ALL device-related parameters except: `locale`, `timezone`, and `build_id` parameters.
+
 ```csharp
-void Start () {
+BaseTenjin instance = Tenjin.getInstance("API_KEY");
 
-  BaseTenjin instance = Tenjin.getInstance("API_KEY");
-  
-  List<string> optOutParams = new List<string> {"country", "timezone", "language"};
-  instance.OptOutParams(optOutParams);
+List<string> optOutParams = new List<string> {"locale", "timezone", "build_id"};
+instance.OptOutParams(optOutParams);
 
-  instance.Connect();
-}
-
+instance.Connect();
 ```
 
 #### Device-Related Parameters
 
 | Param  | Description | Platform | Reference |
 | ------------- | ------------- | ------------- | ------------- |
-| advertising_id  | The device advertising ID | | [Android](https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.html#getAdvertisingIdInfo(android.content.Context)) |
-| developer_device_id | device ID for vendor | iOS | |
-| limit_ad_tracking  | limit ad tracking flag | | [Android](https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.Info.html#isLimitAdTrackingEnabled()) |
-| platform |  platform | All | |
-| os_version | operating vystem version | | [Android](https://developer.android.com/reference/android/os/Build.VERSION.html#SDK_INT) |
-| device | device name | | [Android](https://developer.android.com/reference/android/os/Build.html#DEVICE) |
-| device_manufacturer |  device manufactuer | | [Android](https://developer.android.com/reference/android/os/Build.html#MANUFACTURER) |
-| device_model | device model | | [Android](https://developer.android.com/reference/android/os/Build.html#MODEL) |
-| device_brand | device brand | | [Android](https://developer.android.com/reference/android/os/Build.html#BRAND) |
-| device_product | device product | | [Android](https://developer.android.com/reference/android/os/Build.html#PRODUCT) |
-| carrier | phone carrier | | [Android](https://developer.android.com/reference/android/telephony/TelephonyManager.html#getSimOperatorName()) |
-| connection_type | cellular or wifi | All | [Android](https://developer.android.com/reference/android/net/ConnectivityManager.html#getActiveNetworkInfo()) |
-| screen_width | device screen width | All | [Android](https://developer.android.com/reference/android/util/DisplayMetrics.html#widthPixels) |
-| screen_height | device screen height | All | [Android](https://developer.android.com/reference/android/util/DisplayMetrics.html#heightPixels) |
-| os_version_release | operating system version | All | [Android](https://developer.android.com/reference/android/os/Build.VERSION.html#RELEASE) |
-| build_id | build ID | All | [Android](https://developer.android.com/reference/android/os/Build.html) |
-| locale | device locale | All | [Android](https://developer.android.com/reference/java/util/Locale.html#getDefault()) |
-
+| advertising_id  | Device Advertising ID | All | [Android](https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.html#getAdvertisingIdInfo(android.content.Context)), [iOS](https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614151-advertisingidentifier) |
+| developer_device_id | ID for Vendor | iOS | [iOS](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) |
+| limit_ad_tracking  | limit ad tracking enabled | All | [Android](https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.Info.html#isLimitAdTrackingEnabled()), [iOS](https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614148-isadvertisingtrackingenabled) |
+| platform | platform | All | iOS or Android |
+| referrer | Google Play Install Referrer | Android | [Android](https://developer.android.com/google/play/installreferrer/index.html) |
+| iad | Apple Search Ad parameters | iOS | [iOS](https://searchads.apple.com/advanced/help/measure-results/#attribution-api) |
+| os_version | operating system version | All | [Android](https://developer.android.com/reference/android/os/Build.VERSION.html#SDK_INT), [iOS](https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion) |
+| device | device name | All | [Android](https://developer.android.com/reference/android/os/Build.html#DEVICE), [iOS (hw.machine)](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html) |
+| device_manufacturer | device manufactuer | Android | [Android](https://developer.android.com/reference/android/os/Build.html#MANUFACTURER) |
+| device_model | device model | All | [Android](https://developer.android.com/reference/android/os/Build.html#MODEL), [iOS (hw.model)](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html) |
+| device_brand | device brand | Android | [Android](https://developer.android.com/reference/android/os/Build.html#BRAND) |
+| device_product | device product | Android | [Android](https://developer.android.com/reference/android/os/Build.html#PRODUCT) |
+| device_model_name | device machine  | iOS | [iOS (hw.model)](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html) |
+| device_cpu | device cpu name | iOS | [iOS (hw.cputype)](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html) |
+| carrier | phone carrier | Android | [Android](https://developer.android.com/reference/android/telephony/TelephonyManager.html#getSimOperatorName()) |
+| connection_type | cellular or wifi | Android | [Android](https://developer.android.com/reference/android/net/ConnectivityManager.html#getActiveNetworkInfo()) |
+| screen_width | device screen width | Android | [Android](https://developer.android.com/reference/android/util/DisplayMetrics.html#widthPixels) |
+| screen_height | device screen height | Android | [Android](https://developer.android.com/reference/android/util/DisplayMetrics.html#heightPixels) |
+| os_version_release | operating system version | All | [Android](https://developer.android.com/reference/android/os/Build.VERSION.html#RELEASE), [iOS](https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion) |
+| build_id | build ID | All | [Android](https://developer.android.com/reference/android/os/Build.html), [iOS (kern.osversion)](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html) |
+| locale | device locale | All | [Android](https://developer.android.com/reference/java/util/Locale.html#getDefault()), [iOS](https://developer.apple.com/documentation/foundation/nslocalekey) |
+| country | locale country | All | [Android](https://developer.android.com/reference/java/util/Locale.html#getDefault()), [iOS](https://developer.apple.com/documentation/foundation/nslocalecountrycode) |
+| timezone | timezone | All | [Android](https://developer.android.com/reference/java/util/TimeZone.html), [iOS](https://developer.apple.com/documentation/foundation/nstimezone/1387209-localtimezone) |
 
 Tenjin install/session integration to handle deeplinks from other services.
 -------
