@@ -47,7 +47,7 @@ public class TenjinExampleScript : MonoBehaviour {
 }
 ```
 
-Tenjin GDPR:
+Tenjin and GDPR:
 -------
 As part of GDPR compliance, with Tenjin's SDK you can opt-in, opt-out devices/users, or select which specific device-related params to opt-in or opt-out.  `OptOut()` will not send any API requests to Tenjin and we will not process any events.
 
@@ -174,6 +174,7 @@ You can try sending additional parameters `string transactionId`, `string receip
 - `receipt` -> the `receipt` for an iOS (base64 encoded) or Android purchase
 - `signature` -> the `signature` for an Android purchase (`null` for iOS purchases)
 
+#### iOS
 iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).
 
 ```csharp
@@ -187,7 +188,7 @@ void CompletedIosPurchase(string ProductId, string CurrencyCode int Quantity, do
   instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
 }
 ```
-
+#### Android
 For Android, `receipt` and `signature` are required (`transactionId` is set to `null`).
 
 ```csharp
