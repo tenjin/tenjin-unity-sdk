@@ -175,7 +175,7 @@ You can try sending additional parameters `string transactionId`, `string receip
 - `signature` -> the `signature` for an Android purchase (`null` for iOS purchases)
 
 #### iOS
-iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).
+iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).  For `receipt`, send receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity.
 
 ```csharp
 //Here is an example of how to implement iOS transaction receipt validation
