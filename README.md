@@ -192,12 +192,14 @@ Android receipt validation requires `receipt` and `signature` are required (`tra
 
   private static void CompletedAndroidPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string Receipt, string Signature)
   {
-      Tenjin.getInstance(TENJIN_API_KEY).Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
+      BaseTenjin instance = Tenjin.getInstance ("API_KEY");
+      instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
   }
 
   private static void CompletedIosPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string TransactionId, string Receipt)
   {
-      Tenjin.getInstance(TENJIN_API_KEY).Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
+      BaseTenjin instance = Tenjin.getInstance ("API_KEY");
+      instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
   }
 ```
 
