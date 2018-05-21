@@ -47,8 +47,8 @@ public class TenjinExampleScript : MonoBehaviour {
 }
 ```
 
-You can verify if the integration is working through our <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">Live Test Device Data Tool</a>. Add your `advertising_id` or `IDFA/GAID` to the list of test devices. You can find this under Support -> <a href="https://www.tenjin.io/dashboard/debug_app_users">Test Devices</a>.  Go to the <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">SDK Live page</a> and send a test events from your app.  You should see a live event come in:
-![](https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events.png)
+You can verify if the integration is working through our <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">Live Test Device Data Tool</a>. Add your `advertising_id` or `IDFA/GAID` to the list of test devices. You can find this under Support -> <a href="https://www.tenjin.io/dashboard/debug_app_users">Test Devices</a>.  Go to the <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">SDK Live page</a> and send a test events from your app.  You should see live events come in:
+![](https://s3.amazonaws.com/tenjin-instructions/sdk_live_open_events.png)
 
 Tenjin and GDPR:
 -------
@@ -153,10 +153,10 @@ public class TenjinExampleScript : MonoBehaviour {
 Tenjin purchase event integration instructions:
 -------
 #### iOS IAP Validation
-iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).  For `receipt`, be sure to send the receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity.   **Important:** If you have subscription IAP, you will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your iOS App-Specific Shared Secret from the  <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons">iTunes Connect Console</a> > Select your app > Features > In-App Purchases > App-Specific Shared Secret.
+iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).  For `receipt`, be sure to send the receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity. **Important:** If you have subscription IAP, you will need to add your app's shared secret in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your iOS App-Specific Shared Secret from the  <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons" target="_new">iTunes Connect Console</a> > Select your app > Features > In-App Purchases > App-Specific Shared Secret.
 
-##### Android IAP Validation
-Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).  **Important:** You will need to add your app's public key in <a href="https://www.tenjin.io/dashboard/apps" target="_new"> the Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs. 
+#### Android IAP Validation
+Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).  **Important:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs. 
 
 ```csharp
   public static void OnProcessPurchase(PurchaseEventArgs purchaseEventArgs) {
@@ -195,13 +195,13 @@ Android receipt validation requires `receipt` and `signature` are required (`tra
 
   private static void CompletedAndroidPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string Receipt, string Signature)
   {
-      BaseTenjin instance = Tenjin.getInstance ("API_KEY");
+      BaseTenjin instance = Tenjin.getInstance("API_KEY");
       instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
   }
 
   private static void CompletedIosPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string TransactionId, string Receipt)
   {
-      BaseTenjin instance = Tenjin.getInstance ("API_KEY");
+      BaseTenjin instance = Tenjin.getInstance("API_KEY");
       instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
   }
 ```
