@@ -149,7 +149,65 @@ public class TenjinExampleScript : MonoBehaviour {
 
 Tenjin purchase event integration instructions:
 -------
-Pass in app purchase (IAP) transactions to Tenjin manually. You can send `string productId`, `string currencyCode`, `int quantity`, and `double unitPrice` setting all other params to `null`.
+#### iOS IAP Validation
+iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).  For `receipt`, be sure to send the receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity.   **Important:** If you have subscription IAP, you will need to add your app's public key in <a href="https://www.tenjin.io/dashboard/apps" target="_new"> the Tenjin dashboard</a>. You can retreive your iOS App-Specific Shared Secret from the  <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons">iTunes Connect Console</a> > Select your app > Features > In-App Purchases > App-Specific Shared Secret.
+
+##### Android IAP Validation
+Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).  **Important:** You will need to add your app's public key in <a href="https://www.tenjin.io/dashboard/apps" target="_new"> the Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs. 
+
+```csharp
+  public static void OnProcessPurchase(PurchaseEventArgs purchaseEventArgs) {
+    var price = purchaseEventArgs.purchasedProduct.metadata.localizedPriceString;
+    var currencyCode = purchaseEventArgs.purchasedProduct.metadata.isoCurrencyCode;
+
+    var wrapper = (Dictionary<string, object>)MiniJson.JsonDecode(purchaseEventArgs.purchasedProduct.receipt);
+    if (null == wrapper) {
+        return;
+    }
+
+    var payload   = (string)wrapper["Payload"]; // For Apple this will be the base64 encoded ASN.1 receipt
+    var productId = purchaseEventArgs.purchasedProduct.definition.id;
+
+    double lPrice = 0;
+    double.TryParse(price, out lPrice);
+
+#if UNITY_ANDROID
+
+  var gpDetails = (Dictionary<string, object>)MiniJson.JsonDecode(payload);
+  var gpJson    = (string)gpDetails["json"];
+  var gpSig     = (string)gpDetails["signature"];
+
+  CompletedAndroidPurchase(productId, currencyCode, 1, lPrice, gpJson, gpSig);
+
+#elif UNITY_IOS
+
+  var transactionId = purchaseEventArgs.purchasedProduct.transactionID;
+
+  CompletedIosPurchase(productId, currencyCode, 1, lPrice , transactionId, payload);
+
+#endif
+
+  }
+
+
+  private static void CompletedAndroidPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string Receipt, string Signature)
+  {
+      Tenjin.getInstance(TENJIN_API_KEY).Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
+  }
+
+  private static void CompletedIosPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string TransactionId, string Receipt)
+  {
+      Tenjin.getInstance(TENJIN_API_KEY).Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
+  }
+```
+
+Total Revenue will be calculated as `Quantity`*`UnitPrice`
+
+
+Manual purchase event integration instructions:
+-------
+
+Alternatively, you can pass in-app purchase (IAP) transactions to Tenjin manually with no IAP validation. You can send `string productId`, `string currencyCode`, `int quantity`, and `double unitPrice` setting all other params to `null`.
 
 ```csharp
 //Here is an example of how to implement the purchase in your post-validated purchase event
@@ -167,43 +225,6 @@ void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, doub
 - `CurrencyCode` -> the currency code of the price
 - `Quantity` -> the number of products/purchases that the user is making
 - `UnitPrice` -> the unit price of the product
-
-You can try sending additional parameters `string transactionId`, `string receipt`, and `string signature` in that order.
-
-- `transactionId` -> the `transactionId` for an iOS purchase (`null` for Android purchases)
-- `receipt` -> the `receipt` for an iOS (base64 encoded) or Android purchase
-- `signature` -> the `signature` for an Android purchase (`null` for iOS purchases)
-
-#### iOS
-iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).  For `receipt`, send receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity.
-
-```csharp
-//Here is an example of how to implement iOS transaction receipt validation
-void CompletedIosPurchase(string ProductId, string CurrencyCode int Quantity, double UnitPrice, string TransactionId, string Receipt){
-
-  #if UNTIY_IOS
-  //pass the necessary data including the transactionId and the receipt
-
-  BaseTenjin instance = Tenjin.getInstance("API_KEY");
-  instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
-}
-```
-#### Android
-For Android, `receipt` and `signature` are required (`transactionId` is set to `null`).
-
-```csharp
-//Here is an example of how to implement iOS transaction receipt validation
-void CompletedAndroidPurchase(string ProductId, string CurrencyCode int Quantity, double UnitPrice, string Receipt, string Signature){
-
-  #if UNTIY_ANDROID
-  //pass the necessary data including the transactionId and the receipt
-
-  BaseTenjin instance = Tenjin.getInstance("API_KEY");
-  instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
-}
-```
-
-Total Revenue will be calculated as `Quantity`*`UnitPrice`
 
 Tenjin custom event integration:
 -------
