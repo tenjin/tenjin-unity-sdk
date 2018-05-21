@@ -201,9 +201,6 @@ Android receipt validation requires `receipt` and `signature` are required (`tra
   }
 ```
 
-Total Revenue will be calculated as `Quantity`*`UnitPrice`
-
-
 Manual purchase event integration instructions:
 -------
 
@@ -225,6 +222,8 @@ void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, doub
 - `CurrencyCode` -> the currency code of the price
 - `Quantity` -> the number of products/purchases that the user is making
 - `UnitPrice` -> the unit price of the product
+
+Total Revenue will be calculated as `Quantity`*`UnitPrice`
 
 Tenjin custom event integration:
 -------
