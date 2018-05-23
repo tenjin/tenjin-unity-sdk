@@ -153,7 +153,9 @@ public class TenjinExampleScript : MonoBehaviour {
 Tenjin purchase event integration instructions:
 -------
 #### iOS IAP Validation
-iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).  For `receipt`, be sure to send the receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity. **Important:** If you have subscription IAP, you will need to add your app's shared secret in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your iOS App-Specific Shared Secret from the  <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons" target="_new">iTunes Connect Console</a> > Select your app > Features > In-App Purchases > App-Specific Shared Secret.
+iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).  For `receipt`, be sure to send the receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity. 
+
+**Important:** If you have subscription IAP, you will need to add your app's shared secret in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your iOS App-Specific Shared Secret from the  <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons" target="_new">iTunes Connect Console</a> > Select your app > Features > In-App Purchases > App-Specific Shared Secret.
 
 #### Android IAP Validation
 Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).  **Important:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs. 
