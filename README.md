@@ -346,7 +346,7 @@ For Unity Android builds make sure you have a manifest file with the following r
 </manifest>
 ```
 
-Proguard Settings:
+ProGuard Settings:
 ----
 ```java
 -keep class com.tenjin.** { *; }
