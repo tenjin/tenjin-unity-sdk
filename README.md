@@ -165,7 +165,8 @@ Android receipt validation requires `receipt` and `signature` are required (`tra
 ##### iOS and Android Example:
 ```csharp
   public static void OnProcessPurchase(PurchaseEventArgs purchaseEventArgs) {
-    var price = purchaseEventArgs.purchasedProduct.metadata.localizedPriceString;
+    var price = purchaseEventArgs.purchasedProduct.metadata.localizedPrice;
+    double lPrice = decimal.ToDouble(price);
     var currencyCode = purchaseEventArgs.purchasedProduct.metadata.isoCurrencyCode;
 
     var wrapper = (Dictionary<string, object>)MiniJson.JsonDecode(purchaseEventArgs.purchasedProduct.receipt);
@@ -175,9 +176,6 @@ Android receipt validation requires `receipt` and `signature` are required (`tra
 
     var payload   = (string)wrapper["Payload"]; // For Apple this will be the base64 encoded ASN.1 receipt
     var productId = purchaseEventArgs.purchasedProduct.definition.id;
-
-    double lPrice = 0;
-    double.TryParse(price, out lPrice);
 
 #if UNITY_ANDROID
 
