@@ -329,6 +329,17 @@ public class TenjinExampleScript : MonoBehaviour {
 
 ```
 
+App Subversion parameter for A/B Testing
+-------
+
+If you are running A/B tests and want to report the differences, we can append a numeric value to your app version using the `AppendAppSubversion` method.  For example, if your app version `1.0.1`, and set `AppendAppSubversion(8888)`, it will report as `1.0.1.8888`.
+
+```
+BaseTenjin instance = Tenjin.getInstance("<API KEY>");
+instance.AppendAppSubversion(8888);
+instance.Connect();
+```
+
 Android Manifest Requirements
 -------
 For Unity Android builds make sure you have a manifest file with the following requirements.
