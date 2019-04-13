@@ -328,11 +328,12 @@ public class TenjinExampleScript : MonoBehaviour {
 }
 
 ```
-
-App Subversion parameter for A/B Testing
+App Subversion parameter for A/B Testing (requires DataVault)
 -------
 
-If you are running A/B tests and want to report the differences, we can append a numeric value to your app version using the `AppendAppSubversion` method.  For example, if your app version `1.0.1`, and set `AppendAppSubversion(8888)`, it will report as `1.0.1.8888`.
+If you are running A/B tests and want to report the differences, we can append a numeric value to your app version using the `appendAppSubversion` method.  For example, if your app version `1.0.1`, and set `appendAppSubversion: @8888`, it will report as `1.0.1.8888`.
+
+This data will appear within DataVault where you will be able to run reports using the app subversion values. 
 
 ```
 BaseTenjin instance = Tenjin.getInstance("<API KEY>");
