@@ -1,6 +1,6 @@
-
-
 Please see our <a href="https://github.com/tenjin/tenjin-unity-sdk/wiki">Release Notes</a> to see detailed version history.
+
+For any issues or support, please contact: support@tenjin.com
 
 Tenjin Unity plugin
 =========
