@@ -341,33 +341,6 @@ instance.AppendAppSubversion(8888);
 instance.Connect();
 ```
 
-Android Manifest Requirements
--------
-For Unity Android builds make sure you have a manifest file with the following requirements.
-- Include `INTERNET` permissions within the manifest tags
-- Include Google Play Services within the application tags
-- Include Tenjin's INSTALL_REFERRER receiver
-
-```xml
-<manifest>
-  ...
-    <application ...>
-      <meta-data android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
-      ...
-      <receiver android:name="com.tenjin.android.TenjinReferrerReceiver" android:exported="true">
-        <intent-filter>
-          <action android:name="com.android.vending.INSTALL_REFERRER"/>
-        </intent-filter>
-      </receiver>
-      ...
-    </application>
-    ...
-  <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-  ...
-</manifest>
-```
-
 ProGuard Settings:
 ----
 ```java
