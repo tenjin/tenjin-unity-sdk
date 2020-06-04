@@ -163,7 +163,7 @@ Android receipt validation requires `receipt` and `signature` are required (`tra
 **IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs. 
 
 ##### iOS and Android Example:
-In the example below, we are using the widely used <a href="https://gist.github.com/darktable/1411710" target="_new">MiniJSON</a> library for JSON deserlizing.
+In the example below, we are using the widely used <a href="https://gist.github.com/darktable/1411710" target="_new">MiniJSON</a> library for JSON deserializing.
 
 ```csharp
   public static void OnProcessPurchase(PurchaseEventArgs purchaseEventArgs) {
@@ -181,7 +181,7 @@ In the example below, we are using the widely used <a href="https://gist.github.
 
 #if UNITY_ANDROID
 
-  var gpDetails = (Dictionary<string, object>)MiniJson.JsonDecode(payload);
+  var gpDetails = Json.Deserialize(payload) as Dictionary<string, object>;
   var gpJson    = (string)gpDetails["json"];
   var gpSig     = (string)gpDetails["signature"];
 
