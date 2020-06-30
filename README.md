@@ -329,6 +329,21 @@ public class TenjinExampleScript : MonoBehaviour {
 
 }
 
+Below are the parameters, if available, that returned in the deferred deeplink callback:
+
+| Parameter             | Description                                                      | Platform     |
+|-----------------------|------------------------------------------------------------------|--------------|
+| advertising_id        | Advertising ID of the device                                     | iOS, Android |
+| developer_device_id   | Identifier for Vendor of the device                              | iOS          |
+| ad_network            | Ad network of the campaign                                       | iOS, Android |
+| campaign_id           | Tenjin campaign ID                                               | iOS, Android |
+| campaign_name         | Tenjin campaign name                                             | iOS, Android |
+| site_id               | Site ID of source app                                            | iOS, Android |
+| referrer              | The referrer params from the app store                           | Android      |
+| deferred_deeplink_url | The deferred deep-link of the campaign                           | iOS, Android |
+| clicked_tenjin_link   | Boolean representing if the device was tracked by Tenjin         | iOS, Android |
+| is_first_session      | Boolean representing if this is the first session for the device | iOS, Android |
+
 ```
 App Subversion parameter for A/B Testing (requires DataVault)
 -------
