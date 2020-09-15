@@ -42,7 +42,9 @@ public class TenjinExampleScript : MonoBehaviour {
   }
 
   public void TenjinConnect() {
-    BaseTenjin instance = Tenjin.getInstance();
+    BaseTenjin instance = Tenjin.getInstance("API_KEY");
+    
+    // Sends install/open event to Tenjin
     instance.Connect();
   }
 }
@@ -79,7 +81,7 @@ public class TenjinExampleScript : MonoBehaviour {
       instance.RequestTrackingAuthorizationWithCompletionHandler((status) => {
         Debug.Log("===> App Tracking Transparency Authorization Status: " + status);
 
-        // Sends install/open event to Tenjjin
+        // Sends install/open event to Tenjin
         instance.Connect();
 
         // Sets SKAdNetwork Conversion Value
@@ -88,7 +90,7 @@ public class TenjinExampleScript : MonoBehaviour {
 
 #elif UNITY_ANDROID
 
-      // Sends install/open event to Tenjjin
+      // Sends install/open event to Tenjin
       instance.Connect();
 
 #endif
