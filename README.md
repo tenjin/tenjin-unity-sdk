@@ -8,7 +8,7 @@ Tenjin Unity
 * Your "API_KEY" is located on your [Organizations tab](https://www.tenjin.io/dashboard/organizations)
 * Review the [iOS](https://github.com/tenjin/tenjin-ios-sdk) and [Android](https://github.com/tenjin/tenjin-android-sdk) documentation and apply the proper platform settings to your builds.
 * **iOS Notes**:
-  1. Xcode 12 is required if using Unity iOS SDK 1.12.0 or above.
+  1. Xcode 12 is required if using Unity iOS SDK v1.12.0 and higher.
   2. When building iOS, confirm that these frameworks were automatically added to the Xcode build.  If any are missing, you will need to add them manually.
       * AdSupport.framework
       * AppTrackingTransparency.framework
