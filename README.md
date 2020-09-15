@@ -2,18 +2,26 @@ Please see our <a href="https://github.com/tenjin/tenjin-unity-sdk/wiki">Release
 
 For any issues or support, please contact: support@tenjin.com
 
-Tenjin Unity plugin
+Tenjin Unity
 =========
-- Allows unity developers to quickly integrate with Tenjin's install API
-- Review the [iOS](https://github.com/tenjin/tenjin-ios-sdk) and [Android](https://github.com/tenjin/tenjin-android-sdk) documentation and apply the proper platform settings to your builds. Most importantly:
-  1. **iOS**: make sure you have the right build settings and you include the iOS frameworks you need.
-  2. **Android**: If you have another SDK installed which already has Google Play Services installed or uses [PlayServicesResolver](https://github.com/googlesamples/unity-jar-resolver), you may need to delete this file: `/Assets/Plugins/Android/play-services-basement-11.0.4.aar`
-  3. Your "API_KEY" is located on your [Organizations tab](https://www.tenjin.io/dashboard/organizations)
+* Tenjin Unity SDK supports both iOS and Android.
+* Your "API_KEY" is located on your [Organizations tab](https://www.tenjin.io/dashboard/organizations)
+* Review the [iOS](https://github.com/tenjin/tenjin-ios-sdk) and [Android](https://github.com/tenjin/tenjin-android-sdk) documentation and apply the proper platform settings to your builds.
+* **iOS Notes**:
+  1. Xcode 12 is required if using Unity iOS SDK v1.12.0 and higher.
+  2. When building iOS, confirm that these frameworks were automatically added to the Xcode build.  If any are missing, you will need to add them manually.
+      * AdSupport.framework
+      * AppTrackingTransparency.framework
+      * iAd.framework
+      * StoreKit.framework
+  3. For AppTrackingTransparency, be sure update your project `.plist` file and add `Privacy - Tracking Usage Description` <a href="https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription" target="_new">(NSUserTrackingUsageDescription)</a> along with the text message you want to display to users.
+* **Android Notes**: 
+  1. If you have another SDK installed which already has Google Play Services installed or uses [PlayServicesResolver](https://github.com/googlesamples/unity-jar-resolver), you may need to delete these files: `/Assets/Plugins/Android/play-services-ads-identifier--*.aar` and `/Assets/Plugins/Android/play-services-basement---*.aar`
 
 Tenjin install/session integration:
 -------
-- Include the Assets folder in your Unity project
-- In your project's first `Start()` method write the following `BaseTenjin instance = Tenjin.getInstance("API_KEY")` and then `instance.Connect()`
+- Import the TenjinUnityPackage.unitypackage into your project: `Assets -> Import Package`
+- In your project's first `Start()` method add the following `BaseTenjin instance = Tenjin.getInstance("API_KEY")` and then `instance.Connect()`
 
 Here's an example of the code:
 
@@ -23,27 +31,68 @@ using System.Collections;
 
 public class TenjinExampleScript : MonoBehaviour {
 
-  // Use this for initialization
-  void Start () {
+  void Start() {
+    TenjinConnect();
+  }
 
-    BaseTenjin instance = Tenjin.getInstance("API_KEY");
+  void OnApplicationPause(bool pauseStatus) {
+    if (!pauseStatus) {
+      TenjinConnect();
+    }
+  }
+
+  public void TenjinConnect() {
+    BaseTenjin instance = Tenjin.getInstance();
     instance.Connect();
   }
+}
+```
+Tenjin initialization with ATTrackingManager and SKAdNetwork:
+-------
+Starting with iOS 14, you will need to call Tenjin `Connect()` after the initial <a href="https://developer.apple.com/documentation/apptrackingtransparency/attrackingmanager">ATTrackingManager</a> permissions prompt and selection.  If the device accepts tracking permission, the `Connect()` method will send the IDFA to our servers.  As part of <a href="https://developer.apple.com/documentation/storekit/skadnetwork">SKAdNetwork</a>, we created wrapper methods for `registerAppForAdNetworkAttribution()` and `updateConversionValue(_:)`.  Our methods will register the equivalent SKAdNetwork methods and also send the conversion values on our servers.
 
-  // Update is called once per frame
-  void Update () {
+```csharp
+using UnityEngine;
+using System.Collections;
 
-  }
+public class TenjinExampleScript : MonoBehaviour {
 
-  void OnApplicationPause(bool pauseStatus){
-    if (pauseStatus) {
-      //do nothing
+    void Start() {
+      TenjinConnect();
     }
-    else {
+
+    void OnApplicationPause(bool pauseStatus) {
+      if (!pauseStatus) {
+        TenjinConnect();
+      }
+    }
+
+    public void TenjinConnect() {
       BaseTenjin instance = Tenjin.getInstance("API_KEY");
+
+#if UNITY_IOS
+
+      // Registers SKAdNetwork app for attribution
+      instance.RegisterAppForAdNetworkAttribution();
+
+      // Tenjin wrapper for requestTrackingAuthorization
+      instance.RequestTrackingAuthorizationWithCompletionHandler((status) => {
+        Debug.Log("===> App Tracking Transparency Authorization Status: " + status);
+
+        // Sends install/open event to Tenjjin
+        instance.Connect();
+
+        // Sets SKAdNetwork Conversion Value
+        instance.UpdateConversionValue(1);
+      });
+
+#elif UNITY_ANDROID
+
+      // Sends install/open event to Tenjjin
       instance.Connect();
+
+#endif
     }
-  }
 }
 ```
 
@@ -55,6 +104,7 @@ Tenjin and GDPR:
 As part of GDPR compliance, with Tenjin's SDK you can opt-in, opt-out devices/users, or select which specific device-related params to opt-in or opt-out.  `OptOut()` will not send any API requests to Tenjin and we will not process any events.
 
 To opt-in/opt-out:
+
 ```csharp
 void Start () {
 
@@ -72,7 +122,8 @@ void Start () {
   instance.Connect();
 }
 
-boolean CheckOptInValue(){
+boolean CheckOptInValue()
+{
   // check opt-in value
   // return true; // if user opted-in
   return false;
@@ -107,6 +158,7 @@ instance.Connect();
 
 | Param  | Description | Platform | Reference |
 | ------------- | ------------- | ------------- | ------------- |
+| ip_address | IP Address | All | |
 | advertising_id  | Device Advertising ID | All | [Android](https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.html#getAdvertisingIdInfo(android.content.Context)), [iOS](https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614151-advertisingidentifier) |
 | developer_device_id | ID for Vendor | iOS | [iOS](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) |
 | limit_ad_tracking  | limit ad tracking enabled | All | [Android](https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.Info.html#isLimitAdTrackingEnabled()), [iOS](https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614148-isadvertisingtrackingenabled) |
