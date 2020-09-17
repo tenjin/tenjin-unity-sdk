@@ -49,9 +49,56 @@ public class TenjinExampleScript : MonoBehaviour {
   }
 }
 ```
-Tenjin initialization with ATTrackingManager and SKAdNetwork:
+Tenjin initialization with ATTrackingManager:
 -------
-Starting with iOS 14, you will need to call Tenjin `Connect()` after the initial <a href="https://developer.apple.com/documentation/apptrackingtransparency/attrackingmanager">ATTrackingManager</a> permissions prompt and selection.  If the device accepts tracking permission, the `Connect()` method will send the IDFA to our servers.  As part of <a href="https://developer.apple.com/documentation/storekit/skadnetwork">SKAdNetwork</a>, we created wrapper methods for `registerAppForAdNetworkAttribution()` and `updateConversionValue(_:)`.  Our methods will register the equivalent SKAdNetwork methods and also send the conversion values on our servers.
+Starting with iOS 14, you have the option to show the initial <a href="">ATTrackingManager</a> permissions prompt and selection to opt in/opt out users. 
+If the device doesn't accept tracking permission, IDFA will become zero. If the device accepts tracking permission, the `connect()` method will send the IDFA to our servers. 
+You can also still call Tenjin `connect()`, without using ATTrackingManager. 
+
+```csharp
+using UnityEngine;
+using System.Collections;
+
+public class TenjinExampleScript : MonoBehaviour {
+
+    void Start() {
+      TenjinConnect();
+    }
+
+    void OnApplicationPause(bool pauseStatus) {
+      if (!pauseStatus) {
+        TenjinConnect();
+      }
+    }
+
+    public void TenjinConnect() {
+      BaseTenjin instance = Tenjin.getInstance("API_KEY");
+
+#if UNITY_IOS
+
+      // Tenjin wrapper for requestTrackingAuthorization
+      instance.RequestTrackingAuthorizationWithCompletionHandler((status) => {
+        Debug.Log("===> App Tracking Transparency Authorization Status: " + status);
+
+        // Sends install/open event to Tenjin
+        instance.Connect();
+
+      });
+
+#elif UNITY_ANDROID
+
+      // Sends install/open event to Tenjin
+      instance.Connect();
+
+#endif
+    }
+}
+```
+
+SKAdNetwork and Conversion value:
+-------
+As part of <a href="https://developer.apple.com/documentation/storekit/skadnetwork">SKAdNetwork</a>, we created wrapper methods for `registerAppForAdNetworkAttribution()` and `updateConversionValue(_:)`.
+Our methods will register the equivalent SKAdNetwork methods and also send the conversion values on our servers.
 
 ```csharp
 using UnityEngine;
@@ -77,16 +124,11 @@ public class TenjinExampleScript : MonoBehaviour {
       // Registers SKAdNetwork app for attribution
       instance.RegisterAppForAdNetworkAttribution();
 
-      // Tenjin wrapper for requestTrackingAuthorization
-      instance.RequestTrackingAuthorizationWithCompletionHandler((status) => {
-        Debug.Log("===> App Tracking Transparency Authorization Status: " + status);
+      // Sends install/open event to Tenjin
+      instance.Connect();
 
-        // Sends install/open event to Tenjin
-        instance.Connect();
-
-        // Sets SKAdNetwork Conversion Value
-        instance.UpdateConversionValue(1);
-      });
+      // Sets SKAdNetwork Conversion Value
+      instance.UpdateConversionValue(1);
 
 #elif UNITY_ANDROID
 
