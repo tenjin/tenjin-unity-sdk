@@ -313,35 +313,9 @@ In the example below, we are using the widely used <a href="https://gist.github.
 
 In the example timeline below, a transaction event should only be sent at the "First Charge" and "Renewal" events. During the trial period, do not send Tenjin the transaction event.  Tenjin does not de-dupe duplicate transactions.
 
-
 <img src="https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Art/subscription_timeline_2x.png" />
 
-
-For more information on subscriptions, please see: <a href="https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Chapters/Subscriptions.html">Apple documentation on Working with Subscriptions</a>
-
-Manual purchase event integration instructions:
--------
-
-Alternatively, you can pass in-app purchase (IAP) transactions to Tenjin manually with no IAP validation. You can send `string productId`, `string currencyCode`, `int quantity`, and `double unitPrice` setting all other params to `null`.
-
-```csharp
-//Here is an example of how to implement the purchase in your post-validated purchase event
-void CompletedPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice){
-
-  //pass in the required data for the transaction without receipts
-
-  BaseTenjin instance = Tenjin.getInstance ("API_KEY");
-  instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, null, null);
-
-  //any other code you want to handle in a completed purchase client side
-}
-```
-- `ProductId` -> the name or ID of the product/purchase that the user is making
-- `CurrencyCode` -> the currency code of the price
-- `Quantity` -> the number of products/purchases that the user is making
-- `UnitPrice` -> the unit price of the product
-
-Total Revenue will be calculated as `Quantity`*`UnitPrice`
+For more information on subscriptions, please see: <a href="https://developer.apple.com/documentation/storekit/in-app_purchase/subscriptions_and_offers/implementing_subscription_offers_in_your_app">Apple documentation on Working with Subscriptions</a>
 
 Tenjin custom event integration:
 -------
