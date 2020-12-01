@@ -132,7 +132,8 @@ public class TenjinExampleScript : MonoBehaviour {
       instance.Connect();
 
       // Sets SKAdNetwork Conversion Value
-      instance.UpdateConversionValue(“your 6 bit value”);
+      // You will need to use a value between 0-63 for <YOUR 6 bit value>
+      instance.UpdateConversionValue(<your 6 bit value>);
 
 #elif UNITY_ANDROID
 
