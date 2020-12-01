@@ -1,3 +1,10 @@
+v1.12.3
+----
+* Remove JAR files from build/ci for Android
+
+- Android v1.12.3
+- iOS v1.12.2
+
 v1.12.2
 ----
 * Fix Android bug on connect
