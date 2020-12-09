@@ -1,3 +1,11 @@
+v1.12.4
+----
+* Fix memory bug
+* Remove legacy AndroidManifest.xml entry
+
+- Android v1.12.4
+- iOS v1.12.2
+
 v1.12.3
 ----
 * Remove JAR files from build/ci for Android
