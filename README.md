@@ -15,7 +15,7 @@ Tenjin Unity
       * iAd.framework
       * StoreKit.framework
   3. For AppTrackingTransparency, be sure update your project `.plist` file and add `Privacy - Tracking Usage Description` <a href="https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription" target="_new">(NSUserTrackingUsageDescription)</a> along with the text message you want to display to users.
-* **Android Notes**: 
+* **Android Notes**:
   1. If you have another SDK installed which already has Google Play Services installed or uses [PlayServicesResolver](https://github.com/googlesamples/unity-jar-resolver), you may need to delete these files: `/Assets/Plugins/Android/play-services-ads-identifier--*.aar` and `/Assets/Plugins/Android/play-services-basement---*.aar`
 
 Tenjin install/session integration:
@@ -43,7 +43,7 @@ public class TenjinExampleScript : MonoBehaviour {
 
   public void TenjinConnect() {
     BaseTenjin instance = Tenjin.getInstance("API_KEY");
-    
+
     // Sends install/open event to Tenjin
     instance.Connect();
   }
@@ -51,8 +51,8 @@ public class TenjinExampleScript : MonoBehaviour {
 ```
 Tenjin initialization with ATTrackingManager:
 -------
-Starting with iOS 14, you have the option to show the initial <a href="">ATTrackingManager</a> permissions prompt and selection to opt in/opt out users. 
-If the device doesn't accept tracking permission, IDFA will become zero. If the device accepts tracking permission, the `connect()` method will send the IDFA to our servers. 
+Starting with iOS 14, you have the option to show the initial <a href="">ATTrackingManager</a> permissions prompt and selection to opt in/opt out users.
+If the device doesn't accept tracking permission, IDFA will become zero. If the device accepts tracking permission, the `connect()` method will send the IDFA to our servers.
 You can also still call Tenjin `connect()`, without using ATTrackingManager. ATTrackingManager permissions prompt is not obligatory until the start of 2021.
 
 ```csharp
@@ -100,7 +100,7 @@ SKAdNetwork and Conversion value:
 As part of <a href="https://developer.apple.com/documentation/storekit/skadnetwork">SKAdNetwork</a>, we created wrapper methods for `registerAppForAdNetworkAttribution()` and <a href="https://developer.apple.com/documentation/storekit/skadnetwork/3566697-updateconversionvalue">`updateConversionValue(_:)`</a>.
 Our methods will register the equivalent SKAdNetwork methods and also send the conversion values on our servers.
 
-`updateConversionValue(_:)` 6 bit value should correspond to the in-app event and shouldn't be entered as binary representation: 
+`updateConversionValue(_:)` 6 bit value should correspond to the in-app event and shouldn't be entered as binary representation:
 - <a href="https://docs.google.com/spreadsheets/d/1jrRrTP6YX62of2WaJamtPBSWZJ-97IpTWn0IwTroH6Y/edit#gid=1596716780">Examples for IAP based games </a>
 - <a href="https://docs.google.com/spreadsheets/d/15JaN44yQyW7dqqRGi5Wwnq2P6ng-4n6EztMmMj5A7c4/edit#gid=0">Examples for Ad revenue based games </a>
 
@@ -158,7 +158,7 @@ To opt-in/opt-out:
 void Start () {
 
   BaseTenjin instance = Tenjin.getInstance("API_KEY");
-  
+
   boolean userOptIn = CheckOptInValue();
 
   if (userOptIn) {
@@ -254,14 +254,14 @@ public class TenjinExampleScript : MonoBehaviour {
 Tenjin purchase event integration instructions:
 -------
 #### iOS IAP Validation
-iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).  For `receipt`, be sure to send the receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity. 
+iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`).  For `receipt`, be sure to send the receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity.
 
 **IMPORTANT:** If you have subscription IAP, you will need to add your app's shared secret in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your iOS App-Specific Shared Secret from the  <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons" target="_new">iTunes Connect Console</a> > Select your app > Features > In-App Purchases > App-Specific Shared Secret.
 
 #### Android IAP Validation
-Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).  
+Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).
 
-**IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs. 
+**IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs.
 
 ##### iOS and Android Example:
 In the example below, we are using the widely used <a href="https://gist.github.com/darktable/1411710" target="_new">MiniJSON</a> library for JSON deserializing.
@@ -314,7 +314,7 @@ In the example below, we are using the widely used <a href="https://gist.github.
 ### Subscription IAP
 **IMPORTANT:** If you have subscription IAP, you will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new"> Tenjin dashboard</a>. You can retreive your iOS App-Specific Shared Secret from the <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons">iTunes Connect Console</a> > Select your app > Features > In-App Purchases > App-Specific Shared Secret.
 
-**Please note that you are responsible to send subscription transaction one time during each subscription interval (i.e. For example, for a monthly subscription, you will need to send us 1 transaction per month).**  
+**Please note that you are responsible to send subscription transaction one time during each subscription interval (i.e. For example, for a monthly subscription, you will need to send us 1 transaction per month).**
 
 In the example timeline below, a transaction event should only be sent at the "First Charge" and "Renewal" events. During the trial period, do not send Tenjin the transaction event.  Tenjin does not de-dupe duplicate transactions.
 
@@ -324,6 +324,9 @@ For more information on subscriptions, please see: <a href="https://developer.ap
 
 Tenjin custom event integration:
 -------
+
+**IMPORTANT: Limit custom event names to less than 80 characters. Do not exceed 500 unique custom event names.**
+
 - Include the Assets folder in your Unity project
 - In your projects method for the custom event write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with an integer value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","value")`
 - Make sure `value` passed is an integer. If `value` is not an integer, your event will not be passed.
@@ -396,7 +399,7 @@ public class TenjinExampleScript : MonoBehaviour {
     }
 
     if (clicked_tenjin_link && is_first_session) {
-      //use the deferred_deeplink_url to direct the user to a specific part of your app   
+      //use the deferred_deeplink_url to direct the user to a specific part of your app
       if (String.IsNullOrEmpty(data["deferred_deeplink_url"]) == false) {
       }
     }
@@ -410,7 +413,7 @@ App Subversion parameter for A/B Testing (requires DataVault)
 
 If you are running A/B tests and want to report the differences, we can append a numeric value to your app version using the `appendAppSubversion` method.  For example, if your app version `1.0.1`, and set `appendAppSubversion: @8888`, it will report as `1.0.1.8888`.
 
-This data will appear within DataVault where you will be able to run reports using the app subversion values. 
+This data will appear within DataVault where you will be able to run reports using the app subversion values.
 
 ```
 BaseTenjin instance = Tenjin.getInstance("<API KEY>");
