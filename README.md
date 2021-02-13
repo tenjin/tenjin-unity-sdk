@@ -21,7 +21,7 @@ Tenjin Unity
 Tenjin install/session integration:
 -------
 - Import the TenjinUnityPackage.unitypackage into your project: `Assets -> Import Package`
-- In your project's first `Start()` method add the following `BaseTenjin instance = Tenjin.getInstance("API_KEY")` and then `instance.Connect()`
+- In your project's first `Start()` method add the following `BaseTenjin instance = Tenjin.getInstance("<API_KEY>")` and then `instance.Connect()`
 
 Here's an example of the code:
 
@@ -42,7 +42,7 @@ public class TenjinExampleScript : MonoBehaviour {
   }
 
   public void TenjinConnect() {
-    BaseTenjin instance = Tenjin.getInstance("API_KEY");
+    BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
 
     // Sends install/open event to Tenjin
     instance.Connect();
@@ -418,6 +418,96 @@ BaseTenjin instance = Tenjin.getInstance("<API KEY>");
 instance.AppendAppSubversion(8888);
 instance.Connect();
 ```
+
+MoPub Impression Level Revenue Data (ILRD):
+-------
+The Tenjin SDK can listen tp MoPub ILRD ad impressions and send revenue events to Tenjin.  This integraton will send revenue related for each ad impression served from MoPub.  Here are the steps to integrate:
+
+1. Install the MoPub Unity SDK: https://developers.mopub.com/publishers/unity/
+2. When initializing the Tenin SDK, subscribe to MoPub Impressions:
+
+```csharp
+var tenjin = Tenjin.getInstance("<API_KEY>");
+tenjin.Connect();
+tenjin.SubscribeMoPubImpressions();
+```
+
+Below is an example MoPub Banner integration and subscribing to impression events.
+
+```csharp
+public class MopubBehavior : MonoBehaviour
+{
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    string _banner = "<BANNER_AD_ID>";
+#elif UNITY_IPHONE && !UNITY_EDITOR
+    string _banner = "<BANNER_AD_ID>";
+#else
+    string _banner = "<BANNER_AD_ID>";
+#endif
+
+
+    void Start()
+    {
+        InitializeMopub();
+    }
+
+    private void InitializeMopub()
+    {
+        var config = new MoPub.SdkConfiguration
+        {
+            AdUnitId = _banner,
+            LogLevel = MoPub.LogLevel.Debug,
+
+        };
+        MoPubManager.OnSdkInitializedEvent += OnSdkInitializedEvent;
+
+        var tenjin = Tenjin.getInstance("<API_KEY>");
+        tenjin.Connect();
+        tenjin.SubscribeMoPubImpressions();
+
+        MoPub.InitializeSdk(config);
+    }
+
+    private void OnSdkInitializedEvent(string obj)
+    {
+        MoPub.LoadBannerPluginsForAdUnits(new string[] { _banner });
+        MoPub.RequestBanner(_banner, MoPub.AdPosition.TopCenter);
+        MoPubManager.OnImpressionTrackedEvent += OnImpression;
+    }
+
+    private void OnImpression(string arg1, MoPub.ImpressionData arg2)
+    {
+        Debug.Log($"Received impression data - {arg2.PublisherRevenue} - {arg2.AdUnitName} - {arg2.AdGroupId}");
+    }
+
+    private void ShowBanner(string arg1, float arg2)
+    {
+        MoPub.RequestBanner(_banner, MoPub.AdPosition.TopCenter);
+    }
+
+    public void GoBack()
+    {
+        MoPub.DestroyBanner(_banner);
+    }
+```
+
+Here is an example impression level revenue data entry from MoPub:
+
+| Parameter  | Example |
+| ------------- | ------------- |
+| mopub[adunit_format] | Banner |
+| mopub[precision] |	publisher_defined  
+| mopub[adunit_name] |	Banner |
+| mopub[adgroup_type] |	gtee |
+| mopub[adgroup_id] |	a816599928df43d790777d9b92ad3906 |
+| mopub[currency] |	USD  |
+| mopub[id] |	d455b90159ae4f12928b97479d8b4bb7_0004d29f00fa8718  |
+| mopub[publisher_revenue] |	0.0005  |
+| mopub[app_version]	1.0  |
+| mopub[country] | US |
+| mopub[adunit_id] |	5a8d9e2784884953a0436a27f7238469 |
+
 
 ProGuard Settings:
 ----
