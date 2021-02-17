@@ -1,3 +1,11 @@
+v1.12.6
+----
+* MoPub Build 
+* Make GetTrackingAuthorizationStatus private
+
+- Android Native SDK v1.12.4
+- iOS Native SDK v1.12.4
+
 v1.12.4
 ----
 * Fix memory bug
