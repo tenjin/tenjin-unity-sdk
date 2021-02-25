@@ -17,6 +17,15 @@ Tenjin Unity
   3. For AppTrackingTransparency, be sure update your project `.plist` file and add `Privacy - Tracking Usage Description` <a href="https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription" target="_new">(NSUserTrackingUsageDescription)</a> along with the text message you want to display to users.
 * **Android Notes**:
   1. If you have another SDK installed which already has Google Play Services installed or uses [PlayServicesResolver](https://github.com/googlesamples/unity-jar-resolver), you may need to delete these files: `/Assets/Plugins/Android/play-services-ads-identifier--*.aar` and `/Assets/Plugins/Android/play-services-basement---*.aar`
+  2. If you use the Unity SDK version below 1.12.4 and see the following errors on the app initialization, move tenjin.aar file from `/Assets/Plugins/Android/Tenjin/libs` to `/Assets/Plugins/Android/`.
+
+    ```
+    AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
+    ```  
+    or
+    ```
+    AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
+    ```
 
 Tenjin install/session integration:
 -------
