@@ -62,7 +62,7 @@ Tenjin initialization with ATTrackingManager:
 -------
 Starting with iOS 14, you have the option to show the initial <a href="">ATTrackingManager</a> permissions prompt and selection to opt in/opt out users.
 If the device doesn't accept tracking permission, IDFA will become zero. If the device accepts tracking permission, the `connect()` method will send the IDFA to our servers.
-You can also still call Tenjin `connect()`, without using ATTrackingManager. ATTrackingManager permissions prompt is not obligatory until the start of 2021.
+You can also still call Tenjin `connect()`, without using ATTrackingManager. ATTrackingManager permissions prompt is not obligatory until the early spring of 2021.
 
 ```csharp
 using UnityEngine;
@@ -325,7 +325,7 @@ In the example below, we are using the widely used <a href="https://gist.github.
 
 In the example timeline below, a transaction event should only be sent at the "First Charge" and "Renewal" events. During the trial period, do not send Tenjin the transaction event.  Tenjin does not de-dupe duplicate transactions.
 
-<img src="https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/StoreKitGuide/Art/subscription_timeline_2x.png" />
+<img src="https://docs-assets.developer.apple.com/published/6631e50f32/110c0e3f-e0e3-4dbd-bc28-d8db4b28bd1c.png" />
 
 For more information on subscriptions, please see: <a href="https://developer.apple.com/documentation/storekit/in-app_purchase/subscriptions_and_offers/implementing_subscription_offers_in_your_app">Apple documentation on Working with Subscriptions</a>
 
@@ -415,6 +415,10 @@ public class TenjinExampleScript : MonoBehaviour {
 }
 
 ```
+
+## Server-to-server integration
+Tenjin offers server-to-server integration. If you want to access to the documentation, please send email to support@tenjin.com.
+
 App Subversion parameter for A/B Testing (requires DataVault)
 -------
 
