@@ -91,7 +91,17 @@ instance.SetAppStoreType(AppStoreType.other);
 
 ### <a id="huawei-oaid"></a>Huawei OAID (Outside China)
 
-For integration with the <a href="https://developer.huawei.com/consumer/en/codelab/HMSAdsOAID/index.html#3" target="_new">Huawei OAID libary</a>, download the following Huawei AAR file: <a href="huawei/huawei-ads-identifier.aar" target="_new">huawei-ads-identifier.aar</a>. If your app is in the <a href="https://appgallery.huawei.com/" target="_new">Huawei App Gallery</a>, download and add the Huawei Install Referrer file: <a href="huawei/huawei-ads-installreferrer.aar" target="_new">huawei-ads-installreferrer.aar</a>. Place the Huawei files in your project's Android libs directory: `/Assets/Plugins/Android`
+For integration with the <a href="https://developer.huawei.com/consumer/en/codelab/HMSAdsOAID/index.html#3" target="_new">Huawei OAID libary</a>, download the following Huawei AAR file: <a href="huawei/huawei-ads-identifier.aar" target="_new">huawei-ads-identifier.aar</a>. If your app is in the <a href="https://appgallery.huawei.com/" target="_new">Huawei App Gallery</a>, download and add the Huawei Install Referrer file: <a href="huawei/huawei-ads-installreferrer.aar" target="_new">huawei-ads-installreferrer.aar</a>.
+
+Place the Huawei files in your project's Android libs directory: `/Assets/Plugins/Android`
+
+Set your App Store Type value to `other`:
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
+
+instance.SetAppStoreType(AppStoreType.other);
+```
 
 ## <a id="initialization"></a> App Initialization
 
@@ -333,6 +343,8 @@ instance.Connect();
 | ip_address          | IP Address                   | All      |                                                                                                                                                                                                                                                                                         |
 | advertising_id      | Device Advertising ID        | All      | [Android](<https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.html#getAdvertisingIdInfo(android.content.Context)>), [iOS](https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614151-advertisingidentifier) |
 | developer_device_id | ID for Vendor                | iOS      | [iOS](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor)                                                                                                                                                                                             |
+| oaid                | Open Advertising ID          | Android  | [Android](http://www.msa-alliance.cn/col.jsp?id=120)                                                                                                                                                                                                                                    |
+| imei                | Device IMEI                  | Android  | [Android](<https://developer.android.com/reference/android/telephony/TelephonyManager#getImei()>)                                                                                                                                                                                       |
 | limit_ad_tracking   | limit ad tracking enabled    | All      | [Android](<https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.Info.html#isLimitAdTrackingEnabled()>), [iOS](https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614148-isadvertisingtrackingenabled)        |
 | platform            | platform                     | All      | iOS or Android                                                                                                                                                                                                                                                                          |
 | referrer            | Google Play Install Referrer | Android  | [Android](https://developer.android.com/google/play/installreferrer/index.html)                                                                                                                                                                                                         |
