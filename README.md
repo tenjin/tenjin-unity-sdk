@@ -7,6 +7,7 @@ Tenjin Unity
 * Tenjin Unity SDK supports both iOS and Android.
 * Your "API_KEY" is located on your [Organizations tab](https://www.tenjin.io/dashboard/organizations)
 * Review the [iOS](https://github.com/tenjin/tenjin-ios-sdk) and [Android](https://github.com/tenjin/tenjin-android-sdk) documentation and apply the proper platform settings to your builds.
+
 * **iOS Notes**:
   1. Xcode 12 is required if using Unity iOS SDK v1.12.0 and higher.
   2. When building iOS, confirm that these frameworks were automatically added to the Xcode build.  If any are missing, you will need to add them manually.
@@ -15,60 +16,63 @@ Tenjin Unity
       * iAd.framework
       * StoreKit.framework
   3. For AppTrackingTransparency, be sure update your project `.plist` file and add `Privacy - Tracking Usage Description` <a href="https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription" target="_new">(NSUserTrackingUsageDescription)</a> along with the text message you want to display to users.
+
 * **Android Notes**:
   1. If you are using Tenjin Unity SDK alongside another SDK in Unity version >2019, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
-    - Remove all the `*.aar` files from the `Assets/Plugins/Android` folder except `tenjin.aar`.
-    - Add the following to your `mainTemplate.gradle` file:
-    ```groovy
-        // Android Resolver Repos Start
-        ([rootProject] + (rootProject.subprojects as List)).each { project ->
-            project.repositories {
-                def unityProjectPath = $/file:///**DIR_UNITYPROJECT**/$.replace("\\", "/")
-                maven {
-                    url "https://maven.google.com"
+     * Remove all the `*.aar` files from the `Assets/Plugins/Android` folder except `tenjin.aar`.
+     * Add the following to your `mainTemplate.gradle` file:
+        ```groovy
+            // Android Resolver Repos Start
+            ([rootProject] + (rootProject.subprojects as List)).each { project ->
+                project.repositories {
+                    def unityProjectPath = $/file:///**DIR_UNITYPROJECT**/$.replace("\\", "/")
+                    maven {
+                        url "https://maven.google.com"
+                    }
+                    maven {
+                        url "https://s3.amazonaws.com/moat-sdk-builds"
+                    }
+                    maven {
+                        url 'https://developer.huawei.com/repo/'
+                    }
+                    mavenLocal()
+                    jcenter()
+                    mavenCentral()
+                    google()
                 }
-                maven {
-                    url "https://s3.amazonaws.com/moat-sdk-builds"
-                }
-                maven {
-                    url 'https://developer.huawei.com/repo/'
-                }
-                mavenLocal()
-                jcenter()
-                mavenCentral()
-                google()
             }
-        }
-        
-    // Android Resolver Repos End
-        apply plugin: 'com.android.library'
-        **APPLY_PLUGINS**
-        dependencies {
-            implementation fileTree(dir: 'libs', include: ['*.jar'])
-        // Android Resolver Dependencies Start
-            implementation 'com.android.support:multidex:1.0.1'
-            implementation 'com.google.android.gms:play-services-analytics:17.0.0' //16.0.6
-            implementation 'com.android.installreferrer:installreferrer:2.2' //1.0
-            implementation 'com.huawei.hms:ads-identifier:3.4.30.307'
-            implementation 'com.huawei.hms:ads-installreferrer:3.4.34.301'
-            implementation 'com.appsflyer:af-android-sdk:4.9.0'
-            androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-                exclude group: 'com.android.support', module: 'support-annotations'
-            })
-        // Android Resolver Dependencies End
-        **DEPS**}
-    ```
-    - Add the following entry to the `gradleTemplate.properties` file:
-    `android.useAndroidX=true`
-  2. If you use the Unity SDK version 1.12.4 or below and see the following errors on the app initialization, move tenjin.aar file from `/Assets/Plugins/Android/Tenjin/libs` to `/Assets/Plugins/Android/`.
 
-    ```
-    AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
-    ```  
-    or
-    ```
-    AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
-    ```
+        // Android Resolver Repos End
+            apply plugin: 'com.android.library'
+            **APPLY_PLUGINS**
+            dependencies {
+                implementation fileTree(dir: 'libs', include: ['*.jar'])
+            // Android Resolver Dependencies Start
+                implementation 'com.android.support:multidex:1.0.1'
+                implementation 'com.google.android.gms:play-services-analytics:17.0.0' //16.0.6
+                implementation 'com.android.installreferrer:installreferrer:2.2' //1.0
+                implementation 'com.huawei.hms:ads-identifier:3.4.30.307'
+                implementation 'com.huawei.hms:ads-installreferrer:3.4.34.301'
+                implementation 'com.appsflyer:af-android-sdk:4.9.0'
+                androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+                    exclude group: 'com.android.support', module: 'support-annotations'
+                })
+            // Android Resolver Dependencies End
+            **DEPS**}
+        ```
+      * Add the following entry to the `gradleTemplate.properties` file:
+        ```
+        android.useAndroidX=true
+        ```
+  
+  2. If you use the Unity SDK version 1.12.4 or below and see the following errors on the app initialization, move tenjin.aar file from `/Assets/Plugins/Android/Tenjin/libs` to `/Assets/Plugins/Android/`.
+      ```
+       AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
+      ```  
+      or
+      ```
+      AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
+      ```
 
 Tenjin install/session integration:
 -------
