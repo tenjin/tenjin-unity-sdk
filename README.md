@@ -54,6 +54,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
     - [Android IAP Validation](#android-iap-validation)
   - [Custom Events](#custom-events)
   - [Deferred Deeplinks](#deferred-deeplinks)
+  - [Server-to-server integration](#server-to-server)
   - [App Subversion](#subversion)
 
 - [Testing](#testing)
@@ -133,12 +134,6 @@ public class TenjinExampleScript : MonoBehaviour {
 }
 ```
 
-## Tenjin initialization with ATTrackingManager:
-
-Starting with iOS 14, you have the option to show the initial <a href="">ATTrackingManager</a> permissions prompt and selection to opt in/opt out users.
-If the device doesn't accept tracking permission, IDFA will become zero. If the device accepts tracking permission, the `connect()` method will send the IDFA to our servers.
-You can also still call Tenjin `connect()`, without using ATTrackingManager. ATTrackingManager permissions prompt is not obligatory until the early spring of 2021.
-
 ## <a id="app-store"></a> App Store
 
 By default, <a href="https://play.google.com/" target="_new">Google Play</a> is the default App Store. If you are publishing in a different App Store, update to the appropriate `TenjinSDK.AppStoreType.*` value:
@@ -161,8 +156,7 @@ Current `AppStoreType` options:
 
 - If the device doesn't accept tracking permission, IDFA will become zero. If the device accepts tracking permission, the `Connect()` method will send the IDFA to our servers.
 
-- You can also still call Tenjin `Connect()`, without using ATTrackingManager. ATTrackingManager permissions prompt is not obligatory until the start of 2021.
-  > > > > > > > Add SDK v1.12.5
+- You can also still call Tenjin `connect()`, without using ATTrackingManager. ATTrackingManager permissions prompt is not obligatory until the early spring of 2021.
 
 ```csharp
 using UnityEngine;
@@ -209,14 +203,10 @@ public class TenjinExampleScript : MonoBehaviour {
 As part of <a href="https://developer.apple.com/documentation/storekit/skadnetwork">SKAdNetwork</a>, we created wrapper methods for `registerAppForAdNetworkAttribution()` and <a href="https://developer.apple.com/documentation/storekit/skadnetwork/3566697-updateconversionvalue">`updateConversionValue(_:)`</a>.
 Our methods will register the equivalent SKAdNetwork methods and also send the conversion values on our servers.
 
-<<<<<<< HEAD
-`updateConversionValue(_:)` 6 bit value should correspond to the in-app event and shouldn't be entered as binary representation but 0-63 integer. Our server will reject any invalid values. Please refer to [this](https://docs.tenjin.com/en/tracking/sk_adnetwork.html#cv) page for how to implement conversion values.
-=======
 `updateConversionValue(_:)` 6 bit value should correspond to the in-app event and shouldn't be entered as binary representation but 0-63 integer. Our server will reject any invalid values.
 
 - <a href="https://docs.google.com/spreadsheets/d/1jrRrTP6YX62of2WaJamtPBSWZJ-97IpTWn0IwTroH6Y/edit#gid=1596716780">Examples for IAP based games </a>
 - <a href="https://docs.google.com/spreadsheets/d/15JaN44yQyW7dqqRGi5Wwnq2P6ng-4n6EztMmMj5A7c4/edit#gid=0">Examples for Ad revenue based games </a>
-  > > > > > > > Add SDK v1.12.5
 
 ```csharp
 using UnityEngine;
@@ -375,36 +365,15 @@ instance.Connect();
 
 iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`). For `receipt`, be sure to send the receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity.
 
-<<<<<<< HEAD
-Tenjin purchase event integration instructions:
-
----
-
-#### iOS IAP Validation
-
-# iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`). For `receipt`, be sure to send the receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity.
-
 **IMPORTANT:** If you have subscription IAP, you will need to add your app's shared secret in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your iOS App-Specific Shared Secret from the <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons" target="_new">iTunes Connect Console</a> > Select your app > Features > In-App Purchases > App-Specific Shared Secret.
 
-> > > > > > > Add SDK v1.12.5
-
 ## <a id="android-iap-validation"></a>Android IAP Validation
-
-<<<<<<< HEAD
-
-#### Android IAP Validation
-
-Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).
-
-# **IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs.
 
 Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).
 
 **IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs.
 
 ### iOS and Android IAP Example:
-
-> > > > > > > Add SDK v1.12.5
 
 In the example below, we are using the widely used <a href="https://gist.github.com/darktable/1411710" target="_new">MiniJSON</a> library for JSON deserializing.
 
@@ -455,42 +424,21 @@ In the example below, we are using the widely used <a href="https://gist.github.
 
 ### <a id="subscription-iap"></a> Subscription IAP
 
-- You are responsible to send subscription transaction one time during each subscription interval (i.e. For example, for a monthly subscription, you will need to send us 1 transaction per month). A transaction event should only be sent at the "First Charge" and "Renewal" events. During the trial period, do not send Tenjin the transaction event.
+- You are responsible to send subscription transaction one time during each subscription interval (i.e. For example, for a monthly subscription, you will need to send us 1 transaction per month). In the example timeline below, a transaction event should only be sent at the "First Charge" and "Renewal" events. During the trial period, do not send Tenjin the transaction event.
 
-<<<<<<< HEAD
-**Please note that you are responsible to send subscription transaction one time during each subscription interval (i.e. For example, for a monthly subscription, you will need to send us 1 transaction per month).**
-=======
+  <img src="https://docs-assets.developer.apple.com/published/6631e50f32/110c0e3f-e0e3-4dbd-bc28-d8db4b28bd1c.png" />
 
 - Tenjin does not de-dupe duplicate transactions.
 
-  > > > > > > > Add SDK v1.12.5
-
 - If you have iOS subscription IAP, you will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new"> Tenjin dashboard</a>. You can retreive your iOS App-Specific Shared Secret from the <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons">iTunes Connect Console</a> > Select your app > Features > In-App Purchases > App-Specific Shared Secret.
 
-<<<<<<< HEAD
-<img src="https://docs-assets.developer.apple.com/published/6631e50f32/110c0e3f-e0e3-4dbd-bc28-d8db4b28bd1c.png" />
-=======
-
 - For more information on iOS subscriptions, please see: <a href="https://developer.apple.com/documentation/storekit/in-app_purchase/subscriptions_and_offers">Apple documentation on Working with Subscriptions</a>
-
-  > > > > > > > Add SDK v1.12.5
 
 - For more information on Android subscriptions, please see: <a href="https://developer.android.com/distribute/best-practices/earn/subscriptionss">Google Play Billing subscriptions documentation</a>
 
 ## <a id="custom-events"></a> Custom Events
 
 **IMPORTANT: Limit custom event names to less than 80 characters. Do not exceed 500 unique custom event names.**
-
-<<<<<<< HEAD
-Tenjin custom event integration:
-
----
-
-**IMPORTANT: Limit custom event names to less than 80 characters. Do not exceed 500 unique custom event names.**
-
-=======
-
-> > > > > > > Add SDK v1.12.5
 
 - Include the Assets folder in your Unity project
 - In your projects method for the custom event write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with an integer value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","value")`
@@ -575,36 +523,23 @@ public class TenjinExampleScript : MonoBehaviour {
 
 ```
 
-<<<<<<< HEAD
-
-## Server-to-server integration
-
-Tenjin offers server-to-server integration. If you want to access to the documentation, please send email to support@tenjin.com.
-
-## App Subversion parameter for A/B Testing (requires DataVault)
-
-=======
-
-> > > > > > > Add SDK v1.12.5
-
 Below are the parameters, if available, that are returned in the deferred deeplink callback:
 
-<<<<<<< HEAD
-This data will appear within DataVault where you will be able to run reports using the app subversion values.
-=======
-| Parameter | Description |
+| Parameter             | Description                                                      |
 | --------------------- | ---------------------------------------------------------------- |
-| advertising_id | Advertising ID of the device |
-| ad_network | Ad network of the campaign |
-| campaign_id | Tenjin campaign ID |
-| campaign_name | Tenjin campaign name |
-| site_id | Site ID of source app |
-| referrer | The referrer params from the app store |
-| deferred_deeplink_url | The deferred deep-link of the campaign |
-| clicked_tenjin_link | Boolean representing if the device was tracked by Tenjin |
-| is_first_session | Boolean representing if this is the first session for the device |
+| advertising_id        | Advertising ID of the device                                     |
+| ad_network            | Ad network of the campaign                                       |
+| campaign_id           | Tenjin campaign ID                                               |
+| campaign_name         | Tenjin campaign name                                             |
+| site_id               | Site ID of source app                                            |
+| referrer              | The referrer params from the app store                           |
+| deferred_deeplink_url | The deferred deep-link of the campaign                           |
+| clicked_tenjin_link   | Boolean representing if the device was tracked by Tenjin         |
+| is_first_session      | Boolean representing if this is the first session for the device |
 
-> > > > > > > Add SDK v1.12.5
+## <a id="server-to-server"></a>Server-to-server integration
+
+Tenjin offers server-to-server integration. If you want to access to the documentation, please send email to support@tenjin.com.
 
 ## <a id="subversion"></a>App Subversion parameter for A/B Testing (requires DataVault)
 
