@@ -371,7 +371,7 @@ iOS receipt validation requires `transactionId` and `receipt` (`signature` will 
 
 Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).
 
-**IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs.
+**IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retreive your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> > Select your app > Development Tools > Services & APIs. Please note that for Android, we currently only support IAP transactions from Google Play.
 
 ### iOS and Android IAP Example:
 
