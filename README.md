@@ -25,22 +25,68 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
    /Assets/Plugins/Android/play-services-basement---*.aar
   ```
 
-  2. If you use the Unity SDK version 1.12.4 or below and see the following errors on the app initialization, move tenjin.aar file from `/Assets/Plugins/Android/Tenjin/libs` to `/Assets/Plugins/Android/`.
+  2. If you are using Tenjin Unity SDK alongside another SDK in Unity version >2019, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
+     * Remove all the `*.aar` files from the `Assets/Plugins/Android` folder except `tenjin.aar`.
+     * Add the following to your `mainTemplate.gradle` file:
+        ```groovy
+            // Android Resolver Repos Start
+            ([rootProject] + (rootProject.subprojects as List)).each { project ->
+                project.repositories {
+                    def unityProjectPath = $/file:///**DIR_UNITYPROJECT**/$.replace("\\", "/")
+                    maven {
+                        url "https://maven.google.com"
+                    }
+                    maven {
+                        url "https://s3.amazonaws.com/moat-sdk-builds"
+                    }
+                    maven {
+                        url 'https://developer.huawei.com/repo/'
+                    }
+                    mavenLocal()
+                    jcenter()
+                    mavenCentral()
+                    google()
+                }
+            }
 
-  ```
-  AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
-  ```
+        // Android Resolver Repos End
+            apply plugin: 'com.android.library'
+            **APPLY_PLUGINS**
+            dependencies {
+                implementation fileTree(dir: 'libs', include: ['*.jar'])
+            // Android Resolver Dependencies Start
+                implementation 'com.android.support:multidex:1.0.1'
+                implementation 'com.google.android.gms:play-services-analytics:17.0.0' //16.0.6
+                implementation 'com.android.installreferrer:installreferrer:2.2' //1.0
+                implementation 'com.huawei.hms:ads-identifier:3.4.30.307'
+                implementation 'com.huawei.hms:ads-installreferrer:3.4.34.301'
+                implementation 'com.appsflyer:af-android-sdk:4.9.0'
+                androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+                    exclude group: 'com.android.support', module: 'support-annotations'
+                })
+            // Android Resolver Dependencies End
+            **DEPS**}
+        ```
+      * Add the following entry to the `gradleTemplate.properties` file:
+        ```
+        android.useAndroidX=true
+        ```
+        
+  3. If you use the Unity SDK version 1.12.4 or below and see the following errors on the app initialization, move tenjin.aar file from `/Assets/Plugins/Android/Tenjin/libs` to `/Assets/Plugins/Android/`.
 
-  or
+    ```
+    AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
+    ```
 
-  ```
-  AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
-  ```
+    or
+
+    ```
+    AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
+    ```
 
 # Table of contents
 
 - [SDK Integration](#sdk-integration)
-
   - [OAID](#oaid)
     - [MSA OAID](#msa-oaid)
     - [Huawei OAID](#huawei-oaid)
@@ -56,7 +102,6 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Deferred Deeplinks](#deferred-deeplinks)
   - [Server-to-server integration](#server-to-server)
   - [App Subversion](#subversion)
-
 - [Testing](#testing)
 
 # <a id="sdk-integration"></a> SDK Integration
