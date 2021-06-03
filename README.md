@@ -527,14 +527,14 @@ public class TenjinExampleScript : MonoBehaviour {
 
     if (data.ContainsKey("clicked_tenjin_link")) {
       //clicked_tenjin_link is a BOOL to handle if a user clicked on a tenjin link
-      clicked_tenjin_link = (data["clicked_tenjin_link"] == "true");
-      Debug.Log("===> DeferredDeeplinkCallback ---> clicked_tenjin_link: " + data["clicked_tenjin_link"]);
+      clicked_tenjin_link = (data["clicked_tenjin_link"].ToLower() == "true");
+      Debug.Log("===> DeferredDeeplinkCallback ---> clicked_tenjin_link: " + clicked_tenjin_link);
     }
 
     if (data.ContainsKey("is_first_session")) {
       //is_first_session is a BOOL to handle if this session for this user is the first session
-      is_first_session = (data["is_first_session"] == "true");
-      Debug.Log("===> DeferredDeeplinkCallback ---> is_first_session: " + data["is_first_session"]);
+      is_first_session = (data["is_first_session"].ToLower() == "true");
+      Debug.Log("===> DeferredDeeplinkCallback ---> is_first_session: " + is_first_session);
     }
 
     if (data.ContainsKey("ad_network")) {
