@@ -467,6 +467,8 @@ In the example below, we are using the widely used <a href="https://gist.github.
   }
 ```
 
+**Disclaimer:** If you are implementing purchase events on Tenjin for the first time, make sure to verify the data with other tools you’re using before you start scaling up you user acquisition campaigns using purchase data.
+
 ### <a id="subscription-iap"></a> Subscription IAP
 
 - You are responsible to send subscription transaction one time during each subscription interval (i.e. For example, for a monthly subscription, you will need to send us 1 transaction per month). In the example timeline below, a transaction event should only be sent at the "First Charge" and "Renewal" events. During the trial period, do not send Tenjin the transaction event.
