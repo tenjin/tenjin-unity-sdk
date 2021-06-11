@@ -467,7 +467,7 @@ In the example below, we are using the widely used <a href="https://gist.github.
   }
 ```
 
-**Disclaimer:** If you implement purchase event on Tenjin at the first time, make sure to verify the data with other tools you’re using before you start scaling up you user acquisition campaigns using purchase data.
+**Disclaimer:** If you are implementing purchase events on Tenjin for the first time, make sure to verify the data with other tools you’re using before you start scaling up you user acquisition campaigns using purchase data.
 
 ### <a id="subscription-iap"></a> Subscription IAP
 
