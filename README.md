@@ -206,6 +206,7 @@ Current `AppStoreType` options:
 ```csharp
 using UnityEngine;
 using System.Collections;
+using UnityEngine.iOS;
 
 public class TenjinExampleScript : MonoBehaviour {
 
@@ -223,16 +224,19 @@ public class TenjinExampleScript : MonoBehaviour {
       BaseTenjin instance = Tenjin.getInstance("API_KEY");
 
 #if UNITY_IOS
+      if (new Version(Device.systemVersion).CompareTo(new Version("14.0")) >= 0) {
+        // Tenjin wrapper for requestTrackingAuthorization
+        instance.RequestTrackingAuthorizationWithCompletionHandler((status) => {
+          Debug.Log("===> App Tracking Transparency Authorization Status: " + status);
 
-      // Tenjin wrapper for requestTrackingAuthorization
-      instance.RequestTrackingAuthorizationWithCompletionHandler((status) => {
-        Debug.Log("===> App Tracking Transparency Authorization Status: " + status);
+          // Sends install/open event to Tenjin
+          instance.Connect();
 
-        // Sends install/open event to Tenjin
-        instance.Connect();
-
-      });
-
+        });
+      }
+      else {
+          instance.Connect();
+      }
 #elif UNITY_ANDROID
 
       // Sends install/open event to Tenjin
