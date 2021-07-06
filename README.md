@@ -610,6 +610,6 @@ You can verify if the integration is working through our <a href="https://www.te
 
 <br />
 
-![](https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events.png)
+![](https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events_2.png)
 
 <br /><br />
