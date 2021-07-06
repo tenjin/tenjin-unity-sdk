@@ -25,7 +25,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
    /Assets/Plugins/Android/play-services-basement---*.aar
   ```
 
-  2. If you are using Tenjin Unity SDK alongside another SDK in Unity version >2019, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
+  2. If you are using Tenjin Unity SDK alongside another SDK in Unity version > 2019, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
      * Remove all the `*.aar` files from the `Assets/Plugins/Android` folder except `tenjin.aar`.
      * Add the following to your `mainTemplate.gradle` file:
         ```groovy
@@ -56,11 +56,10 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
                 implementation fileTree(dir: 'libs', include: ['*.jar'])
             // Android Resolver Dependencies Start
                 implementation 'com.android.support:multidex:1.0.1'
-                implementation 'com.google.android.gms:play-services-analytics:17.0.0' //16.0.6
-                implementation 'com.android.installreferrer:installreferrer:2.2' //1.0
-                implementation 'com.huawei.hms:ads-identifier:3.4.30.307'
-                implementation 'com.huawei.hms:ads-installreferrer:3.4.34.301'
-                implementation 'com.appsflyer:af-android-sdk:4.9.0'
+                implementation 'com.google.android.gms:play-services-analytics:{version}'
+                implementation 'com.android.installreferrer:installreferrer:{version}'
+                implementation 'com.huawei.hms:ads-identifier:{version}'
+                implementation 'com.huawei.hms:ads-installreferrer:{version}'
                 androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
                     exclude group: 'com.android.support', module: 'support-annotations'
                 })
@@ -72,14 +71,12 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
         android.useAndroidX=true
         ```
         
-  3. If you use the Unity SDK version 1.12.4 or below and see the following errors on the app initialization, move tenjin.aar file from `/Assets/Plugins/Android/Tenjin/libs` to `/Assets/Plugins/Android/`.
+  3. If you see the following errors on the app initialization, move tenjin.aar file from `/Assets/Plugins/Android/Tenjin/libs` to `/Assets/Plugins/Android/`. Also check the Proguard Settings [here](#proguard).
 
     ```
     AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
     ```
-
     or
-
     ```
     AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
     ```
@@ -90,6 +87,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [OAID](#oaid)
     - [MSA OAID](#msa-oaid)
     - [Huawei OAID](#huawei-oaid)
+  - [Proguard](#proguard)
   - [App Initilization](#initialization)
   - [App Store](#app-store)
   - [ATTrackingManager (iOS)](#attrackingmanager)
@@ -147,6 +145,26 @@ Set your App Store Type value to `other`:
 BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
 
 instance.SetAppStoreType(AppStoreType.other);
+```
+
+## <a id="proguard"></a>Proguard Settings
+
+```java
+-keep class com.tenjin.** { *; }
+-keep public class com.google.android.gms.ads.identifier.** { *; }
+-keep public class com.google.android.gms.common.** { *; }
+-keep public class com.android.installreferrer.** { *; }
+-keep class * extends java.util.ListResourceBundle {
+    protected Object[][] getContents();
+}
+-keepattributes *Annotation*
+```
+
+If you are using Huawei libraries, you can to use these setttings:
+
+```java
+-keep class com.huawei.hms.ads.** { *; }
+-keep interface com.huawei.hms.ads.** { *; }
 ```
 
 ## <a id="initialization"></a> App Initialization
@@ -406,7 +424,7 @@ instance.Connect();
 | country             | locale country               | All      | [Android](<https://developer.android.com/reference/java/util/Locale.html#getDefault()>), [iOS](https://developer.apple.com/documentation/foundation/nslocalecountrycode)                                                                                                                |
 | timezone            | timezone                     | All      | [Android](https://developer.android.com/reference/java/util/TimeZone.html), [iOS](https://developer.apple.com/documentation/foundation/nstimezone/1387209-localtimezone)                                                                                                                |
 
-<br />
+<br/>
 
 ## <a id="purchase-events"></a>Purchase Events
 
