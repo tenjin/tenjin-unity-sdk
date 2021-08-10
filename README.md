@@ -92,6 +92,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [App Store](#app-store)
   - [ATTrackingManager (iOS)](#attrackingmanager)
   - [SKAdNetwork and Conversion Value](#skadnetwork-cv)
+  - [SKAdNetwork iOS 15+ Postbacks](#skadnetwork-ios15)
   - [GDPR](#gdpr)
   - [Purchase Events](#purchase-events)
     - [iOS IAP Validation](#ios-iap-validation)
@@ -315,6 +316,18 @@ public class TenjinExampleScript : MonoBehaviour {
     }
 }
 ```
+
+## <a id="skadnetwork-ios15"></a>SKAdNetwork and iOS 15+ Advertiser Postbacks
+
+To specify Tenjin as the destination for your [SK Ad Network postbacks](https://developer.apple.com/documentation/storekit/skadnetwork/receiving_ad_attributions_and_postbacks), do the following:
+
+1. Select `Info.plist` in the Project navigator in Xcode.
+2. Click the Add button (+) beside a key in the property list editor and press Return.
+3. Type the key name `NSAdvertisingAttributionEndpoint`.
+4. Choose String from the pop-up menu in the Type column.
+5. Enter `https://tenjin-skan.com`
+
+These steps are adapted from Apple's instructions at [https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app](https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app).
 
 ## <a id="gdpr"></a> GDPR
 
