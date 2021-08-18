@@ -325,7 +325,7 @@ To specify Tenjin as the destination for your [SK Ad Network postbacks](https://
 
 1. Select `Info.plist` in the Project navigator in Xcode.
 2. Click the Add button (+) beside a key in the property list editor and press Return.
-3. Type the key name `NSAdvertisingAttributionEndpoint`.
+3. Type the key name `NSAdvertisingAttributionReportEndpoint`.
 4. Choose String from the pop-up menu in the Type column.
 5. Enter `https://tenjin-skan.com`
 
