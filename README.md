@@ -10,11 +10,13 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 
   - Xcode 12 is required if using Unity iOS SDK v1.12.0 and higher.
   - When building iOS, confirm that these frameworks were automatically added to the Xcode build. If any are missing, you will need to add them manually.
+    - AdServices.framework
     - AdSupport.framework
     - AppTrackingTransparency.framework
     - iAd.framework
     - StoreKit.framework
   - For AppTrackingTransparency, be sure update your project `.plist` file and add `Privacy - Tracking Usage Description` <a href="https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription" target="_new">(NSUserTrackingUsageDescription)</a> along with the text message you want to display to users.
+  - For <a href="https://developer.apple.com/documentation/iad/setting_up_apple_search_ads_attribution" target="_new">Apple Search Ads Attribution</a> support, please be sure to upgrade to v1.12.6+ and add the `AdServices.framework` library.
 
 - Android Notes:
 
