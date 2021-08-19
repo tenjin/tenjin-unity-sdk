@@ -366,14 +366,11 @@ boolean CheckOptInValue()
 
 - `OptInParams()` will only send device-related parameters that are specified. `OptOutParams()` will send all device-related parameters except ones that are specified.
 
-- Please note that we require the following parameters to properly track devices in Tenjin's system:
+- Please note that we require the following parameters to properly track devices in Tenjin's system. If one of these mandatory parameters is missing the event will not be processed or recorded.
 
   - `ip_address`
-  - `advertising_id`
-  - `limit_ad_tracking`
-  - `referrer` (Android)
-  - `iad` (iOS)
-
+  - `advertising_id` (Android), `advertising_id` and/or `developer_device_id` (iOS)
+  
 - If you are targeting IMEI and/or OAID Ad Networks, add:
 
   - `imei`
