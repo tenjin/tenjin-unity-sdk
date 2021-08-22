@@ -369,11 +369,9 @@ boolean CheckOptInValue()
 - Please note that we require the following parameters to properly track devices in Tenjin's system. If one of these mandatory parameters is missing the event will not be processed or recorded.
 
   - For Android, 
-    - `ip_address`
     - `advertising_id`
   - For iOS
-    - `ip_address`
-    - `advertising_id` and/or `developer_device_id`
+    - `developer_device_id`
   
 - If you are targeting IMEI and/or OAID Ad Networks for Android, add:
 
