@@ -120,9 +120,9 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 
 ## <a id="oaid"></a>OAID and other Android App Stores
 
-Tenjin supports promoting on other Android App Stores using the Android OAID. We have the following options for integrating OAID libraries. **If you plan to develop app outside of Google Play, make sure to implement these OAID libraries.**
+Tenjin supports promoting on other Android App Stores using the Android OAID. We have the following requirements for integrating OAID libraries. **If you plan to develop app outside of Google Play, make sure to implement these OAID libraries.**
 
-### <a id="msa-oaid"></a>MSA OAID (In China)
+### <a id="msa-oaid"></a>MSA OAID
 
 For integration with the <a href="http://www.msa-alliance.cn/col.jsp?id=120" target="_new">MSA libary</a>, download the following <a href="msa-oaid/oaid_sdk_1.0.25.aar" target="_new">oaid_sdk_1.0.25.aar</a>.
 
@@ -136,7 +136,7 @@ BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
 instance.SetAppStoreType(AppStoreType.other);
 ```
 
-### <a id="huawei-oaid"></a>Huawei OAID (Outside China)
+### <a id="huawei-oaid"></a>Huawei OAID
 
 For integration with the <a href="https://developer.huawei.com/consumer/en/codelab/HMSAdsOAID/index.html#3" target="_new">Huawei OAID libary</a>, download the following Huawei AAR file: <a href="huawei/huawei-ads-identifier.aar" target="_new">huawei-ads-identifier.aar</a>. If your app is in the <a href="https://appgallery.huawei.com/" target="_new">Huawei App Gallery</a>, download and add the Huawei Install Referrer file: <a href="huawei/huawei-ads-installreferrer.aar" target="_new">huawei-ads-installreferrer.aar</a>.
 
