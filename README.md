@@ -331,6 +331,8 @@ To specify Tenjin as the destination for your [SK Ad Network postbacks](https://
 
 These steps are adapted from Apple's instructions at [https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app](https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app).
 
+**NOTE**: If you are using AppLovin MAX for mediation, their SDK will overwrite Tenjin URL with their URL during the app build process. In that case, AppLovin can forward us the postbacks, so please contact your account manager to enable the forwarding.
+
 ## <a id="gdpr"></a> GDPR
 
 As part of GDPR compliance, with Tenjin's SDK you can opt-in, opt-out devices/users, or select which specific device-related params to opt-in or opt-out. `OptOut()` will not send any API requests to Tenjin and we will not process any events.
