@@ -331,7 +331,15 @@ To specify Tenjin as the destination for your [SK Ad Network postbacks](https://
 
 These steps are adapted from Apple's instructions at [https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app](https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app).
 
-**NOTE**: If you are using AppLovin MAX for mediation, their Unity SDK will overwrite any value you entered for `NSAdvertisingAttributionReportEndpoint` with their own URL during the build process. You should be able to set the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com` in XCode after its been overwritten, or you can ask your AppLovin account manager set up forwarding the postbacks to us.
+**NOTE**: If you are using AppLovin MAX for mediation, their Unity SDK will overwrite any value you entered for `NSAdvertisingAttributionReportEndpoint` with their own URL during the build process. You should be able to set the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com` in XCode after its been overwritten in the following process.
+
+1. Export the iOS app following the steps Unity outlines [here](https://docs.unity3d.com/Manual/iphone-GettingStarted.html).
+
+2. After you build the iOS app, you should have an XCode project that has this structure: https://docs.unity3d.com/Manual/StructureOfXcodeProject.html
+
+3. Navigate to the `Info.plist` file in the XCode project to manually change the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com`.
+   
+Otherwise, you can ask your AppLovin account manager set up forwarding the postbacks to us.
 
 ## <a id="gdpr"></a> GDPR
 
