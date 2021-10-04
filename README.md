@@ -120,11 +120,10 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 
 ## <a id="oaid"></a>OAID and other Android App Stores
 
-Tenjin supports promoting on other Android App Stores using the Android OAID. We have the following options for integrating OAID libraries. **If you plan to develop app outside of Google Play, make sure to implement these OAID libraries.**
+Tenjin supports promoting your app on other Android App Stores using the Android OAID. We have the following requirements for integrating OAID libraries. **If you plan to release your app outside of Google Play, make sure to implement these OAID libraries.**
 
-### <a id="msa-oaid"></a>MSA OAID (In China)
-
-For integration with the <a href="http://www.msa-alliance.cn/col.jsp?id=120" target="_new">MSA libary</a>, download the following <a href="msa-oaid/oaid_sdk_1.0.25.aar" target="_new">oaid_sdk_1.0.25.aar</a>.
+### <a id="msa-oaid"></a>MSA OAID
+MSA OAID is an advertising ID for devices manufactured in China that the MSA (Mobile Security Alliance) provides. For integration with the <a href="http://www.msa-alliance.cn/col.jsp?id=120" target="_new">MSA libary</a>, download the following <a href="msa-oaid/oaid_sdk_1.0.25.aar" target="_new">oaid_sdk_1.0.25.aar</a>.
 
 Place the `oaid_sdk_1.0.25.aar` file in your project's Android libs directory: `/Assets/Plugins/Android`
 
@@ -136,9 +135,8 @@ BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
 instance.SetAppStoreType(AppStoreType.other);
 ```
 
-### <a id="huawei-oaid"></a>Huawei OAID (Outside China)
-
-For integration with the <a href="https://developer.huawei.com/consumer/en/codelab/HMSAdsOAID/index.html#3" target="_new">Huawei OAID libary</a>, download the following Huawei AAR file: <a href="huawei/huawei-ads-identifier.aar" target="_new">huawei-ads-identifier.aar</a>. If your app is in the <a href="https://appgallery.huawei.com/" target="_new">Huawei App Gallery</a>, download and add the Huawei Install Referrer file: <a href="huawei/huawei-ads-installreferrer.aar" target="_new">huawei-ads-installreferrer.aar</a>.
+### <a id="huawei-oaid"></a>Huawei OAID
+For outside of China, you can collect OAID using the library provided by Huawei. For integration with the <a href="https://developer.huawei.com/consumer/en/codelab/HMSAdsOAID/index.html#3" target="_new">Huawei OAID libary</a>, download the following Huawei AAR file: <a href="huawei/huawei-ads-identifier.aar" target="_new">huawei-ads-identifier.aar</a>. If your app is in the <a href="https://appgallery.huawei.com/" target="_new">Huawei App Gallery</a>, download and add the Huawei Install Referrer file: <a href="huawei/huawei-ads-installreferrer.aar" target="_new">huawei-ads-installreferrer.aar</a>.
 
 Place the Huawei files in your project's Android libs directory: `/Assets/Plugins/Android`
 
@@ -332,6 +330,16 @@ To specify Tenjin as the destination for your [SK Ad Network postbacks](https://
 5. Enter `https://tenjin-skan.com`
 
 These steps are adapted from Apple's instructions at [https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app](https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app).
+
+**NOTE**: If you are using AppLovin MAX for mediation, their Unity SDK will overwrite any value you entered for `NSAdvertisingAttributionReportEndpoint` with their own URL during the build process. You should be able to set the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com` in XCode after its been overwritten in the following process.
+
+1. Export the iOS app following the steps Unity outlines [here](https://docs.unity3d.com/Manual/iphone-GettingStarted.html).
+
+2. After you build the iOS app, you should have an XCode project that has this structure: https://docs.unity3d.com/Manual/StructureOfXcodeProject.html
+
+3. Navigate to the `Info.plist` file in the XCode project to manually change the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com`.
+   
+Otherwise, you can ask your AppLovin account manager set up forwarding the postbacks to us.
 
 ## <a id="gdpr"></a> GDPR
 
