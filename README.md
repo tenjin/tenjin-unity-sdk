@@ -123,7 +123,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 Tenjin supports promoting your app on other Android App Stores using the Android OAID. We have the following requirements for integrating OAID libraries. **If you plan to release your app outside of Google Play, make sure to implement these OAID libraries.**
 
 ### <a id="msa-oaid"></a>MSA OAID
-MSA OAID is an advertising ID for devices manufactured in China that the MSA (Mobile Security Alliance) provides. For integration with the <a href="http://www.msa-alliance.cn/col.jsp?id=120" target="_new">MSA libary</a>, download the following <a href="msa-oaid/oaid_sdk_1.0.25.aar" target="_new">oaid_sdk_1.0.25.aar</a>.
+MSA OAID is an advertising ID for devices manufactured in China that the MSA (Mobile Security Alliance) provides. For integration with the <a href="http://www.msa-alliance.cn/col.jsp?id=120" target="_new">MSA libary</a>, download the following <a href="https://github.com/tenjin/tenjin-unity-sdk/blob/master/msa-oaid/oaid_sdk_1.0.25.aar" target="_new">oaid_sdk_1.0.25.aar</a>.
 
 Place the `oaid_sdk_1.0.25.aar` file in your project's Android libs directory: `/Assets/Plugins/Android`
 
