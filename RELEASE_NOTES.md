@@ -1,3 +1,25 @@
+v1.12.7
+----
+* Fix MSA OAID
+
+- Android SDK 1.12.7
+- iOS SDK 1.12.7
+
+
+v1.12.6
+----
+* Adds AdServices.framework support
+
+- Android SDK 1.12.6
+- iOS SDK 1.12.6
+
+v1.12.5
+----
+* Add MSA OAID support
+
+- Android SDK 1.12.5
+- iOS SDK 1.12.5
+
 v1.12.4
 ----
 * Fix memory bug
