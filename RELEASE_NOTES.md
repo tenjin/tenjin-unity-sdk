@@ -9,6 +9,8 @@ v1.12.7
 v1.12.6
 ----
 * Adds AdServices.framework support
+* MoPub Build 
+* Make GetTrackingAuthorizationStatus private
 
 - Android SDK 1.12.6
 - iOS SDK 1.12.6
