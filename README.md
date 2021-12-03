@@ -201,20 +201,6 @@ public class TenjinExampleScript : MonoBehaviour {
 
 ## <a id="app-store"></a> App Store
 
-By default, <a href="https://play.google.com/" target="_new">Google Play</a> is the default App Store. If you are publishing in a different App Store, update to the appropriate `TenjinSDK.AppStoreType.*` value:
-
-```csharp
-BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
-
-instance.SetAppStoreType(AppStoreType.{{SET_APP_STORE_TYPE_VALUE}});
-```
-
-Current `AppStoreType` options:
-
-- `googleplay`
-- `amazon`
-- `other`
-
 We support three app store options,
 1. googleplay
 2. amazon
