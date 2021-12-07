@@ -27,7 +27,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
    /Assets/Plugins/Android/play-services-basement---*.aar
   ```
 
-  2. If you are using Tenjin Unity SDK alongside another SDK in Unity version > 2019, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
+  2. If you are using Tenjin Unity SDK alongside another SDK in Unity version 2020.1.16f1 and higher, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
      * Remove all the `*.aar` files from the `Assets/Plugins/Android` folder except `tenjin.aar`.
      * Add the following to your `mainTemplate.gradle` file:
         ```groovy
@@ -45,7 +45,6 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
                         url 'https://developer.huawei.com/repo/'
                     }
                     mavenLocal()
-                    jcenter()
                     mavenCentral()
                     google()
                 }
@@ -57,12 +56,12 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
             dependencies {
                 implementation fileTree(dir: 'libs', include: ['*.jar'])
             // Android Resolver Dependencies Start
-                implementation 'com.android.support:multidex:1.0.1'
+                implementation 'com.android.support:multidex:1.0.3'
                 implementation 'com.google.android.gms:play-services-analytics:{version}'
                 implementation 'com.android.installreferrer:installreferrer:{version}'
                 implementation 'com.huawei.hms:ads-identifier:{version}'
                 implementation 'com.huawei.hms:ads-installreferrer:{version}'
-                androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+                androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
                     exclude group: 'com.android.support', module: 'support-annotations'
                 })
             // Android Resolver Dependencies End
@@ -202,19 +201,28 @@ public class TenjinExampleScript : MonoBehaviour {
 
 ## <a id="app-store"></a> App Store
 
-By default, <a href="https://play.google.com/" target="_new">Google Play</a> is the default App Store. If you are publishing in a different App Store, update to the appropriate `TenjinSDK.AppStoreType.*` value:
+We support three app store options,
+1. googleplay
+2. amazon
+3. other
+
+By default, <b>unspecified</b> is the default App Store. If you are publishing in a specific App Store, update the app store value to the appropriate app store value. The app store value <b>other</b> is used for Huawei AppGallery and other app stores:
+
+1. `AndroidManifest.xml`:
+
+```xml
+<meta-data
+    android:name="TENJIN_APP_STORE"
+    android:value="{{SET_APP_STORE_TYPE_VALUE}}" />
+```
+
+2. `SetAppStoreType()`:
 
 ```csharp
 BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
 
 instance.SetAppStoreType(AppStoreType.{{SET_APP_STORE_TYPE_VALUE}});
 ```
-
-Current `AppStoreType` options:
-
-- `googleplay`
-- `amazon`
-- `other`
 
 ## <a id="attrackingmanager"></a> ATTrackingManager (iOS)
 
