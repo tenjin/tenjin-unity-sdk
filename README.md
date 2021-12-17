@@ -27,7 +27,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
    /Assets/Plugins/Android/play-services-basement---*.aar
   ```
 
-  2. If you are using Tenjin Unity SDK alongside another SDK in Unity version 2020.1.16f1 and higher, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
+  2. If you are using Tenjin Unity SDK alongside another SDK in Unity version > 2019, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
      * Remove all the `*.aar` files from the `Assets/Plugins/Android` folder except `tenjin.aar`.
      * Add the following to your `mainTemplate.gradle` file:
         ```groovy
