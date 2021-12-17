@@ -27,7 +27,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
    /Assets/Plugins/Android/play-services-basement---*.aar
   ```
 
-  2. If you are using Tenjin Unity SDK alongside another SDK in Unity version 2020.1.16f1 and higher, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
+  2. If you are using Tenjin Unity SDK alongside another SDK in Unity version > 2019, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
      * Remove all the `*.aar` files from the `Assets/Plugins/Android` folder except `tenjin.aar`.
      * Add the following to your `mainTemplate.gradle` file:
         ```groovy
@@ -74,16 +74,13 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
         
   3. If you see the following errors on the app initialization, move tenjin.aar file from `/Assets/Plugins/Android/Tenjin/libs` to `/Assets/Plugins/Android/`. Also check the Proguard Settings [here](#proguard).
 
-      ```
-      AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
-      ```
-      ```
-      AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
-      ```
-    
-  4. If you update SDK to v1.12.8 or higher, we are going to make version 2020.1.16f1 the minimum Unity 3D version to support the latest Android Gradle version 7.0.3. If you prefer to use the older version, please contact us so we can help you with a customized solution. Also, upgrade the External Dependency Manager for Unity to 1.12.167. [Here](https://help.tenjin.io/t/common-issue-for-android-sdk-v1-12-7-unity-sdk-v1-12-8/10959) is the common issue when you update the Unity plugin to v1.12.8 or higher.
-
-  > Note: Starting tenjin-unity-sdkv1.12.8 and higher you need to remove `jcenter()` from `baseProjectTemplate.gradle`. As Android Gradle version 7.0.3 throws an [warning](https://blog.gradle.org/jcenter-shutdown#:~:text=Gradle%207.0%20will%20also%20deprecate,will%20emit%20a%20deprecation%20warning.&text=Based%20on%20the%20current%20timeline,February%201%2C%202022%20without%20changes.) for `jcenter()` deprecation.
+    ```
+    AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
+    ```
+    or
+    ```
+    AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
+    ```
 
 # Table of contents
 

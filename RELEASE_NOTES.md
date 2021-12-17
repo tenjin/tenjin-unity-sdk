@@ -142,13 +142,10 @@ v1.12.7
 - Android SDK 1.12.6
 - iOS SDK 1.12.7
 
-v1.12.8
+v1.12.0701
 ----
-* Update minimum supported Unity Editor version from 2019.4.21f1 to 2020.1.16f1
-* Update Android dependencies
-  * installreferrer from 1.1.2 to 2.2
-  * play-services-ads-identifier from 17.0.0 to 17.1.0
-  * play-services-basement from 17.4.0 to 17.6.0
+* Update Unity Editor from 2019.4.21f1 to 2019.4.33f1
+* Update installreferrer from 1.1.2 to 2.0
 
-- Android v1.12.7
+- Android v1.12.0601
 - iOS v1.12.7
