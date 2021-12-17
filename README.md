@@ -74,13 +74,14 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
         
   3. If you see the following errors on the app initialization, move tenjin.aar file from `/Assets/Plugins/Android/Tenjin/libs` to `/Assets/Plugins/Android/`. Also check the Proguard Settings [here](#proguard).
 
-    ```
-    AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
-    ```
-    or
-    ```
-    AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
-    ```
+      ```
+      AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
+      ```
+      ```
+      AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
+      ```
+    
+  4. If you update SDK to v1.12.8 or higher, we are going to make version 2020.1.16f1 the minimum Unity 3D version to support the latest Android Gradle version 7.0.3. If you prefer to use the older version, please contact us so we can help you with a customized solution. Also, upgrade the External Dependency Manager for Unity to 1.12.167. [Here](https://help.tenjin.io/t/common-issue-for-android-sdk-v1-12-7-unity-sdk-v1-12-8/10959) is the common issue when you update the Unity plugin to v1.12.8 or higher.
 
 # Table of contents
 
