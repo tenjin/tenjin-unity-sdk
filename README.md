@@ -120,6 +120,8 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
  /Assets/Plugins/Android/installreferrer-*.aar
 ```
 
+> We have a demo project - [tenjin-unity-sdk-demo](https://github.com/tenjin/tenjin-unity-sdk-demo) that demonstrates the integration of tenjin-unity-sdk. You can this project as example to understand how to integrate the tenjin-unity-sdk.
+
 ## <a id="oaid"></a>OAID and other Android App Stores
 
 Tenjin supports promoting your app on other Android App Stores using the Android OAID. We have the following requirements for integrating OAID libraries. **If you plan to release your app outside of Google Play, make sure to implement these OAID libraries.**
