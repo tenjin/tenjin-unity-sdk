@@ -152,3 +152,11 @@ v1.12.8
 
 - Android v1.12.7
 - iOS v1.12.7
+
+v1.12.9
+----
+* Downgrade minimum supported Unity Editor version from 2020.1.16f1 to 2019.4.21f1
+* Fix Android UTF-8 Java bug
+
+- Android v1.12.8
+- iOS v1.12.7
