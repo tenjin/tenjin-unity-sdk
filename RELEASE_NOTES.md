@@ -149,3 +149,32 @@ v1.12.0701
 
 - Android v1.12.0601
 - iOS v1.12.7
+
+
+v1.12.8
+----
+* Update minimum supported Unity Editor version from 2019.4.21f1 to 2020.1.16f1
+* Update Android dependencies
+  * installreferrer from 1.1.2 to 2.2
+  * play-services-ads-identifier from 17.0.0 to 17.1.0
+  * play-services-basement from 17.4.0 to 17.6.0
+
+- Android v1.12.7
+- iOS v1.12.7
+
+v1.12.9
+----
+* Downgrade minimum supported Unity Editor version from 2020.1.16f1 to 2019.4.21f1
+* Fix Android UTF-8 Java bug
+
+- Android v1.12.8
+- iOS v1.12.7
+
+v1.12.901
+---
+* Refactor AdvertiserInfo class with new set methods for advertisingId and limitAdTracking
+* Bugfix for referral parameter not being sent on first start of the SDK
+* Downgrade minSDKVersion to 19
+
+- Android v1.12.9
+- iOS v1.12.4
