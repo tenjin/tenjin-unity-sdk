@@ -6,7 +6,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 - Tenjin Unity SDK supports both iOS and Android.
 - Review the [iOS](https://github.com/tenjin/tenjin-ios-sdk) and [Android](https://github.com/tenjin/tenjin-android-sdk) documentation and apply the proper platform settings to your builds.
 - For any issues or support, please contact: support@tenjin.com
-- iOS Notes:
+- **iOS Notes**:
 
   - Xcode 12 is required if using Unity iOS SDK v1.12.0 and higher.
   - When building iOS, confirm that these frameworks were automatically added to the Xcode build. If any are missing, you will need to add them manually.
@@ -15,10 +15,10 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
     - AppTrackingTransparency.framework
     - iAd.framework
     - StoreKit.framework
-  - For AppTrackingTransparency, be sure update your project `.plist` file and add `Privacy - Tracking Usage Description` <a href="https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription" target="_new">(NSUserTrackingUsageDescription)</a> along with the text message you want to display to users.
-  - For <a href="https://developer.apple.com/documentation/iad/setting_up_apple_search_ads_attribution" target="_new">Apple Search Ads Attribution</a> support, please be sure to upgrade to v1.12.6+ and add the `AdServices.framework` library.
+  - For AppTrackingTransparency, be sure update your project `.plist` file and add `Privacy - Tracking Usage Description` <a href="https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription" target="_new">(NSUserTrackingUsageDescription)</a> along with the text message you want to display to users. This library is only available in iOS 14.0+.
+  - For <a href="https://developer.apple.com/documentation/iad/setting_up_apple_search_ads_attribution" target="_new">Apple Search Ads Attribution</a> support, please be sure to upgrade to v1.12.6+ and add the `AdServices.framework` library. This library is only available in iOS 14.3+.
 
-- Android Notes:
+- **Android Notes**:
 
   1. If you have another SDK installed which already has Google Play Services installed or uses [PlayServicesResolver](https://github.com/googlesamples/unity-jar-resolver), you may need to delete duplicate libraries:
 
@@ -86,6 +86,8 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 # Table of contents
 
 - [SDK Integration](#sdk-integration)
+  - [Google Play](#google-play)
+  - [Amazon store](#amazon)
   - [OAID](#oaid)
     - [MSA OAID](#msa-oaid)
     - [Huawei OAID](#huawei-oaid)
@@ -93,6 +95,8 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [App Initilization](#initialization)
   - [App Store](#app-store)
   - [ATTrackingManager (iOS)](#attrackingmanager)
+    - [Displaying an ATT permission prompt](#displayattprompt)
+      - [Configuring a user tracking description](#configureusertrackdescription)
   - [SKAdNetwork and Conversion Value](#skadnetwork-cv)
   - [SKAdNetwork iOS 15+ Postbacks](#skadnetwork-ios15)
   - [GDPR](#gdpr)
@@ -119,6 +123,28 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 ```
 
 > We have a demo project - [tenjin-unity-sdk-demo](https://github.com/tenjin/tenjin-unity-sdk-demo) that demonstrates the integration of tenjin-unity-sdk. You can this project as example to understand how to integrate the tenjin-unity-sdk.
+
+## <a id="google-play"></a>Google Play
+By default, <b>unspecified</b> is the default App Store. Update the app store value to <b>googleplay</b>, if you distribute your app on Google Play store.
+
+Set your App Store Type value to `googleplay`:
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
+
+instance.SetAppStoreType(AppStoreType.googleplay);
+```
+
+## <a id="amazon"></a>Amazon store
+By default, <b>unspecified</b> is the default App Store. Update the app store value to <b>amazon</b>, if you distribute your app on Amazon store.
+
+Set your App Store Type value to `amazon`:
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
+
+instance.SetAppStoreType(AppStoreType.amazon);
+```
 
 ## <a id="oaid"></a>OAID and other Android App Stores
 
@@ -278,6 +304,26 @@ public class TenjinExampleScript : MonoBehaviour {
     }
 }
 ```
+
+### <a id="displayattprompt"></a>Displaying an ATT permission prompt
+
+To comply with Apple’s ATT guidelines, you must provide a description for the ATT permission prompt, then implement the permission request in your application.
+
+> Note: You must implement the permission request prior to serving ads in your game.
+
+#### <a id="configureusertrackdescription"></a> Configuring a user tracking description
+Apple requires a description for the ATT permission prompt. You need to set the description with the `NSUserTrackingUsageDescription` key in the `Info.plist` file of your Xcode project. You need to provide a message that informs the user why you are requesting permission to use device tracking data:
+
+- In your Xcode project navigator, open the `Info.plist` file.
+- Click the add button (+) beside any key in the property list editor to create a new property key.
+- Enter the key name `NSUserTrackingUsageDescription`.
+- Select a string value type.
+- Enter the app tracking transparency message in the value field. Some examples include:
+    - "We will use your data to provide a better and personalized ad experience."
+    - "We try to show ads for apps and products that will be most interesting to you based on the apps you use, the device you are on, and the country you are in."
+    - "We try to show ads for apps and products that will be most interesting to you based on the apps you use."
+
+> Note: Apple provides specific [app store guidelines](https://developer.apple.com/app-store/user-privacy-and-data-use/) that define acceptable use and messaging for all end-user facing privacy-related features. Tenjin does not provide legal advice. Therefore, the information on this page is not a substitute for seeking your own legal counsel to determine the legal requirements of your business and processes, and how to address them.
 
 ## <a id="skadnetwork-cv"></a> SKAdNetwork and Conversion Values
 
