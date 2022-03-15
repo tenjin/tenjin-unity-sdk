@@ -160,3 +160,11 @@ v1.12.9
 
 - Android v1.12.8
 - iOS v1.12.7
+
+v1.12.10
+----
+* Downgrade minimum supported Unity Editor version from 2019.4.21f1 to 2019.2.21f1
+* AppLovin Impression Level Ad Revenue
+
+- Android v1.12.11
+- iOS v1.12.9
