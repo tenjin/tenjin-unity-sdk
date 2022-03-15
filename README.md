@@ -107,6 +107,9 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Deferred Deeplinks](#deferred-deeplinks)
   - [Server-to-server integration](#server-to-server)
   - [App Subversion](#subversion)
+  - [Impression Level Ad Revenue Integration](#ilrd)
+    - [MoPub Impression Level Ad Revenue Integration](#mopub)
+    - [AppLovin Impression Level Ad Revenue Integration](#applovin)
 - [Testing](#testing)
 
 # <a id="sdk-integration"></a> SDK Integration
@@ -703,8 +706,17 @@ instance.AppendAppSubversion(8888);
 instance.Connect();
 ```
 
-MoPub Impression Level Revenue Data (ILRD):
--------
+# <a id="ilrd"></a>Impression Level Ad Revenue Integration
+
+Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from,
+- MoPub
+- AppLovin
+
+This feature allows you to receive events which correspond to your ad revenue is affected by each advertisment show to a user. To enable this feature, follow the below instuctions.
+
+## <a id="mopub"></a>MoPub Impression Level Ad Revenue Integration
+> *NOTE* Please ensure you have the latest MoPub SDK installed (>5.18) and Impression Level Ad Revenue is enabled for your MoPub Account
+
 The Tenjin SDK can listen tp MoPub ILRD ad impressions and send revenue events to Tenjin.  This integraton will send revenue related for each ad impression served from MoPub.  Here are the steps to integrate:
 
 1. Install the MoPub Unity SDK: https://developers.mopub.com/publishers/unity/
@@ -756,7 +768,7 @@ public class MopubBehavior : MonoBehaviour
     private void OnSdkInitializedEvent(string obj)
     {
         MoPub.LoadBannerPluginsForAdUnits(new string[] { _banner });
-        MoPub.RequestBanner(_banner, MoPub.AdPosition.TopCenter);
+        MoPub.RequestBanner(_banner,  MoPub.AdPosition.TopCenter, MoPub.MaxAdSize.Width336Height280);
         MoPubManager.OnImpressionTrackedEvent += OnImpression;
     }
 
@@ -767,7 +779,7 @@ public class MopubBehavior : MonoBehaviour
 
     private void ShowBanner(string arg1, float arg2)
     {
-        MoPub.RequestBanner(_banner, MoPub.AdPosition.TopCenter);
+        MoPub.RequestBanner(_banner,  MoPub.AdPosition.TopCenter, MoPub.MaxAdSize.Width336Height280);
     }
 
     public void GoBack()
@@ -788,23 +800,101 @@ Here is an example impression level revenue data entry from MoPub:
 | mopub[currency] |	USD  |
 | mopub[id] |	d455b90159ae4f12928b97479d8b4bb7_0004d29f00fa8718  |
 | mopub[publisher_revenue] |	0.0005  |
-| mopub[app_version]	1.0  |
+| mopub[app_version] | 1.0  |
 | mopub[country] | US |
 | mopub[adunit_id] |	5a8d9e2784884953a0436a27f7238469 |
 
+## <a id="applovin"></a>AppLovin Impression Level Ad Revenue Integration
+> *NOTE* Please ensure you have the latest AppLovin Unity SDK installed (>AppLovin-MAX-Unity-Plugin-5.1.2-Android-11.1.2-iOS-11.1.1)
 
-ProGuard Settings:
-----
-```java
--keep class com.tenjin.** { *; }
--keep public class com.google.android.gms.ads.identifier.** { *; }
--keep public class com.google.android.gms.common.** { *; }
--keep public class com.android.installreferrer.** { *; }
--keep class * extends java.util.ListResourceBundle {
-    protected Object[][] getContents();
-}
--keepattributes *Annotation*
+The Tenjin SDK can listen tp AppLovin ILRD ad impressions and send revenue events to Tenjin.  This integraton will send revenue related for each ad impression served from AppLovin.  Here are the steps to integrate:
+
+1. Install the AppLovin Unity SDK: https://dash.applovin.com/documentation/mediation/unity/getting-started/integration#download-the-latest-unity-plugin
+2. When initializing the Tenin SDK, subscribe to AppLovin Impressions:
+
+```csharp
+var tenjin = Tenjin.getInstance("<API_KEY>");
+tenjin.Connect();
+tenjin.SubscribeAppLovinImpressions();
 ```
+
+Below is an example AppLovin Banner integration and subscribing to impression events.
+
+```csharp
+public class MopubBehavior : MonoBehaviour
+{
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    string _banner = "<BANNER_AD_ID>";
+#elif UNITY_IPHONE && !UNITY_EDITOR
+    string _banner = "<BANNER_AD_ID>";
+#else
+    string _banner = "<BANNER_AD_ID>";
+#endif
+
+
+    void Start()
+    {
+        InitializeAppLovin();
+    }
+
+    private void InitializeAppLovin()
+    {
+        var tenjin = Tenjin.getInstance("<API_KEY>");
+        tenjin.Connect();
+        tenjin.SubscribeAppLovinImpressions();
+
+        MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) =>
+        {
+            // AppLovin SDK is initialized, start loading ads
+        };
+        MaxSdk.SetSdkKey(applovinKey);
+        MaxSdk.SetUserId("USER_ID");
+        MaxSdk.InitializeSdk();
+        ShowBanner();
+    }
+
+    public void InitializeBannerAds()
+    {
+        MaxSdk.CreateBanner(_banner, MaxSdkBase.BannerPosition.TopCenter);
+        MaxSdk.SetBannerBackgroundColor(_banner, Color.yellow);
+    }
+
+    private void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo arg2)
+    {
+        Debug.Log($"Received impression data - {arg2.Revenue} - {arg2.AdUnitIdentifier} - {arg2.NetworkPlacement}");
+    }
+
+    private void ShowBanner()
+    {
+        InitializeBannerAds();
+        MaxSdk.ShowBanner(_banner);
+        MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+    }
+
+    public void GoBack()
+    {
+        MaxSdk.HideBanner(_banner);
+    }
+```
+
+Here is an example impression level revenue data entry from AppLovin:
+
+| Parameter  | Example |
+| ------------- | ------------- |
+| max[creative_id] | 2813803997 |
+| max[placement] | placementBanner |
+| max[format] | BANNER |
+| max[country] | DE |
+| max[ad_revenue_currency] | USD |
+| max[network_placement] | banner_regular |
+| max[publisher_revenue_decimal] | 0.000047455200000000006 |
+| max[revenue_precision] | exact |
+| max[ad_unit_id] | a7d1aa174c93c716 |
+| max[publisher_revenue_micro] | 47.455200000000005 |
+| max[revenue] | 4.7455200000000006E-5 |
+| max[network_name] | APPLOVIN_EXCHANGE |
+
 # <a id="testing"></a>Testing
 
 You can verify if the integration is working through our <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">Live Test Device Data Tool</a>. Add your `advertising_id` or `IDFA/GAID` to the list of test devices. You can find this under Support -> <a href="https://www.tenjin.io/dashboard/debug_app_users">Test Devices</a>. Go to the <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">SDK Live page</a> and send a test events from your app. You should see a live events come in:
