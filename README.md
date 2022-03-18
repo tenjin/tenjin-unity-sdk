@@ -110,6 +110,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Impression Level Ad Revenue Integration](#ilrd)
     - [MoPub Impression Level Ad Revenue Integration](#mopub)
     - [AppLovin Impression Level Ad Revenue Integration](#applovin)
+    - [IronSource Impression Level Ad Revenue Integration](#ironsource)
 - [Testing](#testing)
 
 # <a id="sdk-integration"></a> SDK Integration
@@ -711,6 +712,7 @@ instance.Connect();
 Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from,
 - MoPub
 - AppLovin
+- IronSource
 
 This feature allows you to receive events which correspond to your ad revenue is affected by each advertisment show to a user. To enable this feature, follow the below instuctions.
 
@@ -807,13 +809,13 @@ Here is an example impression level revenue data entry from MoPub:
 ## <a id="applovin"></a>AppLovin Impression Level Ad Revenue Integration
 > *NOTE* Please ensure you have the latest AppLovin Unity SDK installed (>AppLovin-MAX-Unity-Plugin-5.1.2-Android-11.1.2-iOS-11.1.1)
 
-The Tenjin SDK can listen tp AppLovin ILRD ad impressions and send revenue events to Tenjin.  This integraton will send revenue related for each ad impression served from AppLovin.  Here are the steps to integrate:
+The Tenjin SDK can listen to AppLovin ILRD ad impressions and send revenue events to Tenjin.  This integraton will send revenue related for each ad impression served from AppLovin.  Here are the steps to integrate:
 
 1. Install the AppLovin Unity SDK: https://dash.applovin.com/documentation/mediation/unity/getting-started/integration#download-the-latest-unity-plugin
 2. When initializing the Tenin SDK, subscribe to AppLovin Impressions:
 
 ```csharp
-var tenjin = Tenjin.getInstance("<API_KEY>");
+var tenjin = Tenjin.getInstance("<YOUR-TENJIN-API_KEY>");
 tenjin.Connect();
 tenjin.SubscribeAppLovinImpressions();
 ```
@@ -821,7 +823,7 @@ tenjin.SubscribeAppLovinImpressions();
 Below is an example AppLovin Banner integration and subscribing to impression events.
 
 ```csharp
-public class MopubBehavior : MonoBehaviour
+public class AppLovinBehavior : MonoBehaviour
 {
 
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -840,7 +842,7 @@ public class MopubBehavior : MonoBehaviour
 
     private void InitializeAppLovin()
     {
-        var tenjin = Tenjin.getInstance("<API_KEY>");
+        var tenjin = Tenjin.getInstance("<YOUR-TENJIN-API_KEY>");
         tenjin.Connect();
         tenjin.SubscribeAppLovinImpressions();
 
@@ -894,6 +896,85 @@ Here is an example impression level revenue data entry from AppLovin:
 | max[publisher_revenue_micro] | 47.455200000000005 |
 | max[revenue] | 4.7455200000000006E-5 |
 | max[network_name] | APPLOVIN_EXCHANGE |
+
+## <a id="ironsource"></a>IronSource Impression Level Ad Revenue Integration
+> *NOTE* Please ensure you have the latest IronSource Unity SDK installed (>IronSource_IntegrationManager_v7.2.1)
+
+The Tenjin SDK can listen to IronSource ILRD ad impressions and send revenue events to Tenjin.  This integraton will send revenue related for each ad impression served from IronSource.  Here are the steps to integrate:
+
+1. Install the IronSource Unity SDK: https://developers.is.com/ironsource-mobile/unity/unity-plugin/#step-2
+2. When initializing the Tenin SDK, subscribe to IronSource Impressions:
+
+```csharp
+var tenjin = Tenjin.getInstance("<API_KEY>");
+tenjin.Connect();
+tenjin.SubscribeIronSourceImpressions();
+```
+
+Below is an example IronSource Banner integration and subscribing to impression events.
+
+```csharp
+public class IronSourceBehavior : MonoBehaviour
+{
+    void Start()
+    {
+        InitializeIronSource();
+    }
+    private void InitializeIronSource()
+    {
+        var tenjin = Tenjin.getInstance("<YOUR-TENJIN-API_KEY>");
+        t.Connect();
+        t.SubscribeIronSourceImpressions();
+
+        IronSource.Agent.init ("<YOUR-IRONSOURCE-API-KEY>");
+        IronSourceEvents.onSdkInitializationCompletedEvent += SdkInitializationCompletedEvent;
+        // Banner ad
+        IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.TOP);
+        //Add ImpressionSuccess Event
+        IronSourceEvents.onImpressionSuccessEvent += ImpressionSuccessEvent;
+    }
+
+    void SdkInitializationCompletedEvent()
+    {
+        // IronSource SDK is initialized, start loading ads
+    }
+
+    void OnApplicationPause(bool isPaused)
+    {                 
+        IronSource.Agent.onApplicationPause(isPaused);
+    }
+
+    void ImpressionSuccessEvent(IronSourceImpressionData arg1)
+    {
+        Debug.Log($"Received impression data - {arg1.revenue} - {arg1.adUnit} - {arg1.placement}");
+    }
+
+    public void GoBack()
+    {
+      // Hide banner ad
+        IronSource.Agent.hideBanner();
+    }
+```
+
+Here is an example impression level revenue data entry from IronSource:
+
+| Parameter  | Example |
+| ------------- | ------------- |
+| ironsource[auction_id] | 4a9fba00-a6c6-11ec-b5a2-817ec8dcf90b_1977367705|
+| ironsource[segment_name] | String |
+| ironsource[precision] | BID |
+| ironsource[revenue] | 0.099 |
+| ironsource[instance_id] | 4334854 |
+| ironsource[lifetime_revenue] | 0.099 |
+| ironsource[publisher_revenue_decimal] | 0.099 |
+| ironsource[placement] | DefaultBanner |
+| ironsource[ab] | A |
+| ironsource[encrypted_cpm] | String |
+| ironsource[country] | DE |
+| ironsource[ad_unit] | banner |
+| ironsource[ad_network] | ironsource |
+| ironsource[instance_name] | Bidding |
+| ironsource[publisher_revenue_micro] | 99000 |
 
 # <a id="testing"></a>Testing
 

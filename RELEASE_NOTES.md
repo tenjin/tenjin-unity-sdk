@@ -168,3 +168,10 @@ v1.12.10
 
 - Android v1.12.11
 - iOS v1.12.9
+
+v1.12.11
+----
+* IronSource Impression Level Ad Revenue
+
+- Android v1.12.13
+- iOS v1.12.11
