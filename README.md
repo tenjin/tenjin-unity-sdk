@@ -687,7 +687,7 @@ Below are the parameters, if available, that are returned to the deferred deepli
 
 ## <a id="server-to-server"></a>Server-to-server integration
 
-Tenjin offers server-to-server integration. If you want to access to the documentation, please send email to support@tenjin.com.
+Tenjin offers server-to-server integration, which is a paid feature. If you want to access to the documentation, please send email to support@tenjin.com and discuss the pricing.
 
 ## <a id="subversion"></a>App Subversion parameter for A/B Testing (requires DataVault)
 
@@ -708,6 +708,8 @@ Tenjin supports the ability to integrate with the Impression Level Ad Revenue (I
 - IronSource
 
 This feature allows you to receive events which correspond to your ad revenue is affected by each advertisement show to a user. To enable this feature, follow the below instructions.
+
+> *NOTE*: ILRD is a paid product, please contact your Tenjin account manager to discuss the price.
 
 ## <a id="applovin"></a>AppLovin Impression Level Ad Revenue Integration
 > *NOTE*, Please ensure you have the latest AppLovin Unity SDK installed (\>AppLovin-MAX-Unity-Plugin-5.1.2-Android-11.1.2-iOS-11.1.1)
