@@ -687,7 +687,7 @@ Below are the parameters, if available, that are returned to the deferred deepli
 
 ## <a id="server-to-server"></a>Server-to-server integration
 
-Tenjin offers server-to-server integration. If you want to access to the documentation, please send email to support@tenjin.com.
+Tenjin offers server-to-server integration, which is a paid feature. If you want to access to the documentation, please send email to support@tenjin.com and discuss the pricing.
 
 ## <a id="subversion"></a>App Subversion parameter for A/B Testing (requires DataVault)
 
