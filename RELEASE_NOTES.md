@@ -175,3 +175,10 @@ v1.12.11
 
 - Android v1.12.13
 - iOS v1.12.11
+
+v1.12.12
+----
+* HyperBid Impression Level Ad Revenue
+
+- Android v1.12.13
+- iOS v1.12.12

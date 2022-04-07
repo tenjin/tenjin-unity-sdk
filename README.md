@@ -106,7 +106,8 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Impression Level Ad Revenue Integration][27]
 	- [AppLovin Impression Level Ad Revenue Integration][28]
 	- [IronSource Impression Level Ad Revenue Integration][29]
-- [Testing][30]
+	- [HyperBid Impression Level Ad Revenue Integration][30]
+- [Testing][31]
 
 # <a id="sdk-integration"></a> SDK Integration
 
@@ -121,7 +122,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
  /Assets/Plugins/Android/installreferrer-*.aar
 ```
 
-> We have a demo project - [tenjin-unity-sdk-demo][31] that demonstrates the integration of tenjin-unity-sdk. You can this project as example to understand how to integrate the tenjin-unity-sdk.
+> We have a demo project - [tenjin-unity-sdk-demo][32] that demonstrates the integration of tenjin-unity-sdk. You can this project as example to understand how to integrate the tenjin-unity-sdk.
 
 ## <a id="google-play"></a>Google Play
 By default, <b>unspecified</b> is the default App Store. Update the app store value to <b>googleplay</b>, if you distribute your app on Google Play Store.
@@ -322,7 +323,7 @@ Apple requires a description for the ATT permission prompt. You need to set the 
 	- "We try to show ads for apps and products that will be most interesting to you based on the apps you use, the device you are on, and the country you are in."
 	- "We try to show ads for apps and products that will be most interesting to you based on the apps you use."
 
-> Note: Apple provides specific [app store guidelines][32] that define acceptable use and messaging for all end-user facing privacy-related features. Tenjin does not provide legal advice. Therefore, the information on this page is not a substitute for seeking your own legal counsel to determine the legal requirements of your business and processes, and how to address them.
+> Note: Apple provides specific [app store guidelines][33] that define acceptable use and messaging for all end-user facing privacy-related features. Tenjin does not provide legal advice. Therefore, the information on this page is not a substitute for seeking your own legal counsel to determine the legal requirements of your business and processes, and how to address them.
 
 ## <a id="skadnetwork-cv"></a> SKAdNetwork and Conversion Values
 
@@ -377,7 +378,7 @@ public class TenjinExampleScript : MonoBehaviour {
 
 ## <a id="skadnetwork-ios15"></a>SKAdNetwork and iOS 15+ Advertiser Postbacks
 
-To specify Tenjin as the destination for your [SK Ad Network postbacks][33], do the following:
+To specify Tenjin as the destination for your [SK Ad Network postbacks][34], do the following:
 
 1. Select `Info.plist` in the Project navigator in Xcode.
 2. Click the Add button (+) beside a key in the property list editor and press Return.
@@ -385,11 +386,11 @@ To specify Tenjin as the destination for your [SK Ad Network postbacks][33], do 
 4. Choose String from the pop-up menu in the Type column.
 5. Enter `https://tenjin-skan.com`
 
-These steps are adapted from Apple's instructions at [https://developer.apple.com/documentation/storekit/skadnetwork/configuring\_an\_advertised\_app][34].
+These steps are adapted from Apple's instructions at [https://developer.apple.com/documentation/storekit/skadnetwork/configuring\_an\_advertised\_app][35].
 
 **NOTE**: If you are using AppLovin MAX for mediation, their Unity SDK will overwrite any value you entered for `NSAdvertisingAttributionReportEndpoint` with their own URL during the build process. You should be able to set the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com` in XCode after it's been overwritten in the following process.
 
-1. Export the iOS app following the steps Unity outlines [here][35].
+1. Export the iOS app following the steps Unity outlines [here][36].
 
 2. After you build the iOS app, you should have an XCode project that has this structure: https://docs.unity3d.com/Manual/StructureOfXcodeProject.html
 
@@ -437,7 +438,6 @@ boolean CheckOptInValue()
 	- `advertising_id`
   - For iOS
 	- `developer_device_id`
-		  
 - If you are targeting IMEI and/or OAID Ad Networks for Android, add:
 
   - `imei`
@@ -477,31 +477,31 @@ instance.Connect();
 | Param                 | Description                  | Platform | Reference                                 |
 | --------------------- | ---------------------------- | -------- | ----------------------------------------- |
 | ip\_address           | IP Address                   | All      |                                           |
-| advertising\_id       | Device Advertising ID        | All      | [Android][36], [iOS][37]                  |
-| developer\_device\_id | ID for Vendor                | iOS      | [iOS][38]                                 |
-| oaid                  | Open Advertising ID          | Android  | [Android][39]                             |
-| imei                  | Device IMEI                  | Android  | [Android][40]                             |
-| limit\_ad\_tracking   | limit ad tracking enabled    | All      | [Android][41], [iOS][42]                  |
+| advertising\_id       | Device Advertising ID        | All      | [Android][37], [iOS][38]                  |
+| developer\_device\_id | ID for Vendor                | iOS      | [iOS][39]                                 |
+| oaid                  | Open Advertising ID          | Android  | [Android][40]                             |
+| imei                  | Device IMEI                  | Android  | [Android][41]                             |
+| limit\_ad\_tracking   | limit ad tracking enabled    | All      | [Android][42], [iOS][43]                  |
 | platform              | platform                     | All      | iOS or Android                            |
-| referrer              | Google Play Install Referrer | Android  | [Android][43]                             |
-| iad                   | Apple Search Ad parameters   | iOS      | [iOS][44]                                 |
-| os\_version           | operating system version     | All      | [Android][45], [iOS][46]                  |
-| device                | device name                  | All      | [Android][47], [iOS (hw.machine)][48]     |
-| device\_manufacturer  | device manufactuer           | Android  | [Android][49]                             |
-| device\_model         | device model                 | All      | [Android][50], [iOS (hw.model)][51]       |
-| device\_brand         | device brand                 | Android  | [Android][52]                             |
-| device\_product       | device product               | Android  | [Android][53]                             |
-| device\_model\_name   | device machine               | iOS      | [iOS (hw.model)][54]                      |
-| device\_cpu           | device cpu name              | iOS      | [iOS (hw.cputype)][55]                    |
-| carrier               | phone carrier                | Android  | [Android][56]                             |
-| connection\_type      | cellular or wifi             | Android  | [Android][57]                             |
-| screen\_width         | device screen width          | Android  | [Android][58]                             |
-| screen\_height        | device screen height         | Android  | [Android][59]                             |
-| os\_version\_release  | operating system version     | All      | [Android][60], [iOS][61]                  |
-| build\_id             | build ID                     | All      | [Android][62], [iOS (kern.osversion)][63] |
-| locale                | device locale                | All      | [Android][64], [iOS][65]                  |
-| country               | locale country               | All      | [Android][66], [iOS][67]                  |
-| timezone              | timezone                     | All      | [Android][68], [iOS][69]                  |
+| referrer              | Google Play Install Referrer | Android  | [Android][44]                             |
+| iad                   | Apple Search Ad parameters   | iOS      | [iOS][45]                                 |
+| os\_version           | operating system version     | All      | [Android][46], [iOS][47]                  |
+| device                | device name                  | All      | [Android][48], [iOS (hw.machine)][49]     |
+| device\_manufacturer  | device manufactuer           | Android  | [Android][50]                             |
+| device\_model         | device model                 | All      | [Android][51], [iOS (hw.model)][52]       |
+| device\_brand         | device brand                 | Android  | [Android][53]                             |
+| device\_product       | device product               | Android  | [Android][54]                             |
+| device\_model\_name   | device machine               | iOS      | [iOS (hw.model)][55]                      |
+| device\_cpu           | device cpu name              | iOS      | [iOS (hw.cputype)][56]                    |
+| carrier               | phone carrier                | Android  | [Android][57]                             |
+| connection\_type      | cellular or wifi             | Android  | [Android][58]                             |
+| screen\_width         | device screen width          | Android  | [Android][59]                             |
+| screen\_height        | device screen height         | Android  | [Android][60]                             |
+| os\_version\_release  | operating system version     | All      | [Android][61], [iOS][62]                  |
+| build\_id             | build ID                     | All      | [Android][63], [iOS (kern.osversion)][64] |
+| locale                | device locale                | All      | [Android][65], [iOS][66]                  |
+| country               | locale country               | All      | [Android][67], [iOS][68]                  |
+| timezone              | timezone                     | All      | [Android][69], [iOS][70]                  |
 
 <br/>
 
@@ -881,6 +881,109 @@ Here is an example impression level revenue data entry from IronSource:
 | ironsource[instance\_name] | Bidding |
 | ironsource[publisher\_revenue\_micro] | 99000 |
 
+## <a id="hyperbid"></a>HyperBid Impression Level Ad Revenue Integration
+> *NOTE*, Please ensure you have the latest HyperBid Unity SDK installed (\> HyperBid_Unity_Release_Android&iOS_5.7.79)
+
+The Tenjin SDK can listen to HyperBid ILRD ad impressions and send revenue events to Tenjin.  This integration will send revenue related for each ad impression served from HyperBid.  Here are the steps to integrate:
+
+1. Install the HyperBid Unity SDK: [https://docs.hyperbid.com/#/en-us/unity/download/package?id=hyperbid-unity-sdk-integration-tool][71]
+2. When initializing the Tenjin SDK, subscribe to HyperBid Impressions:
+
+```csharp
+var tenjin = Tenjin.getInstance("<API_KEY>");
+tenjin.Connect();
+tenjin.SubscribeHyperBidImpressions();
+```
+
+Below is an example of HyperBid Banner integration and subscribing to impression events.
+
+```csharp
+public class HyperBidBehavior : MonoBehaviour
+{
+    void Start()
+    {
+        InitializeHyperBid();
+    }
+    private void InitializeHyperBid()
+    {
+        var tenjin = Tenjin.getInstance("<YOUR-TENJIN-API_KEY>");
+        t.Connect();
+        t.SubscribeHyperBidImpressions();
+
+        HyperBid.Api.HBSDKAPI.setChannel("<YOUR-APP-CHANNEL>");
+        HyperBid.Api.HBSDKAPI.setSubChannel("<YOUR-APP-SUB-CHANNEL>");
+        HyperBid.Api.HBSDKAPI.setLogDebug(true);
+        HyperBid.Api.HBSDKAPI.setGDPRLevel(HyperBid.Api.HBSDKAPI.PERSONALIZED);
+        HyperBid.Api.HBSDKAPI.initSDK("<YOUR-APP_ID>", "<API_KEY>");
+        // Load Banner
+        Dictionary<string, object> jsonmap = new Dictionary<string,object>();
+        HyperBid.Api.HBSize bannerSize = new HyperBid.Api.HBSize(320, 50, true);
+        jsonmap.Add(HyperBid.Api.HBBannerAdLoadingExtra.kHBBannerAdLoadingExtraBannerAdSizeStruct, bannerSize);
+        HyperBid.Api.HBBannerAd.Instance.loadBannerAd("<YOUR-PLACEMENT-BANNER-AD-ID>", jsonmap);
+        // Show Banner
+        HyperBid.Api.HBBannerAd.Instance.showBannerAd("<YOUR-PLACEMENT-BANNER-AD-ID>", HyperBid.Api.HBBannerAdLoadingExtra.kHBBannerAdShowingPositionTop);
+        //Ad Impression Data Event
+        HyperBid.Api.HBInterstitialAd.Instance.events.onAdShowEvent += (sender, args) => 
+        {
+            string impressionData = args.callbackInfo.getOriginJSONString();
+            Debug.Log($"Received HBInterstitialAd impression data - {impressionData}");
+        };
+        HyperBid.Api.HBBannerAd.Instance.events.onAdImpressEvent += (sender, args) => 
+        {
+            string impressionData = args.callbackInfo.getOriginJSONString();
+            Debug.Log($"Received HBBannerAd impression data - {impressionData}");
+        };
+        HyperBid.Api.HBRewardedVideo.Instance.events.onAdVideoStartEvent += (sender, args) => 
+        {
+            string impressionData = args.callbackInfo.getOriginJSONString();
+            Debug.Log($"Received HBRewardedVideo impression data - {impressionData}");
+        };
+        HyperBid.Api.HBNativeAd.Instance.events.onAdImpressEvent += (sender, args) => 
+        {
+            string impressionData = args.callbackInfo.getOriginJSONString();
+            Debug.Log($"Received HBNativeAd impression data - {impressionData}");
+        };
+    }
+
+    public void GoBack()
+    {
+      // Hide banner ad
+        HyperBid.Api.HBBannerAd.Instance.hideBannerAd("<YOUR-PLACEMENT-BANNER-AD-ID>");
+    }
+```
+
+Here is an example impression level revenue data entry from HyperBid:
+
+| Parameter  | Example |
+| ------------- | ------------- |
+| hyperbid[adsource_index] | 0 |
+| hyperbid[ad_network_type] | String |
+| hyperbid[is_header_bidding_adsource] | Int |
+| hyperbid[ecpm_precision] | String |
+| hyperbid[adsource_id] | 5656 |
+| hyperbid[ecpm] | 1 |
+| hyperbid[scenario_id] | String |
+| hyperbid[custom_rule] | String |
+| hyperbid[sub_channel] | testSubChannel |
+| hyperbid[publisher_revenue_micro] | 1000 |
+| hyperbid[publisher_revenue] | 0.001 |
+| hyperbid[scenario_reward_name] | String |
+| hyperbid[channel] | testChannel |
+| hyperbid[hyper_bid_ad_format] | String |
+| hyperbid[segment_id] | 0 |
+| hyperbid[country] | DE |
+| hyperbid[show_id] | String |
+| hyperbid[scenario_reward_number] | 0 |
+| hyperbid[network_placement_id] | ca-app-pub-3940256099942544%2F6300978111 |
+| hyperbid[hyper_bid_placement_id] | String |
+| hyperbid[ecpm_level] | 1 |
+| hyperbid[reward_user_custom_data] | String |
+| hyperbid[network_firm_id] | 2 |
+| hyperbid[currency] | USD |
+| hyperbid[publisher_revenue_decimal] | 0.001 |
+| hyperbid[precision] | String |
+
+
 # <a id="testing"></a>Testing
 
 You can verify if the integration is working through our <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">Live Test Device Data Tool</a>. Add your `advertising_id` or `IDFA/GAID` to the list of test devices. You can find this under Support -\> <a href="https://www.tenjin.io/dashboard/debug_app_users">Test Devices</a>. Go to the <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">SDK Live page</a> and send the test events from your app. You should see live events come in:
@@ -920,45 +1023,47 @@ You can verify if the integration is working through our <a href="https://www.te
 [27]:	#ilrd
 [28]:	#applovin
 [29]:	#ironsource
-[30]:	#testing
-[31]:	https://github.com/tenjin/tenjin-unity-sdk-demo
-[32]:	https://developer.apple.com/app-store/user-privacy-and-data-use/
-[33]:	https://developer.apple.com/documentation/storekit/skadnetwork/receiving_ad_attributions_and_postbacks
-[34]:	https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app
-[35]:	https://docs.unity3d.com/Manual/iphone-GettingStarted.html
-[36]:	https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.html#getAdvertisingIdInfo(android.content.Context)
-[37]:	https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614151-advertisingidentifier
-[38]:	https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
-[39]:	http://www.msa-alliance.cn/col.jsp?id=120
-[40]:	https://developer.android.com/reference/android/telephony/TelephonyManager#getImei()
-[41]:	https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.Info.html#isLimitAdTrackingEnabled()
-[42]:	https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614148-isadvertisingtrackingenabled
-[43]:	https://developer.android.com/google/play/installreferrer/index.html
-[44]:	https://searchads.apple.com/advanced/help/measure-results/#attribution-api
-[45]:	https://developer.android.com/reference/android/os/Build.VERSION.html#SDK_INT
-[46]:	https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion
-[47]:	https://developer.android.com/reference/android/os/Build.html#DEVICE
-[48]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
-[49]:	https://developer.android.com/reference/android/os/Build.html#MANUFACTURER
-[50]:	https://developer.android.com/reference/android/os/Build.html#MODEL
-[51]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
-[52]:	https://developer.android.com/reference/android/os/Build.html#BRAND
-[53]:	https://developer.android.com/reference/android/os/Build.html#PRODUCT
-[54]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
+[30]:	#hyperbid
+[31]:	#testing
+[32]:	https://github.com/tenjin/tenjin-unity-sdk-demo
+[33]:	https://developer.apple.com/app-store/user-privacy-and-data-use/
+[34]:	https://developer.apple.com/documentation/storekit/skadnetwork/receiving_ad_attributions_and_postbacks
+[35]:	https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app
+[36]:	https://docs.unity3d.com/Manual/iphone-GettingStarted.html
+[37]:	https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.html#getAdvertisingIdInfo(android.content.Context)
+[38]:	https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614151-advertisingidentifier
+[39]:	https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
+[40]:	http://www.msa-alliance.cn/col.jsp?id=120
+[41]:	https://developer.android.com/reference/android/telephony/TelephonyManager#getImei()
+[42]:	https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.Info.html#isLimitAdTrackingEnabled()
+[43]:	https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614148-isadvertisingtrackingenabled
+[44]:	https://developer.android.com/google/play/installreferrer/index.html
+[45]:	https://searchads.apple.com/advanced/help/measure-results/#attribution-api
+[46]:	https://developer.android.com/reference/android/os/Build.VERSION.html#SDK_INT
+[47]:	https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion
+[48]:	https://developer.android.com/reference/android/os/Build.html#DEVICE
+[49]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
+[50]:	https://developer.android.com/reference/android/os/Build.html#MANUFACTURER
+[51]:	https://developer.android.com/reference/android/os/Build.html#MODEL
+[52]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
+[53]:	https://developer.android.com/reference/android/os/Build.html#BRAND
+[54]:	https://developer.android.com/reference/android/os/Build.html#PRODUCT
 [55]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
-[56]:	https://developer.android.com/reference/android/telephony/TelephonyManager.html#getSimOperatorName()
-[57]:	https://developer.android.com/reference/android/net/ConnectivityManager.html#getActiveNetworkInfo()
-[58]:	https://developer.android.com/reference/android/util/DisplayMetrics.html#widthPixels
-[59]:	https://developer.android.com/reference/android/util/DisplayMetrics.html#heightPixels
-[60]:	https://developer.android.com/reference/android/os/Build.VERSION.html#RELEASE
-[61]:	https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion
-[62]:	https://developer.android.com/reference/android/os/Build.html
-[63]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
-[64]:	https://developer.android.com/reference/java/util/Locale.html#getDefault()
-[65]:	https://developer.apple.com/documentation/foundation/nslocalekey
-[66]:	https://developer.android.com/reference/java/util/Locale.html#getDefault()
-[67]:	https://developer.apple.com/documentation/foundation/nslocalecountrycode
-[68]:	https://developer.android.com/reference/java/util/TimeZone.html
-[69]:	https://developer.apple.com/documentation/foundation/nstimezone/1387209-localtimezone
+[56]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
+[57]:	https://developer.android.com/reference/android/telephony/TelephonyManager.html#getSimOperatorName()
+[58]:	https://developer.android.com/reference/android/net/ConnectivityManager.html#getActiveNetworkInfo()
+[59]:	https://developer.android.com/reference/android/util/DisplayMetrics.html#widthPixels
+[60]:	https://developer.android.com/reference/android/util/DisplayMetrics.html#heightPixels
+[61]:	https://developer.android.com/reference/android/os/Build.VERSION.html#RELEASE
+[62]:	https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion
+[63]:	https://developer.android.com/reference/android/os/Build.html
+[64]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
+[65]:	https://developer.android.com/reference/java/util/Locale.html#getDefault()
+[66]:	https://developer.apple.com/documentation/foundation/nslocalekey
+[67]:	https://developer.android.com/reference/java/util/Locale.html#getDefault()
+[68]:	https://developer.apple.com/documentation/foundation/nslocalecountrycode
+[69]:	https://developer.android.com/reference/java/util/TimeZone.html
+[70]:	https://developer.apple.com/documentation/foundation/nstimezone/1387209-localtimezone
+[71]:	https://docs.hyperbid.com/#/en-us/unity/download/package?id=hyperbid-unity-sdk-integration-tool
 
 [image-1]:	https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events_2.png
