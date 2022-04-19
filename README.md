@@ -711,7 +711,7 @@ Tenjin supports the ability to integrate with the Impression Level Ad Revenue (I
 This feature allows you to receive events which correspond to your ad revenue is affected by each advertisement show to a user. To enable this feature, follow the below instructions.
 
 <div style="padding: 15px; border: 1px solid transparent; border-color: transparent; margin-bottom: 20px; border-radius: 4px; color: #a94442; background-color: #f2dede; border-color: #ebccd1;">
-*NOTE*: ILRD is a paid feature, so please contact your Tenjin account manager to discuss the price before sending ILRD events.
+NOTE: ILRD is a paid feature, so please contact your Tenjin account manager to discuss the price at first before sending ILRD events.
 </div>
 
 ## <a id="applovin"></a>AppLovin Impression Level Ad Revenue Integration
