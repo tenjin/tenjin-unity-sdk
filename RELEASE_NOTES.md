@@ -182,3 +182,10 @@ v1.12.12
 
 - Android v1.12.13
 - iOS v1.12.12
+
+v1.12.13
+----
+* AdMob Impression Level Ad Revenue
+
+- Android v1.12.13
+- iOS v1.12.12
