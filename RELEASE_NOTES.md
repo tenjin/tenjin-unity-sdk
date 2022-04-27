@@ -189,3 +189,13 @@ v1.12.13
 
 - Android v1.12.13
 - iOS v1.12.12
+
+v1.12.14
+----
+* Fix AdMob iOS Revenue conversion from micro units to decimal units
+* Added public method `getAttributionInfo`
+* Bug fix for non-numeric values in `publisher_revenue_decimal` and `publisher_revenue_micro ILRD` parameters
+* Deprecate support for mopub ILRD
+
+- Android v1.12.14
+- iOS v1.12.14

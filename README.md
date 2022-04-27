@@ -104,7 +104,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Server-to-server integration][25]
   - [App Subversion][26]
   - [Impression Level Ad Revenue Integration][27]
-- [Testing][32]
+- [Testing][28]
 
 # <a id="sdk-integration"></a> SDK Integration
 
@@ -119,7 +119,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
  /Assets/Plugins/Android/installreferrer-*.aar
 ```
 
-> We have a demo project - [tenjin-unity-sdk-demo][33] that demonstrates the integration of tenjin-unity-sdk. You can this project as example to understand how to integrate the tenjin-unity-sdk.
+> We have a demo project - [tenjin-unity-sdk-demo][29] that demonstrates the integration of tenjin-unity-sdk. You can this project as example to understand how to integrate the tenjin-unity-sdk.
 
 ## <a id="google-play"></a>Google Play
 By default, <b>unspecified</b> is the default App Store. Update the app store value to <b>googleplay</b>, if you distribute your app on Google Play Store.
@@ -320,7 +320,7 @@ Apple requires a description for the ATT permission prompt. You need to set the 
 	- "We try to show ads for apps and products that will be most interesting to you based on the apps you use, the device you are on, and the country you are in."
 	- "We try to show ads for apps and products that will be most interesting to you based on the apps you use."
 
-> Note: Apple provides specific [app store guidelines][34] that define acceptable use and messaging for all end-user facing privacy-related features. Tenjin does not provide legal advice. Therefore, the information on this page is not a substitute for seeking your own legal counsel to determine the legal requirements of your business and processes, and how to address them.
+> Note: Apple provides specific [app store guidelines][30] that define acceptable use and messaging for all end-user facing privacy-related features. Tenjin does not provide legal advice. Therefore, the information on this page is not a substitute for seeking your own legal counsel to determine the legal requirements of your business and processes, and how to address them.
 
 ## <a id="skadnetwork-cv"></a> SKAdNetwork and Conversion Values
 
@@ -375,7 +375,7 @@ public class TenjinExampleScript : MonoBehaviour {
 
 ## <a id="skadnetwork-ios15"></a>SKAdNetwork and iOS 15+ Advertiser Postbacks
 
-To specify Tenjin as the destination for your [SK Ad Network postbacks][35], do the following:
+To specify Tenjin as the destination for your [SK Ad Network postbacks][31], do the following:
 
 1. Select `Info.plist` in the Project navigator in Xcode.
 2. Click the Add button (+) beside a key in the property list editor and press Return.
@@ -383,11 +383,11 @@ To specify Tenjin as the destination for your [SK Ad Network postbacks][35], do 
 4. Choose String from the pop-up menu in the Type column.
 5. Enter `https://tenjin-skan.com`
 
-These steps are adapted from Apple's instructions at [https://developer.apple.com/documentation/storekit/skadnetwork/configuring\_an\_advertised\_app][36].
+These steps are adapted from Apple's instructions at [https://developer.apple.com/documentation/storekit/skadnetwork/configuring\_an\_advertised\_app][32].
 
 **NOTE**: If you are using AppLovin MAX for mediation, their Unity SDK will overwrite any value you entered for `NSAdvertisingAttributionReportEndpoint` with their own URL during the build process. You should be able to set the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com` in XCode after it's been overwritten in the following process.
 
-1. Export the iOS app following the steps Unity outlines [here][37].
+1. Export the iOS app following the steps Unity outlines [here][33].
 
 2. After you build the iOS app, you should have an XCode project that has this structure: https://docs.unity3d.com/Manual/StructureOfXcodeProject.html
 
@@ -474,31 +474,31 @@ instance.Connect();
 | Param                 | Description                  | Platform | Reference                                 |
 | --------------------- | ---------------------------- | -------- | ----------------------------------------- |
 | ip\_address           | IP Address                   | All      |                                           |
-| advertising\_id       | Device Advertising ID        | All      | [Android][38], [iOS][39]                  |
-| developer\_device\_id | ID for Vendor                | iOS      | [iOS][40]                                 |
-| oaid                  | Open Advertising ID          | Android  | [Android][41]                             |
-| imei                  | Device IMEI                  | Android  | [Android][42]                             |
-| limit\_ad\_tracking   | limit ad tracking enabled    | All      | [Android][43], [iOS][44]                  |
+| advertising\_id       | Device Advertising ID        | All      | [Android][34], [iOS][35]                  |
+| developer\_device\_id | ID for Vendor                | iOS      | [iOS][36]                                 |
+| oaid                  | Open Advertising ID          | Android  | [Android][37]                             |
+| imei                  | Device IMEI                  | Android  | [Android][38]                             |
+| limit\_ad\_tracking   | limit ad tracking enabled    | All      | [Android][39], [iOS][40]                  |
 | platform              | platform                     | All      | iOS or Android                            |
-| referrer              | Google Play Install Referrer | Android  | [Android][45]                             |
-| iad                   | Apple Search Ad parameters   | iOS      | [iOS][46]                                 |
-| os\_version           | operating system version     | All      | [Android][47], [iOS][48]                  |
-| device                | device name                  | All      | [Android][49], [iOS (hw.machine)][50]     |
-| device\_manufacturer  | device manufactuer           | Android  | [Android][51]                             |
-| device\_model         | device model                 | All      | [Android][52], [iOS (hw.model)][53]       |
-| device\_brand         | device brand                 | Android  | [Android][54]                             |
-| device\_product       | device product               | Android  | [Android][55]                             |
-| device\_model\_name   | device machine               | iOS      | [iOS (hw.model)][56]                      |
-| device\_cpu           | device cpu name              | iOS      | [iOS (hw.cputype)][57]                    |
-| carrier               | phone carrier                | Android  | [Android][58]                             |
-| connection\_type      | cellular or wifi             | Android  | [Android][59]                             |
-| screen\_width         | device screen width          | Android  | [Android][60]                             |
-| screen\_height        | device screen height         | Android  | [Android][61]                             |
-| os\_version\_release  | operating system version     | All      | [Android][62], [iOS][63]                  |
-| build\_id             | build ID                     | All      | [Android][64], [iOS (kern.osversion)][65] |
-| locale                | device locale                | All      | [Android][66], [iOS][67]                  |
-| country               | locale country               | All      | [Android][68], [iOS][69]                  |
-| timezone              | timezone                     | All      | [Android][70], [iOS][71]                  |
+| referrer              | Google Play Install Referrer | Android  | [Android][41]                             |
+| iad                   | Apple Search Ad parameters   | iOS      | [iOS][42]                                 |
+| os\_version           | operating system version     | All      | [Android][43], [iOS][44]                  |
+| device                | device name                  | All      | [Android][45], [iOS (hw.machine)][46]     |
+| device\_manufacturer  | device manufactuer           | Android  | [Android][47]                             |
+| device\_model         | device model                 | All      | [Android][48], [iOS (hw.model)][49]       |
+| device\_brand         | device brand                 | Android  | [Android][50]                             |
+| device\_product       | device product               | Android  | [Android][51]                             |
+| device\_model\_name   | device machine               | iOS      | [iOS (hw.model)][52]                      |
+| device\_cpu           | device cpu name              | iOS      | [iOS (hw.cputype)][53]                    |
+| carrier               | phone carrier                | Android  | [Android][54]                             |
+| connection\_type      | cellular or wifi             | Android  | [Android][55]                             |
+| screen\_width         | device screen width          | Android  | [Android][56]                             |
+| screen\_height        | device screen height         | Android  | [Android][57]                             |
+| os\_version\_release  | operating system version     | All      | [Android][58], [iOS][59]                  |
+| build\_id             | build ID                     | All      | [Android][60], [iOS (kern.osversion)][61] |
+| locale                | device locale                | All      | [Android][62], [iOS][63]                  |
+| country               | locale country               | All      | [Android][64], [iOS][65]                  |
+| timezone              | timezone                     | All      | [Android][66], [iOS][67]                  |
 
 <br/>
 
@@ -586,7 +586,7 @@ In the example below, we are using the widely used <a href="https://gist.github.
 **IMPORTANT: Limit custom event names to less than 80 characters. Do not exceed 500 unique custom event names.**
 
 - Include the Assets folder in your Unity project
-- In your projects method for the custom event, write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with an integer value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","value")`
+- In your projects' method for the custom event, write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with an integer value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","value")`
 - Make sure `value` passed is an integer. If `value` is not an integer, your event will not be passed.
 
 Here's an example of the code:
@@ -604,7 +604,7 @@ void MethodWithCustomEvent(){
 
 `.SendEvent("name")` is for events that are static markers or milestones. This would include things like `tutorial_complete`, `registration`, or `level_1`.
 
-`.SendEvent("name", "value")` is for events that you want to do math on a property of that event. For example, `("coins_purchased", "100")` will let you analyze a sum or average of the coins that have been purchased for that event.
+`.SendEvent("name", "value")` is for events that you want to do math on a property of that event. For example, `("coins_purchased", "100")` will let you analyze a sum or average of the coins that are purchased for that event.
 
 ## <a id="deferred-deeplinks"></a> Deferred Deeplinks
 
@@ -706,7 +706,7 @@ Tenjin supports the ability to integrate with the Impression Level Ad Revenue (I
 - HyperBid
 - AdMob
 
-This feature allows you to receive events which correspond to your ad revenue is affected by each advertisement show to a user. To enable this feature, follow the below instructions.
+This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement show to a user. To enable this feature, follow the below instructions.
 
 :warning: **NOTE: ILRD is a paid feature, so please contact your Tenjin account manager to discuss the price at first before sending ILRD events.**
 
@@ -747,47 +747,45 @@ You can verify if the integration is working through our <a href="https://www.te
 [25]:	#server-to-server
 [26]:	#subversion
 [27]:	#ilrd
-[32]:	#testing
-[33]:	https://github.com/tenjin/tenjin-unity-sdk-demo
-[34]:	https://developer.apple.com/app-store/user-privacy-and-data-use/
-[35]:	https://developer.apple.com/documentation/storekit/skadnetwork/receiving_ad_attributions_and_postbacks
-[36]:	https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app
-[37]:	https://docs.unity3d.com/Manual/iphone-GettingStarted.html
-[38]:	https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.html#getAdvertisingIdInfo(android.content.Context)
-[39]:	https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614151-advertisingidentifier
-[40]:	https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
-[41]:	http://www.msa-alliance.cn/col.jsp?id=120
-[42]:	https://developer.android.com/reference/android/telephony/TelephonyManager#getImei()
-[43]:	https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.Info.html#isLimitAdTrackingEnabled()
-[44]:	https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614148-isadvertisingtrackingenabled
-[45]:	https://developer.android.com/google/play/installreferrer/index.html
-[46]:	https://searchads.apple.com/advanced/help/measure-results/#attribution-api
-[47]:	https://developer.android.com/reference/android/os/Build.VERSION.html#SDK_INT
-[48]:	https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion
-[49]:	https://developer.android.com/reference/android/os/Build.html#DEVICE
-[50]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
-[51]:	https://developer.android.com/reference/android/os/Build.html#MANUFACTURER
-[52]:	https://developer.android.com/reference/android/os/Build.html#MODEL
+[28]:	#testing
+[29]:	https://github.com/tenjin/tenjin-unity-sdk-demo
+[30]:	https://developer.apple.com/app-store/user-privacy-and-data-use/
+[31]:	https://developer.apple.com/documentation/storekit/skadnetwork/receiving_ad_attributions_and_postbacks
+[32]:	https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app
+[33]:	https://docs.unity3d.com/Manual/iphone-GettingStarted.html
+[34]:	https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.html#getAdvertisingIdInfo(android.content.Context)
+[35]:	https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614151-advertisingidentifier
+[36]:	https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor
+[37]:	http://www.msa-alliance.cn/col.jsp?id=120
+[38]:	https://developer.android.com/reference/android/telephony/TelephonyManager#getImei()
+[39]:	https://developers.google.com/android/reference/com/google/android/gms/ads/identifier/AdvertisingIdClient.Info.html#isLimitAdTrackingEnabled()
+[40]:	https://developer.apple.com/documentation/adsupport/asidentifiermanager/1614148-isadvertisingtrackingenabled
+[41]:	https://developer.android.com/google/play/installreferrer/index.html
+[42]:	https://searchads.apple.com/advanced/help/measure-results/#attribution-api
+[43]:	https://developer.android.com/reference/android/os/Build.VERSION.html#SDK_INT
+[44]:	https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion
+[45]:	https://developer.android.com/reference/android/os/Build.html#DEVICE
+[46]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
+[47]:	https://developer.android.com/reference/android/os/Build.html#MANUFACTURER
+[48]:	https://developer.android.com/reference/android/os/Build.html#MODEL
+[49]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
+[50]:	https://developer.android.com/reference/android/os/Build.html#BRAND
+[51]:	https://developer.android.com/reference/android/os/Build.html#PRODUCT
+[52]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
 [53]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
-[54]:	https://developer.android.com/reference/android/os/Build.html#BRAND
-[55]:	https://developer.android.com/reference/android/os/Build.html#PRODUCT
-[56]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
-[57]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
-[58]:	https://developer.android.com/reference/android/telephony/TelephonyManager.html#getSimOperatorName()
-[59]:	https://developer.android.com/reference/android/net/ConnectivityManager.html#getActiveNetworkInfo()
-[60]:	https://developer.android.com/reference/android/util/DisplayMetrics.html#widthPixels
-[61]:	https://developer.android.com/reference/android/util/DisplayMetrics.html#heightPixels
-[62]:	https://developer.android.com/reference/android/os/Build.VERSION.html#RELEASE
-[63]:	https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion
-[64]:	https://developer.android.com/reference/android/os/Build.html
-[65]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
-[66]:	https://developer.android.com/reference/java/util/Locale.html#getDefault()
-[67]:	https://developer.apple.com/documentation/foundation/nslocalekey
-[68]:	https://developer.android.com/reference/java/util/Locale.html#getDefault()
-[69]:	https://developer.apple.com/documentation/foundation/nslocalecountrycode
-[70]:	https://developer.android.com/reference/java/util/TimeZone.html
-[71]:	https://developer.apple.com/documentation/foundation/nstimezone/1387209-localtimezone
-[72]:	https://docs.hyperbid.com/#/en-us/unity/download/package?id=hyperbid-unity-sdk-integration-tool
-[73]:	https://developers.google.com/admob/unity/quick-start#download_the_mobile_ads_unity_plugin
+[54]:	https://developer.android.com/reference/android/telephony/TelephonyManager.html#getSimOperatorName()
+[55]:	https://developer.android.com/reference/android/net/ConnectivityManager.html#getActiveNetworkInfo()
+[56]:	https://developer.android.com/reference/android/util/DisplayMetrics.html#widthPixels
+[57]:	https://developer.android.com/reference/android/util/DisplayMetrics.html#heightPixels
+[58]:	https://developer.android.com/reference/android/os/Build.VERSION.html#RELEASE
+[59]:	https://developer.apple.com/documentation/uikit/uidevice/1620043-systemversion
+[60]:	https://developer.android.com/reference/android/os/Build.html
+[61]:	https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man3/sysctl.3.html
+[62]:	https://developer.android.com/reference/java/util/Locale.html#getDefault()
+[63]:	https://developer.apple.com/documentation/foundation/nslocalekey
+[64]:	https://developer.android.com/reference/java/util/Locale.html#getDefault()
+[65]:	https://developer.apple.com/documentation/foundation/nslocalecountrycode
+[66]:	https://developer.android.com/reference/java/util/TimeZone.html
+[67]:	https://developer.apple.com/documentation/foundation/nstimezone/1387209-localtimezone
 
 [image-1]:	https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events_2.png
