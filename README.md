@@ -608,79 +608,9 @@ void MethodWithCustomEvent(){
 
 ## <a id="deferred-deeplinks"></a> Deferred Deeplinks
 
-Tenjin supports the ability to direct users to a specific part of your app after a new attributed installation via Tenjin's campaign tracking URLs. You can utilize the `GetDeeplink` method and callback to access the deferred deeplink through the data object. To test, you can follow the instructions found <a href="http://help.tenjin.io/t/how-do-i-use-and-test-deferred-deeplinks-with-my-campaigns/547">here</a>.
+Tenjin supports the ability to direct users to a specific part of your app after a new attributed installation via Tenjin's campaign tracking URLs. You can utilize the `GetDeeplink` method and callback to access the deferred deeplink through the data object.
 
-```csharp
-
-public class TenjinExampleScript : MonoBehaviour {
-
-  // Use this for initialization
-  void Start () {
-    BaseTenjin instance = Tenjin.getInstance("API_KEY");
-    instance.Connect();
-    instance.GetDeeplink(DeferredDeeplinkCallback);
-  }
-
-  public void DeferredDeeplinkCallback(Dictionary<string, string> data) {
-    bool clicked_tenjin_link = false;
-    bool is_first_session = false;
-
-    if (data.ContainsKey("clicked_tenjin_link")) {
-      //clicked_tenjin_link is a BOOL to handle if a user clicked on a tenjin link
-      clicked_tenjin_link = (data["clicked_tenjin_link"].ToLower() == "true");
-      Debug.Log("===> DeferredDeeplinkCallback ---> clicked_tenjin_link: " + clicked_tenjin_link);
-    }
-
-    if (data.ContainsKey("is_first_session")) {
-      //is_first_session is a BOOL to handle if this session for this user is the first session
-      is_first_session = (data["is_first_session"].ToLower() == "true");
-      Debug.Log("===> DeferredDeeplinkCallback ---> is_first_session: " + is_first_session);
-    }
-
-    if (data.ContainsKey("ad_network")) {
-      //ad_network is a STRING that returns the name of the ad network
-      Debug.Log("===> DeferredDeeplinkCallback ---> adNetwork: " + data["ad_network"]);
-    }
-
-    if (data.ContainsKey("campaign_id")) {
-      //campaign_id is a STRING that returns the tenjin campaign id
-      Debug.Log("===> DeferredDeeplinkCallback ---> campaignId: " + data["campaign_id"]);
-    }
-
-    if (data.ContainsKey("advertising_id")) {
-      //advertising_id is a STRING that returns the advertising_id of the user
-      Debug.Log("===> DeferredDeeplinkCallback ---> advertisingId: " + data["advertising_id"]);
-    }
-
-    if (data.ContainsKey("deferred_deeplink_url")) {
-      //deferred_deeplink_url is a STRING that returns the deferred_deeplink of the campaign
-      Debug.Log("===> DeferredDeeplinkCallback ---> deferredDeeplink: " + data["deferred_deeplink_url"]);
-    }
-
-    if (clicked_tenjin_link && is_first_session) {
-      //use the deferred_deeplink_url to direct the user to a specific part of your app
-      if (String.IsNullOrEmpty(data["deferred_deeplink_url"]) == false) {
-      }
-    }
-  }
-
-}
-
-```
-
-Below are the parameters, if available, that are returned to the deferred deeplink callback:
-
-| Parameter             | Description                                                      |
-| --------------------- | ---------------------------------------------------------------- |
-| advertising\_id        | Advertising ID of the device                                     |
-| ad\_network            | Ad network of the campaign                                       |
-| campaign\_id           | Tenjin campaign ID                                               |
-| campaign\_name         | Tenjin campaign name                                             |
-| site\_id               | Site ID of source app                                            |
-| referrer              | The referrer params from the app store                           |
-| deferred\_deeplink\_url | The deferred deep-link of the campaign                           |
-| clicked\_tenjin\_link   | Boolean representing if the device was tracked by Tenjin         |
-| is\_first\_session      | Boolean representing if this is the first session for the device |
+:warning: **NOTE: Deferred Deeplink is a paid feature, so please contact your Tenjin account manager if you are interested in.**
 
 ## <a id="server-to-server"></a>Server-to-server integration
 
