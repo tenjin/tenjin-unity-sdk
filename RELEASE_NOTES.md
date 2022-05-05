@@ -199,3 +199,10 @@ v1.12.14
 
 - Android v1.12.14
 - iOS v1.12.14
+
+v1.12.15
+----
+* Bug fix for detecting third party libraries for ILRD
+
+- Android v1.12.14
+- iOS v1.12.14
