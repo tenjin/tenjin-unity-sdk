@@ -206,3 +206,12 @@ v1.12.15
 
 - Android v1.12.14
 - iOS v1.12.14
+
+v1.12.16
+----
+* Bug fix for double data type in revenue parameter in JSON Serialization in Admob ILRD.
+* Bug fix for safely accessing stringValue property in ILRD integrations
+    * Fix resolves issues in ILRD networks AppLovin, AdMob, IronSource
+
+- Android v1.12.14
+- iOS v1.12.15
