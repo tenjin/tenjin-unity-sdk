@@ -215,3 +215,10 @@ v1.12.16
 
 - Android v1.12.14
 - iOS v1.12.15
+
+v1.12.17
+----
+* TopOn Impression Level Ad Revenue
+
+- Android v1.12.14
+- iOS v1.12.15

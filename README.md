@@ -57,10 +57,14 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 		        implementation fileTree(dir: 'libs', include: ['*.jar'])
 		    // Android Resolver Dependencies Start
 		        implementation 'com.android.support:multidex:1.0.3'
+            // Note: replace {version} with the appropriate version number
+            // Required for Google Play store
 		        implementation 'com.google.android.gms:play-services-analytics:{version}'
 		        implementation 'com.android.installreferrer:installreferrer:{version}'
+            // Required for Huawei OAID
 		        implementation 'com.huawei.hms:ads-identifier:{version}'
 		        implementation 'com.huawei.hms:ads-installreferrer:{version}'
+
 		        androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
 		            exclude group: 'com.android.support', module: 'support-annotations'
 		        })
