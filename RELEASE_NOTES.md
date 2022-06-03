@@ -222,3 +222,10 @@ v1.12.17
 
 - Android v1.12.14
 - iOS v1.12.15
+
+v1.12.18
+----
+* Remove Debug logs from Tenjin scripting symbols
+
+- Android v1.12.14
+- iOS v1.12.15
