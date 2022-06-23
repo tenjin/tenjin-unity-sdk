@@ -639,8 +639,9 @@ Tenjin supports the ability to integrate with the Impression Level Ad Revenue (I
 - IronSource
 - HyperBid
 - AdMob
+- Topon
 
-This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement show to a user. To enable this feature, follow the below instructions.
+This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. To enable this feature, follow the below instructions.
 
 :warning: **NOTE: ILRD is a paid feature, so please contact your Tenjin account manager to discuss the price at first before sending ILRD events.**
 
