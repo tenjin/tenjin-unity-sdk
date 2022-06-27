@@ -229,3 +229,10 @@ v1.12.18
 
 - Android v1.12.14
 - iOS v1.12.15
+
+v1.12.19
+----
+* Bug fix for not getting `advertising_id` on Huawei devices
+
+- Android v1.12.15
+- iOS v1.12.15
