@@ -170,11 +170,87 @@ v1.12.9
 - Android v1.12.8
 - iOS v1.12.7
 
-v1.12.901
----
-* Refactor AdvertiserInfo class with new set methods for advertisingId and limitAdTracking
-* Bugfix for referral parameter not being sent on first start of the SDK
+v1.12.10
+----
+* Downgrade minimum supported Unity Editor version from 2019.4.21f1 to 2019.2.21f1
+* AppLovin Impression Level Ad Revenue
+
+- Android v1.12.11
+- iOS v1.12.9
+
+v1.12.11
+----
+* IronSource Impression Level Ad Revenue
+
+- Android v1.12.13
+- iOS v1.12.11
+
+v1.12.12
+----
+* HyperBid Impression Level Ad Revenue
+
+- Android v1.12.13
+- iOS v1.12.12
+
+v1.12.13
+----
+* AdMob Impression Level Ad Revenue
+
+- Android v1.12.13
+- iOS v1.12.12
+
+v1.12.14
+----
+* Fix AdMob iOS Revenue conversion from micro units to decimal units
+* Added public method `getAttributionInfo`
+* Bug fix for non-numeric values in `publisher_revenue_decimal` and `publisher_revenue_micro ILRD` parameters
+* Deprecate support for mopub ILRD
+
+- Android v1.12.14
+- iOS v1.12.14
+
+v1.12.15
+----
+* Bug fix for detecting third party libraries for ILRD
+
+- Android v1.12.14
+- iOS v1.12.14
+
+v1.12.16
+----
+* Bug fix for double data type in revenue parameter in JSON Serialization in Admob ILRD.
+* Bug fix for safely accessing stringValue property in ILRD integrations
+    * Fix resolves issues in ILRD networks AppLovin, AdMob, IronSource
+
+- Android v1.12.14
+- iOS v1.12.15
+
+v1.12.17
+----
+* TopOn Impression Level Ad Revenue
+
+- Android v1.12.14
+- iOS v1.12.15
+
+v1.12.18
+----
+* Remove Debug logs from Tenjin scripting symbols
+
+- Android v1.12.14
+- iOS v1.12.15
+
+v1.12.19
+----
+* Bug fix for not getting `advertising_id` on Huawei devices
+
+- Android v1.12.15
+- iOS v1.12.15
+
+v1.12.1901
+----
 * Downgrade minSDKVersion to 19
 
-- Android v1.12.9
-- iOS v1.12.4
+- Android v1.12.1501
+- iOS v1.12.15
+
+
