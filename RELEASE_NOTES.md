@@ -236,3 +236,13 @@ v1.12.19
 
 - Android v1.12.15
 - iOS v1.12.15
+
+v1.12.20
+----
+* Add public method `GetAttributionInfo`
+* Added retry logic in case `getAttributionInfo` data can't be fetched
+* Enhanced error handling for `getAttributionInfo` method. Completion handler now returns dictionary together with error
+* Added retry counter for `getAttributionInfo` method
+
+- Android v1.12.16
+- iOS v1.12.16
