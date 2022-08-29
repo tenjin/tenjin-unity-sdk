@@ -8,7 +8,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 - For any issues or support, please contact: support@tenjin.com
 - **iOS Notes**:
 
-  - Xcode 12 requirement, if you’re using Unity iOS SDK v1.12.0 and higher.
+  - Xcode 13 requirement, if you’re using Unity iOS SDK v1.12.21 and higher.
   - When building iOS, confirm that these frameworks were automatically added to the Xcode build. If any are missing, you will need to add them manually.
 	- AdServices.framework
 	- AdSupport.framework

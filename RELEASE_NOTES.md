@@ -246,3 +246,11 @@ v1.12.20
 
 - Android v1.12.16
 - iOS v1.12.16
+
+v1.12.21
+----
+* Add public method `UpdatePostbackConversionValue`
+* Deprecated `registerAppForAdNetworkAttribution` and `updateConversionValue` for iOS 15.4 and later. Added new `updatePostbackConversionValue` method
+
+- Android v1.12.16
+- iOS v1.12.17
