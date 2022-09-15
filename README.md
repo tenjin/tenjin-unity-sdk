@@ -131,7 +131,7 @@ By default, <b>unspecified</b> is the default App Store. Update the app store va
 Set your App Store Type value to `googleplay`:
 
 ```csharp
-BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 
 instance.SetAppStoreType(AppStoreType.googleplay);
 ```
@@ -142,7 +142,7 @@ By default, <b>unspecified</b> is the default App Store. Update the app store va
 Set your App Store Type value to `amazon`:
 
 ```csharp
-BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 
 instance.SetAppStoreType(AppStoreType.amazon);
 ```
@@ -159,7 +159,7 @@ Place the `oaid_sdk_1.0.25.aar` file in your project's Android libs directory: `
 Set your App Store Type value to `other`:
 
 ```csharp
-BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 
 instance.SetAppStoreType(AppStoreType.other);
 ```
@@ -172,7 +172,7 @@ Place the Huawei files in your project's Android libs directory: `/Assets/Plugin
 Set your App Store Type value to `other`:
 
 ```csharp
-BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 
 instance.SetAppStoreType(AppStoreType.other);
 ```
@@ -199,7 +199,7 @@ If you are using Huawei libraries, you can to use these settings:
 
 ## <a id="initialization"></a> App Initialization
 
-1. Get your `<API_KEY>` from your <a href="https://www.tenjin.io/dashboard/docs" target="_new">Tenjin dashboard</a>.
+1. Get your `<SDK_KEY>` from your <a href="https://www.tenjin.com/dashboard/docs" target="_new">Tenjin dashboard</a>.
 2. In your project's first `Start()` method, add the following line of code. Also add to `OnApplicationPause()` if you want to send sessions data when a user resumes using the app from the background.
 
 ```csharp
@@ -219,7 +219,7 @@ public class TenjinExampleScript : MonoBehaviour {
   }
 
   public void TenjinConnect() {
-    BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
+    BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 
     // Sends install/open event to Tenjin
     instance.Connect();
@@ -249,7 +249,7 @@ By default, <b>unspecified</b> is the default App Store. If you are publishing i
 2. `SetAppStoreType()`:
 
 ```csharp
-BaseTenjin instance = Tenjin.getInstance("<API_KEY>");
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 
 instance.SetAppStoreType(AppStoreType.{{SET_APP_STORE_TYPE_VALUE}});
 ```
@@ -280,7 +280,7 @@ public class TenjinExampleScript : MonoBehaviour {
     }
 
     public void TenjinConnect() {
-      BaseTenjin instance = Tenjin.getInstance("API_KEY");
+      BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
 
 #if UNITY_IOS
       if (new Version(Device.systemVersion).CompareTo(new Version("14.0")) >= 0) {
@@ -353,7 +353,7 @@ public class TenjinExampleScript : MonoBehaviour {
     }
 
     public void TenjinConnect() {
-      BaseTenjin instance = Tenjin.getInstance("API_KEY");
+      BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
 
 #if UNITY_IOS
 
@@ -407,7 +407,7 @@ To opt-in/opt-out:
 ```csharp
 void Start () {
 
-  BaseTenjin instance = Tenjin.getInstance("API_KEY");
+  BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
 
   boolean userOptIn = CheckOptInValue();
 
@@ -454,7 +454,7 @@ boolean CheckOptInValue()
 If you want to only get specific device-related parameters, use `OptInParams()`. In example below, we will only these device-related parameters: `ip_address`, `advertising_id`, `developer_device_id`, `limit_ad_tracking`, `referrer`, and `iad`:
 
 ```csharp
-BaseTenjin instance = Tenjin.getInstance("API_KEY");
+BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
 
 List<string> optInParams = new List<string> {"ip_address", "advertising_id", "developer_device_id", "limit_ad_tracking", "referrer", "iad"};
 instance.OptInParams(optInParams);
@@ -465,7 +465,7 @@ instance.Connect();
 If you want to send ALL parameters except specific device-related parameters, use `OptOutParams()`. In the example below, we will send ALL device-related parameters except: `locale`, `timezone`, and `build_id` parameters.
 
 ```csharp
-BaseTenjin instance = Tenjin.getInstance("API_KEY");
+BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
 
 List<string> optOutParams = new List<string> {"locale", "timezone", "build_id"};
 instance.OptOutParams(optOutParams);
@@ -558,13 +558,13 @@ In the example below, we are using the widely used <a href="https://gist.github.
 
   private static void CompletedAndroidPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string Receipt, string Signature)
   {
-      BaseTenjin instance = Tenjin.getInstance("API_KEY");
+      BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
       instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
   }
 
   private static void CompletedIosPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string TransactionId, string Receipt)
   {
-      BaseTenjin instance = Tenjin.getInstance("API_KEY");
+      BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
       instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
   }
 ```
@@ -590,7 +590,7 @@ In the example below, we are using the widely used <a href="https://gist.github.
 **IMPORTANT: Limit custom event names to less than 80 characters. Do not exceed 500 unique custom event names.**
 
 - Include the Assets folder in your Unity project
-- In your projects' method for the custom event, write the following for a named event: `Tenjin.getInstance("<API_KEY>").SendEvent("name")` and the following for a named event with an integer value: `Tenjin.getInstance("<API_KEY>").SendEvent("nameWithValue","value")`
+- In your projects' method for the custom event, write the following for a named event: `Tenjin.getInstance("<SDK_KEY>").SendEvent("name")` and the following for a named event with an integer value: `Tenjin.getInstance("<SDK_KEY>").SendEvent("nameWithValue","value")`
 - Make sure `value` passed is an integer. If `value` is not an integer, your event will not be passed.
 
 Here's an example of the code:
@@ -598,7 +598,7 @@ Here's an example of the code:
 ```csharp
 void MethodWithCustomEvent(){
     //event with name
-    BaseTenjin instance = Tenjin.getInstance ("API_KEY");
+    BaseTenjin instance = Tenjin.getInstance ("SDK_KEY");
     instance.SendEvent("name");
 
     //event with name and integer value
@@ -627,7 +627,7 @@ If you are running A/B tests and want to report the differences, we can append a
 This data will appear within DataVault, where you will be able to run reports using the app subversion values.
 
 ```csharp
-BaseTenjin instance = Tenjin.getInstance("<API KEY>");
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.AppendAppSubversion(8888);
 instance.Connect();
 ```
