@@ -199,33 +199,34 @@ If you are using Huawei libraries, you can to use these settings:
 
 ## <a id="initialization"></a> App Initialization
 
-1. Get your `<SDK_KEY>` from your <a href="https://www.tenjin.com/dashboard/docs" target="_new">Tenjin dashboard</a>.
+1. Get your `SDK_KEY` from your app page. Note: `SDK_KEY` is unique for each of your app. You can create up to 3 keys for the same app.
+![image-2]
 2. In your project's first `Start()` method, add the following line of code. Also add to `OnApplicationPause()` if you want to send sessions data when a user resumes using the app from the background.
 
-```csharp
-using UnityEngine;
-using System.Collections;
-
-public class TenjinExampleScript : MonoBehaviour {
-
-  void Start() {
-    TenjinConnect();
-  }
-
-  void OnApplicationPause(bool pauseStatus) {
-    if (!pauseStatus) {
-      TenjinConnect();
+    ```csharp
+    using UnityEngine;
+    using System.Collections;
+    
+    public class TenjinExampleScript : MonoBehaviour {
+    
+      void Start() {
+        TenjinConnect();
+      }
+    
+      void OnApplicationPause(bool pauseStatus) {
+        if (!pauseStatus) {
+          TenjinConnect();
+        }
+      }
+    
+      public void TenjinConnect() {
+        BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+    
+        // Sends install/open event to Tenjin
+        instance.Connect();
+      }
     }
-  }
-
-  public void TenjinConnect() {
-    BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
-
-    // Sends install/open event to Tenjin
-    instance.Connect();
-  }
-}
-```
+    ```
 
 **NOTE:** Please ensure you implement this code on every `Start()`, not only on the first app open of the app. If we notice that you don't follow our recommendation, we can't give you the proper support or your account might be suspended.
 
@@ -240,19 +241,19 @@ By default, <b>unspecified</b> is the default App Store. If you are publishing i
 
 1. `AndroidManifest.xml`:
 
-```xml
-<meta-data
-    android:name="TENJIN_APP_STORE"
-    android:value="{{SET_APP_STORE_TYPE_VALUE}}" />
-```
+    ```xml
+    <meta-data
+        android:name="TENJIN_APP_STORE"
+        android:value="{{SET_APP_STORE_TYPE_VALUE}}" />
+    ```
 
 2. `SetAppStoreType()`:
 
-```csharp
-BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
-
-instance.SetAppStoreType(AppStoreType.{{SET_APP_STORE_TYPE_VALUE}});
-```
+    ```csharp
+    BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+    
+    instance.SetAppStoreType(AppStoreType.{{SET_APP_STORE_TYPE_VALUE}});
+    ```
 
 ## <a id="attrackingmanager"></a> ATTrackingManager (iOS)
 
@@ -724,3 +725,4 @@ You can verify if the integration is working through our <a href="https://www.te
 [67]:	https://developer.apple.com/documentation/foundation/nstimezone/1387209-localtimezone
 
 [image-1]:	https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events_2.png
+[image-2]:	https://s3.amazonaws.com/tenjin-instructions/app_api_key.png
