@@ -254,3 +254,12 @@ v1.12.21
 
 - Android v1.12.16
 - iOS v1.12.17
+
+v1.12.22
+----
+* Set `AdServices` framework as optional to avoid crashes on iOS 14 and below
+* Improve `getAttributionInfo` retry logic
+* Improved Google Ads dependency management on Android
+
+- Android v1.12.17
+- iOS v1.12.18
