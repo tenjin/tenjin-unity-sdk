@@ -263,3 +263,11 @@ v1.12.22
 
 - Android v1.12.17
 - iOS v1.12.18
+
+v1.12.23
+----
+* Added `creative_name` and `site_id` parameters to `getAttributionInfo()` response
+* Improve `getAttributionInfo` retry logic on Android
+
+- Android v1.12.19
+- iOS v1.12.19
