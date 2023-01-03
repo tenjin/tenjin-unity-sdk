@@ -634,7 +634,7 @@ instance.Connect();
 
 Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from,
 - AppLovin
-- IronSource
+- Unity LevelPlay
 - HyperBid
 - AdMob
 - Topon
