@@ -271,3 +271,11 @@ v1.12.23
 
 - Android v1.12.19
 - iOS v1.12.19
+
+v1.12.24
+----
+* Added `setCustomerUserId` and `getCustomerUserId` methods
+* Added `coarseValue` and `lockWindow` for SKAN 4.0 update postbacks
+
+- Android v1.12.20
+- iOS v1.12.22
