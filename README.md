@@ -107,8 +107,9 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Deferred Deeplinks][24]
   - [Server-to-server integration][25]
   - [App Subversion][26]
-  - [Impression Level Ad Revenue Integration][27]
-- [Testing][28]
+  - [Customer User ID][27]
+  - [Impression Level Ad Revenue Integration][28]
+- [Testing][29]
 
 # <a id="sdk-integration"></a> SDK Integration
 
@@ -333,6 +334,8 @@ As part of <a href="https://developer.apple.com/documentation/storekit/skadnetwo
 Our methods will register the equivalent SKAdNetwork methods and also send the conversion values to our servers.
 
 `updatePostbackConversionValue(_:)` 6 bit value should correspond to the in-app event and shouldn't be entered as binary representation but 0-63 integer. Our server will reject any invalid values.
+
+`updatePostbackConversionValue(conversionValue: Int, coarseValue: String, lockWindow: Bool)` On iOS 16.1 and above you can also send `coarseValue` and `lockWindow` as parameters
 
 - <a href="https://docs.google.com/spreadsheets/d/1jrRrTP6YX62of2WaJamtPBSWZJ-97IpTWn0IwTroH6Y/edit#gid=1596716780">Examples for IAP based games </a>
 - <a href="https://docs.google.com/spreadsheets/d/15JaN44yQyW7dqqRGi5Wwnq2P6ng-4n6EztMmMj5A7c4/edit#gid=0">Examples for Ad revenue based games </a>
@@ -628,6 +631,20 @@ This data will appear within DataVault, where you will be able to run reports us
 BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.AppendAppSubversion(8888);
 instance.Connect();
+```
+
+## <a id="customer-user-id"></a>Customer User ID
+
+You can set and get customer user id to send as a parameter on events.
+
+`.SetCustomerUserId("user_id")`
+
+`.GetCustomerUserId()`
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+instance.SetCustomerUserId("user_id");
+string userId = instance.GetCustomerUserId(); 
 ```
 
 # <a id="ilrd"></a>Impression Level Ad Revenue Integration
