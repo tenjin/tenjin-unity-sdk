@@ -108,7 +108,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Server-to-server integration][25]
   - [App Subversion][26]
   - [Customer User ID][27]
-  - [Impression Level Ad Revenue Integration][28]
+  - [Impression Level Ad Revenue Integration][68]
 - [Testing][29]
 
 # <a id="sdk-integration"></a> SDK Integration
@@ -696,7 +696,8 @@ You can verify if the integration is working through our <a href="https://www.te
 [24]:	#deferred-deeplinks
 [25]:	#server-to-server
 [26]:	#subversion
-[27]:	#ilrd
+[27]:	#customer-user-id
+[68]:	#ilrd
 [28]:	#testing
 [29]:	https://github.com/tenjin/tenjin-unity-sdk-demo
 [30]:	https://developer.apple.com/app-store/user-privacy-and-data-use/
