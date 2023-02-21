@@ -279,3 +279,10 @@ v1.12.24
 
 - Android v1.12.20
 - iOS v1.12.22
+
+v1.12.25
+----
+* Fixed `updatePostbackConversionValue(conversionValue)` crash on iOS
+
+- Android v1.12.20
+- iOS v1.12.23
