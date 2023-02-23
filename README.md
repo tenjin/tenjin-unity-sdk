@@ -330,12 +330,20 @@ Apple requires a description for the ATT permission prompt. You need to set the 
 
 ## <a id="skadnetwork-cv"></a> SKAdNetwork and Conversion Values
 
-As part of <a href="https://developer.apple.com/documentation/storekit/skadnetwork">SKAdNetwork</a>, we created wrapper method for <a href="https://developer.apple.com/documentation/storekit/skadnetwork/3919928-updatepostbackconversionvalue">`updatePostbackConversionValue(_:)`</a>.
+As part of <a href="https://developer.apple.com/documentation/storekit/skadnetwork">SKAdNetwork</a>, we created a wrapper method for <a href="https://developer.apple.com/documentation/storekit/skadnetwork/3919928-updatepostbackconversionvalue">`updatePostbackConversionValue(_:)`</a>.
 Our methods will register the equivalent SKAdNetwork methods and also send the conversion values to our servers.
 
-`updatePostbackConversionValue(_:)` 6 bit value should correspond to the in-app event and shouldn't be entered as binary representation but 0-63 integer. Our server will reject any invalid values.
+`updatePostbackConversionValue(conversionValue: Integer)` 6 bit value should correspond to the in-app event and shouldn't be entered as binary representation but 0-63 integer. Our server will reject any invalid values.
 
-`updatePostbackConversionValue(conversionValue: Int, coarseValue: String, lockWindow: Bool)` On iOS 16.1 and above you can also send `coarseValue` and `lockWindow` as parameters
+As of iOS 16.1, which supports SKAdNetwork 4.0, you can now send `coarseValue` (String, with possible variants being "low", "medium" or "high") and `lockWindow` (Boolean) as parameters on the update postback method:
+
+`updatePostbackConversionValue(conversionValue: Integer, coarseValue: String)`
+
+`updatePostbackConversionValue(conversionValue: Integer, coarseValue: String, lockWindow: Bool)`
+
+-   For iOS version 16.1+ which supports SKAdNetwork 4.0, you can call this method as many times as you want and can make the conversion value lower or higher than the previous value.
+    
+-   For iOS versions lower than 16.1 supporting SKAdnetWork versions lower than 4.0, you can call this method and our SDK will automatically detect the iOS version and update `conversionValue` only.
 
 - <a href="https://docs.google.com/spreadsheets/d/1jrRrTP6YX62of2WaJamtPBSWZJ-97IpTWn0IwTroH6Y/edit#gid=1596716780">Examples for IAP based games </a>
 - <a href="https://docs.google.com/spreadsheets/d/15JaN44yQyW7dqqRGi5Wwnq2P6ng-4n6EztMmMj5A7c4/edit#gid=0">Examples for Ad revenue based games </a>
@@ -367,6 +375,10 @@ public class TenjinExampleScript : MonoBehaviour {
       // Sets SKAdNetwork Conversion Value
       // You will need to use a value between 0-63 for <YOUR 6 bit value>
       instance.updatePostbackConversionValue(<your 6 bit value>);
+      
+      // For iOS 16.1+ (SKAN 4.0)
+      instance.updatePostbackConversionValue(<your 6 bit value>, "medium");
+      instance.updatePostbackConversionValue(<your 6 bit value>, "medium", true);
 
 #elif UNITY_ANDROID
 
