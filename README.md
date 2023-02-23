@@ -333,13 +333,13 @@ Apple requires a description for the ATT permission prompt. You need to set the 
 As part of <a href="https://developer.apple.com/documentation/storekit/skadnetwork">SKAdNetwork</a>, we created a wrapper method for <a href="https://developer.apple.com/documentation/storekit/skadnetwork/3919928-updatepostbackconversionvalue">`updatePostbackConversionValue(_:)`</a>.
 Our methods will register the equivalent SKAdNetwork methods and also send the conversion values to our servers.
 
-`updatePostbackConversionValue(_:)` 6 bit value should correspond to the in-app event and shouldn't be entered as binary representation but 0-63 integer. Our server will reject any invalid values.
+`updatePostbackConversionValue(conversionValue: Integer)` 6 bit value should correspond to the in-app event and shouldn't be entered as binary representation but 0-63 integer. Our server will reject any invalid values.
 
 As of iOS 16.1, which supports SKAdNetwork 4.0, you can now send `coarseValue` (String, with possible variants being "low", "medium" or "high") and `lockWindow` (Boolean) as parameters on the update postback method:
 
-`updatePostbackConversionValue(_ conversionValue: Integer, coarseValue: String)`
+`updatePostbackConversionValue(conversionValue: Integer, coarseValue: String)`
 
-`updatePostbackConversionValue(_ conversionValue: Integer, coarseValue: String, lockWindow: Bool)`
+`updatePostbackConversionValue(conversionValue: Integer, coarseValue: String, lockWindow: Bool)`
 
 -   For iOS version 16.1+ which supports SKAdNetwork 4.0, you can call this method as many times as you want and can make the conversion value lower or higher than the previous value.
     
