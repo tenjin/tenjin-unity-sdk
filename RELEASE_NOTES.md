@@ -286,3 +286,10 @@ v1.12.25
 
 - Android v1.12.20
 - iOS v1.12.23
+
+v1.12.26
+----
+* Fixed method overloading errors
+
+- Android v1.12.20
+- iOS v1.12.23
