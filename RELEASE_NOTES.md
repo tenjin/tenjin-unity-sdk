@@ -293,3 +293,10 @@ v1.12.26
 
 - Android v1.12.20
 - iOS v1.12.23
+
+v1.12.27
+----
+* Added support for armv7 and armv7s architectures on iOS
+
+- Android v1.12.20
+- iOS v1.12.24
