@@ -300,3 +300,10 @@ v1.12.27
 
 - Android v1.12.20
 - iOS v1.12.24
+
+v1.12.28
+----
+* Fixed Google Ads iOS errors on certain Unity versions
+
+- Android v1.12.20
+- iOS v1.12.24
