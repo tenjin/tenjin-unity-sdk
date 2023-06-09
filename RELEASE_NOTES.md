@@ -307,3 +307,10 @@ v1.12.28
 
 - Android v1.12.20
 - iOS v1.12.24
+
+v1.12.29
+----
+* Added support for Google Mobile Ads (AdMob) versions 8.0.0+
+
+- Android v1.12.20
+- iOS v1.12.24
