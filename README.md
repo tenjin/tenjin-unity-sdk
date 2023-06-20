@@ -108,6 +108,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Server-to-server integration][25]
   - [App Subversion][26]
   - [Customer User ID][27]
+  - [Retry/cache events and IAP][69]
   - [Impression Level Ad Revenue Integration][68]
 - [Testing][29]
 
@@ -659,6 +660,16 @@ instance.SetCustomerUserId("user_id");
 string userId = instance.GetCustomerUserId(); 
 ```
 
+## <a id="retry-cache"></a>Retry/cache of events/IAP
+You can enable/disable retrying and caching events and IAP when requests fail or users don't have internet connection. These events will be sent after a new event has been added to the queue and user has recovered connection.
+
+`.SetCacheEventSetting(true)`
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+instance.SetCacheEventSetting(true);
+```
+
 # <a id="ilrd"></a>Impression Level Ad Revenue Integration
 
 Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from,
@@ -711,6 +722,7 @@ You can verify if the integration is working through our <a href="https://www.te
 [27]:	#customer-user-id
 [68]:	#ilrd
 [28]:	#testing
+[69]:   #retry-cache
 [29]:	https://github.com/tenjin/tenjin-unity-sdk-demo
 [30]:	https://developer.apple.com/app-store/user-privacy-and-data-use/
 [31]:	https://developer.apple.com/documentation/storekit/skadnetwork/receiving_ad_attributions_and_postbacks
