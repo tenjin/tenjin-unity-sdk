@@ -314,3 +314,12 @@ v1.12.29
 
 - Android v1.12.20
 - iOS v1.12.24
+
+v1.12.30
+----
+* Added support for Cocoapods and Maven instead of binaries
+* Added setSessionTime method (Android)
+* Added retry-cache feature for events and IAP
+
+- Android v1.12.21
+- iOS v1.12.25
