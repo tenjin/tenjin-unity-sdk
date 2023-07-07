@@ -323,3 +323,10 @@ v1.12.30
 
 - Android v1.12.21
 - iOS v1.12.25
+
+v1.12.31
+----
+* Fixed concurrency issue on `connect` method call (iOS)
+
+- Android v1.12.21
+- iOS v1.12.26
