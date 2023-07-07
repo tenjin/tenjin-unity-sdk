@@ -6,82 +6,6 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 - Tenjin Unity SDK supports both iOS and Android.
 - Review the [iOS][1] and [Android][2] documentation and apply the proper platform settings to your builds.
 - For any issues or support, please contact: support@tenjin.com
-- **iOS Notes**:
-
-  - Xcode 13 requirement, if you’re using Unity iOS SDK v1.12.21 and higher.
-  - When building iOS, confirm that these frameworks were automatically added to the Xcode build. If any are missing, you will need to add them manually.
-	- AdServices.framework
-	- AdSupport.framework
-	- AppTrackingTransparency.framework
-	- iAd.framework
-	- StoreKit.framework
-  - For AppTrackingTransparency, be sure to update your project `.plist` file and add `Privacy - Tracking Usage Description` <a href="https://developer.apple.com/documentation/bundleresources/information_property_list/nsusertrackingusagedescription" target="_new">(NSUserTrackingUsageDescription)</a> along with the text message you want to display to users. This library is only available in iOS 14.0+.
-  - For <a href="https://developer.apple.com/documentation/iad/setting_up_apple_search_ads_attribution" target="_new">Apple Search Ads Attribution</a> support, please be sure to upgrade to v1.12.6+ and add the `AdServices.framework` library. This library is only available in iOS 14.3+.
-
-- **Android Notes**:
-
-  1. If you have another SDK installed which already has Google Play Services installed or uses [PlayServicesResolver][3], you may need to delete duplicate libraries:
-
-```
- /Assets/Plugins/Android/play-services-ads-identifier--*.aar
- /Assets/Plugins/Android/play-services-basement---*.aar
-```
-
-  2. If you are using Tenjin Unity SDK alongside another SDK in Unity version 2019.4.21f1 and higher, and are using Gradle to build the Android App, you might face build errors such as `DuplicateMethodException` etc., or find that referrer install is not working. If that is the case, please do the following:
-	 * Remove all the `*.aar` files from the `Assets/Plugins/Android` folder except `tenjin.aar`.
-	 * Add the following to your `mainTemplate.gradle` file:
-		```groovy
-		    // Android Resolver Repos Start
-		    ([rootProject] + (rootProject.subprojects as List)).each { project ->
-		        project.repositories {
-		            def unityProjectPath = $/file:///**DIR_UNITYPROJECT**/$.replace("\\", "/")
-		            maven {
-		                url "https://maven.google.com"
-		            }
-		            maven {
-		                url "https://s3.amazonaws.com/moat-sdk-builds"
-		            }
-		            maven {
-		                url 'https://developer.huawei.com/repo/'
-		            }
-		            mavenLocal()
-		            mavenCentral()
-		            google()
-		        }
-		    }
-
-		// Android Resolver Repos End
-		    apply plugin: 'com.android.library'
-		    **APPLY_PLUGINS**
-		    dependencies {
-		        implementation fileTree(dir: 'libs', include: ['*.jar'])
-		    // Android Resolver Dependencies Start
-		        implementation 'com.android.support:multidex:1.0.3'
-            // Note: replace {version} with the appropriate version number
-            // Required for Google Play store
-		        implementation 'com.google.android.gms:play-services-analytics:{version}'
-		        implementation 'com.android.installreferrer:installreferrer:{version}'
-            // Required for Huawei OAID
-		        implementation 'com.huawei.hms:ads-identifier:{version}'
-		        implementation 'com.huawei.hms:ads-installreferrer:{version}'
-
-		        androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
-		            exclude group: 'com.android.support', module: 'support-annotations'
-		        })
-		    // Android Resolver Dependencies End
-		    **DEPS**}
-		```
-	  * Add the following entry to the `gradleTemplate.properties` file:
-		```
-		android.useAndroidX=true
-		```
-  3. If you see the following errors on the app initialization, move tenjin.aar file from `/Assets/Plugins/Android/Tenjin/libs` to `/Assets/Plugins/Android/`. Also check the Proguard Settings [here][4].
-
-	```
-	AndroidJavaException: java.lang.NoSuchMethodError: no static method with name='setWrapperVersion'
-	AndroidJavaException: java.lang.ClassNotFoundException: com.tenjin.android.TenjinSDK
-	```
-  4. If you update SDK to v1.12.9 or higher, we are going to make version 2019.4.21f1 the minimum Unity 3D version. If you prefer to use the older version, please contact us, so we can help you with a customized solution. Furthermore, upgrade the External Dependency Manager for Unity to 1.12.167.
 
 # Table of contents
 
@@ -117,13 +41,6 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 1. Download the latest Unity SDK from <a href="https://github.com/tenjin/tenjin-unity-sdk/releases" target="_new">here.</a>
 
 2. Import the `TenjinUnityPackage.unitypackage` into your project: `Assets -> Import Package`.
-
-3. By default, we have included <a href="https://developers.google.com/android/guides/setup" target="_new">Google Play Services</a> AAR files as part of our SDK. If you do not plan on using Google Play Services, you can delete these AAR files:
-
-```
- /Assets/Plugins/Android/play-services-*.aar
- /Assets/Plugins/Android/installreferrer-*.aar
-```
 
 > We have a demo project - [tenjin-unity-sdk-demo][29] that demonstrates the integration of tenjin-unity-sdk. You can this project as example to understand how to integrate the tenjin-unity-sdk.
 
