@@ -330,3 +330,10 @@ v1.12.31
 
 - Android v1.12.21
 - iOS v1.12.26
+
+v1.12.32
+----
+* Added CAS Impression Level Ad Revenue
+
+- Android v1.12.22
+- iOS v1.12.26
