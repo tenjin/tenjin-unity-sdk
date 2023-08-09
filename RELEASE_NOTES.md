@@ -337,3 +337,10 @@ v1.12.32
 
 - Android v1.12.22
 - iOS v1.12.26
+
+v1.12.33
+----
+* CAS - Split subscribe method for interstitial/rewarded and banner ads 
+
+- Android v1.12.22
+- iOS v1.12.26
