@@ -449,7 +449,7 @@ iOS receipt validation requires `transactionId` and `receipt` (`signature` will 
 
 Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).
 
-**IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> \> Select your app \> Development Tools \> Services & APIs. Please note that for Android, we currently only support IAP transactions from Google Play.
+**IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> \> Select your app \> Monetization setup. Please note that for Android, we currently only support IAP transactions from Google Play.
 
 ### iOS and Android IAP Example:
 
@@ -595,6 +595,7 @@ Tenjin supports the ability to integrate with the Impression Level Ad Revenue (I
 - HyperBid
 - AdMob
 - Topon
+- CAS
 
 This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. To enable this feature, follow the below instructions.
 
