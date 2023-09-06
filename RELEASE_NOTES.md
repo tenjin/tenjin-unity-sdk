@@ -344,3 +344,10 @@ v1.12.33
 
 - Android v1.12.22
 - iOS v1.12.26
+
+v1.12.34
+----
+* iOS - Automate TenjinSDK.xcframework Embed & Sign
+
+- Android v1.12.22
+- iOS v1.12.26
