@@ -55,6 +55,29 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.SetAppStoreType(AppStoreType.googleplay);
 ```
 
+The Tenjin SDK requires the following permissions:
+
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required to get network connectivity (i.e. wifi vs. mobile) -->
+```
+
+Google Play Services will require all API level 32 (Android 13) apps using the advertising_id(Android Advertising ID (AAID)) to declare the Google Play Services AD_ID permission (shown below) in their manifest file. You are required to update the tenjin-android-sdk to version 1.12.8 in order to use the below permission.
+
+```xml
+<uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
+```
+
+### <a id="play-services-ads-identifier-google-play"></a>Android Advertising ID (AAID) and Install Referrer
+Add <a href="https://developers.google.com/android/guides/setup#list-dependencies" target="_new">Android Advertising ID (AAID)</a> and <a href="https://developer.android.com/google/play/installreferrer/library" target="_new">Install Referrer</a> libraries, add it to your build.gradle file.
+
+```java
+dependencies {
+  implementation 'com.google.android.gms:play-services-ads-identifier:{version}'
+  implementation 'com.android.installreferrer:installreferrer:{version}'
+}
+```
+
 ## <a id="amazon"></a>Amazon store
 By default, <b>unspecified</b> is the default App Store. Update the app store value to <b>amazon</b>, if you distribute your app on Amazon store.
 
