@@ -351,3 +351,11 @@ v1.12.34
 
 - Android v1.12.22
 - iOS v1.12.26
+
+v1.12.35
+----
+* Android - Add support for JAVA 8 
+* Android - Fix ASM7 issues in older Gradle versions
+
+- Android v1.12.24
+- iOS v1.12.26
