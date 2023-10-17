@@ -619,6 +619,7 @@ Tenjin supports the ability to integrate with the Impression Level Ad Revenue (I
 - AdMob
 - Topon
 - CAS
+- TradPlus
 
 This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. To enable this feature, follow the below instructions.
 

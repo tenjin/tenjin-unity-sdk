@@ -359,3 +359,11 @@ v1.12.35
 
 - Android v1.12.24
 - iOS v1.12.26
+
+v1.13.0
+----
+* Added TradPlus ILRD
+* Android - Added Amazon IAP transactions
+
+- Android v1.13.0
+- iOS v1.12.28
