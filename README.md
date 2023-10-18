@@ -464,15 +464,24 @@ instance.Connect();
 
 ## <a id="ios-iap-validation"></a>iOS IAP Validation
 
-iOS receipt validation requires `transactionId` and `receipt` (`signature` will be set to `null`). For `receipt`, be sure to send the receipt `Payload`(the base64 encoded ASN.1 receipt) from Unity.
+iOS receipt validation requires `transactionId` and `receipt`. For `receipt`, be sure to send the receipt `Payload` (the base64 encoded ASN.1 receipt) from Unity.
 
 **IMPORTANT:** If you have subscription IAP, you will need to add your app's shared secret in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your iOS App-Specific Shared Secret from the <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons" target="_new">iTunes Connect Console</a> \> Select your app \> Features \> In-App Purchases \> App-Specific Shared Secret.
 
 ## <a id="android-iap-validation"></a>Android IAP Validation
 
-Android receipt validation requires `receipt` and `signature` are required (`transactionId` is set to `null`).
+### <a id="android-iap-validation-google"></a>Google Play App Store
 
-**IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> \> Select your app \> Monetization setup. Please note that for Android, we currently only support IAP transactions from Google Play.
+Google Play receipt validation requires `receipt` and `signature` are required.
+
+**IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> \> Select your app \> Monetization setup.
+
+### <a id="android-iap-validation-amazon"></a>Amazon AppStore
+
+Amazon AppStore receipt validation requires `receiptId` and `userId`.
+
+**IMPORTANT:** You will need to add your Amazon app's Shared Key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. The shared secret can be found on the Shared Key in your developer account with the Amazon Appstore: https://developer.amazon.com/settings/console/sdk/shared-key/
+
 
 ### iOS and Android IAP Example:
 
@@ -489,16 +498,27 @@ In the example below, we are using the widely used <a href="https://gist.github.
         return;
     }
 
-    var payload   = (string)wrapper["Payload"]; // For Apple this will be the base64 encoded ASN.1 receipt
+    var store     = (string)wrapper["Store"]; // GooglePlay, AmazonAppStore, AppleAppStore, etc.
+    var payload   = (string)wrapper["Payload"]; // For Apple this will be the base64 encoded ASN.1 receipt. For Android, it is the raw JSON receipt.
     var productId = purchaseEventArgs.purchasedProduct.definition.id;
 
 #if UNITY_ANDROID
 
-  var gpDetails = Json.Deserialize(payload) as Dictionary<string, object>;
-  var gpJson    = (string)gpDetails["json"];
-  var gpSig     = (string)gpDetails["signature"];
+  if (store.Equals("GooglePlay")) {
+    var googleDetails = Json.Deserialize(payload) as Dictionary<string, object>;
+    var googleJson    = (string)googleDetails["json"];
+    var googleSig     = (string)googleDetails["signature"];
 
-  CompletedAndroidPurchase(productId, currencyCode, 1, lPrice, gpJson, gpSig);
+    CompletedAndroidPurchase(productId, currencyCode, 1, lPrice, googleJson, googleSig);
+  }
+
+  if (store.Equals("AmazonApps")) {
+    var amazonDetails   = Json.Deserialize(payload) as Dictionary<string, object>;
+    var amazonReceiptId = (string)amazonDetails["receiptId"];
+    var amazonUserId    = (string)amazonDetails["userId"];
+
+    CompletedAmazonPurchase(productId, currencyCode, 1, lPrice, amazonReceiptId, amazonUserId);
+  }
 
 #elif UNITY_IOS
 
@@ -512,14 +532,20 @@ In the example below, we are using the widely used <a href="https://gist.github.
 
   private static void CompletedAndroidPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string Receipt, string Signature)
   {
-      BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
-      instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
+    BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
+    instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
   }
 
   private static void CompletedIosPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string TransactionId, string Receipt)
   {
-      BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
-      instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
+    BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
+    instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
+  }
+
+  private static void CompletedAmazonPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string ReceiptId, string UserId)
+  {
+    BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
+    instance.TransactionAndroid(ProductId, CurrencyCode, Quantity, UnitPrice, ReceiptId, UserId);
   }
 ```
 
