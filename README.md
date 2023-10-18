@@ -466,21 +466,21 @@ instance.Connect();
 
 iOS receipt validation requires `transactionId` and `receipt`. For `receipt`, be sure to send the receipt `Payload` (the base64 encoded ASN.1 receipt) from Unity.
 
-**IMPORTANT:** If you have subscription IAP, you will need to add your app's shared secret in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your iOS App-Specific Shared Secret from the <a href="https://itunesconnect.apple.com/WebObjects/iTunesConnect.woa/ra/ng/app/887212194/addons" target="_new">iTunes Connect Console</a> \> Select your app \> Features \> In-App Purchases \> App-Specific Shared Secret.
+**IMPORTANT:** If you have subscription IAP, you will need to add your app's shared secret in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your iOS App-Specific Shared Secret from the <a href="https://appstoreconnect.apple.com/" target="_new">App Store Connect</a> \> Select your app \> General \> App Information \> App-Specific Shared Secret.
 
 ## <a id="android-iap-validation"></a>Android IAP Validation
 
 ### <a id="android-iap-validation-google"></a>Google Play App Store
 
-Google Play receipt validation requires `receipt` and `signature` are required.
+Google Play receipt validation requires `receipt` and `signature` parameters.
 
 **IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> \> Select your app \> Monetization setup.
 
 ### <a id="android-iap-validation-amazon"></a>Amazon AppStore
 
-Amazon AppStore receipt validation requires `receiptId` and `userId`.
+Amazon AppStore receipt validation requires `receiptId` and `userId` parameters.
 
-**IMPORTANT:** You will need to add your Amazon app's Shared Key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. The shared secret can be found on the Shared Key in your developer account with the Amazon Appstore: https://developer.amazon.com/settings/console/sdk/shared-key/
+**IMPORTANT:** You will need to add your Amazon app's Shared Key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. The shared secret can be found on the Shared Key in your developer account with the <a href="https://developer.amazon.com/settings/console/sdk/shared-key/" target="_new">Amazon Appstore account</a> 
 
 
 ### iOS and Android IAP Example:
