@@ -367,3 +367,10 @@ v1.13.0
 
 - Android v1.13.0
 - iOS v1.12.28
+
+v1.13.1
+----
+* iOS - Fix duplicated frameworks error
+
+- Android v1.13.0
+- iOS v1.12.28
