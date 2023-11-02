@@ -377,7 +377,7 @@ v1.13.1
 
 v1.13.2
 ----
-* Fix asset error in Unity 2020 and bellow
+* Fix asset error in Unity 2020 and below
 
 - Android v1.13.0
 - iOS v1.12.29
