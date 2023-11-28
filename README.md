@@ -662,7 +662,7 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.SetCacheEventSetting(true);
 ```
 
-# <a id="ilrd"></a>Impression Level Ad Revenue Integration
+## <a id="ilrd"></a>Impression Level Ad Revenue Integration
 
 Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from,
 - AppLovin
