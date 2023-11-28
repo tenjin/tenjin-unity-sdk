@@ -7,13 +7,6 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 - Review the [iOS][1] and [Android][2] documentation and apply the proper platform settings to your builds.
 - For any issues or support, please contact: support@tenjin.com.
 
-:Info **(IMPORTANT)**
-
-
-If you are using Unity SDK v1.12.29 or lower, please follow [these](https://docs.google.com/document/d/1AXn_IJXc4z_C-0Dzu7r8stOPFchxd3gCfQiO6tscdFI/edit?usp=sharing) steps before completing the SDK integration.
-
-To upgrade to v.1.12.30 or higher from lower versions, please ensure to remove the Tenjin binaries before installing the latest Unity version.
-
 :Warning **(NOTE)**
 
 If you get this error when compiling on iOS: `Library not loaded: @rpath/TenjinSDK.framework/TenjinSDK` you need to go to “Frameworks, Libraries and Embedded Content” and add TenjinSDK, then select 'Embed & Sign'
