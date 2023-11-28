@@ -7,17 +7,16 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 - Review the [iOS][1] and [Android][2] documentation and apply the proper platform settings to your builds.
 - For any issues or support, please contact: support@tenjin.com.
 
-:Info **(IMPORTANT)**
+:info **(IMPORTANT)**
 
 If you are using Unity SDK v1.12.29 or lower, please follow [these](https://docs.google.com/document/d/1AXn_IJXc4z_C-0Dzu7r8stOPFchxd3gCfQiO6tscdFI/edit?usp=sharing) steps before completing the SDK integration.
 
 To upgrade to v.1.12.30 or higher from lower versions, please ensure to remove the Tenjin binaries before installing the latest Unity version.
 
-:Warning **(NOTE)**
+:warning **(NOTE)**
 
 If you have `libTenjinSDK.a` and/or `libTenjinSDKUniversal.a` from older Tenjin SDK versions, please delete them and run `pod install` to integrate it on iOS
 
----
 # Table of contents
 
 - [SDK Integration][5]
@@ -47,7 +46,6 @@ If you have `libTenjinSDK.a` and/or `libTenjinSDKUniversal.a` from older Tenjin 
   - [Impression Level Ad Revenue Integration][68]
 - [Testing][29]
 
----
 # <a id="sdk-integration"></a> SDK Integration
 
 1. Download the latest Unity SDK from <a href="https://github.com/tenjin/tenjin-unity-sdk/releases" target="_new">here.</a>
@@ -56,7 +54,6 @@ If you have `libTenjinSDK.a` and/or `libTenjinSDKUniversal.a` from older Tenjin 
 
 > We have a demo project - [tenjin-unity-sdk-demo][29] that demonstrates the integration of tenjin-unity-sdk. You can this project as example to understand how to integrate the tenjin-unity-sdk.
 
----
 ## <a id="google-play"></a>Google Play
 By default, <b>unspecified</b> is the default App Store. Update the app store value to <b>googleplay</b>, if you distribute your app on Google Play Store.
 
@@ -91,7 +88,6 @@ dependencies {
 }
 ```
 
----
 ## <a id="amazon"></a>Amazon store
 By default, <b>unspecified</b> is the default App Store. Update the app store value to <b>amazon</b>, if you distribute your app on Amazon store.
 
@@ -102,7 +98,7 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 
 instance.SetAppStoreType(AppStoreType.amazon);
 ```
----
+
 ## <a id="oaid"></a>OAID and other Android App Stores
 
 Tenjin supports promoting your app on other Android App Stores using the Android OAID. We have the following requirements for integrating OAID libraries. **If you plan to release your app outside of Google Play, make sure to implement these OAID libraries.**
@@ -133,7 +129,6 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.SetAppStoreType(AppStoreType.other);
 ```
 
----
 ## <a id="proguard"></a>Proguard Settings
 
 ```java
@@ -154,7 +149,6 @@ If you are using Huawei libraries, you can to use these settings:
 -keep interface com.huawei.hms.ads.** { *; }
 ```
 
----
 ## <a id="initialization"></a> App Initialization
 
 1. Get your `SDK_KEY` from your app page. Note: `SDK_KEY` is unique for each of your app. You can create up to 3 keys for the same app.
@@ -188,7 +182,6 @@ If you are using Huawei libraries, you can to use these settings:
 
 **NOTE:** Please ensure you implement this code on every `Start()`, not only on the first app open of the app. If we notice that you don't follow our recommendation, we can't give you the proper support or your account might be suspended.
 
----
 ## <a id="app-store"></a> App Store
 
 We support three app store options,
@@ -214,7 +207,6 @@ By default, <b>unspecified</b> is the default App Store. If you are publishing i
     instance.SetAppStoreType(AppStoreType.{{SET_APP_STORE_TYPE_VALUE}});
     ```
 
----
 ## <a id="attrackingmanager"></a> ATTrackingManager (iOS)
 
 - Starting with iOS 14, you have the option to show the initial <a href="">ATTrackingManager</a> permissions prompt and selection to opt in/opt out users.
@@ -287,7 +279,6 @@ Apple requires a description for the ATT permission prompt. You need to set the 
 
 > Note: Apple provides specific [app store guidelines][30] that define acceptable use and messaging for all end-user facing privacy-related features. Tenjin does not provide legal advice. Therefore, the information on this page is not a substitute for seeking your own legal counsel to determine the legal requirements of your business and processes, and how to address them.
 
----
 ## <a id="skadnetwork-cv"></a> SKAdNetwork and Conversion Values
 
 As part of <a href="https://developer.apple.com/documentation/storekit/skadnetwork">SKAdNetwork</a>, we created a wrapper method for <a href="https://developer.apple.com/documentation/storekit/skadnetwork/3919928-updatepostbackconversionvalue">`updatePostbackConversionValue(_:)`</a>.
@@ -347,7 +338,6 @@ public class TenjinExampleScript : MonoBehaviour {
 }
 ```
 
----
 ## <a id="skadnetwork-ios15"></a>SKAdNetwork and iOS 15+ Advertiser Postbacks
 
 To specify Tenjin as the destination for your [SK Ad Network postbacks][31], do the following:
@@ -369,7 +359,6 @@ These steps are adapted from Apple's instructions at [https://developer.apple.co
 3. Navigate to the `Info.plist` file in the XCode project to manually change the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com`.
 Otherwise, you can ask your AppLovin account manager to set up forwarding the postbacks to us.
 
----
 ## <a id="gdpr"></a> GDPR
 
 As part of GDPR compliance, with Tenjin's SDK you can opt-in, opt-out devices/users, or select which specific device-related params to opt-in or opt-out. `OptOut()` will not send any API requests to Tenjin, and we will not process any events.
@@ -446,7 +435,6 @@ instance.OptOutParams(optOutParams);
 instance.Connect();
 ```
 
----
 #### Device-Related Parameters
 
 | Param                 | Description                  | Platform | Reference                                 |
@@ -478,7 +466,6 @@ instance.Connect();
 | country               | locale country               | All      | [Android][64], [iOS][65]                  |
 | timezone              | timezone                     | All      | [Android][66], [iOS][67]                  |
 
----
 ## <a id="purchase-events"></a>Purchase Events
 
 ## <a id="ios-iap-validation"></a>iOS IAP Validation
@@ -495,7 +482,7 @@ Google Play receipt validation requires `receipt` and `signature` parameters.
 
 **IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> \> Select your app \> Monetization setup.
 
-:Warning **(NOTE)**
+:warning **(NOTE)**
 
 For Google play, Please ensure to 'acknowledge' the purchase event before sending it to Tenjin. For more details, read <a href="https://developer.android.com/google/play/billing/integrate#non-consumable-products" target="_blank">here</a>.
 
@@ -575,7 +562,7 @@ In the example below, we are using the widely used <a href="https://gist.github.
 
 **Disclaimer:** If you are implementing purchase events on Tenjin for the first time, make sure to verify the data with other tools you’re using before you start scaling up your user acquisition campaigns using purchase data.
 
-:Warning **(Flexible App Store Commission setup)**
+:warning **(Flexible App Store Commission setup)**
 
 
 Choose between 15% and 30% App Store’s revenue commission via our new setup. The steps are -
@@ -586,7 +573,6 @@ Choose between 15% and 30% App Store’s revenue commission via our new setup. T
 * Select the start date and end date (Or you can keep the end date blank if you dont want an end date)
 * Click Save (note: the 15% commission can be applied only to dates moving forward and not historical dates. So please set the start date from the date you make the change and forward)
 
----
 ### <a id="subscription-iap"></a> Subscription IAP
 
 - You are responsible to send a subscription transaction one time during each subscription interval (i.e., For example, for a monthly subscription, you will need to send us 1 transaction per month). In the example timeline below, a transaction event should only be sent at the "First Charge" and "Renewal" events. During the trial period, do not send Tenjin the transaction event.
@@ -601,7 +587,6 @@ Choose between 15% and 30% App Store’s revenue commission via our new setup. T
 
 - For more information on Android subscriptions, please see: <a href="https://developer.android.com/distribute/best-practices/earn/subscriptionss">Google Play Billing subscriptions documentation</a>
 
----
 ## <a id="custom-events"></a> Custom Events
 
 **IMPORTANT: Limit custom event names to less than 80 characters. Do not exceed 500 unique custom event names.**
@@ -627,13 +612,11 @@ void MethodWithCustomEvent(){
 
 `.SendEvent("name", "value")` is for events that you want to do math on a property of that event. For example, `("coins_purchased", "100")` will let you analyze a sum or average of the coins that are purchased for that event.
 
----
 
 ## <a id="server-to-server"></a>Server-to-server integration
 
 Tenjin offers server-to-server integration, which is a paid feature. If you want to access to the documentation, please send email to support@tenjin.com and discuss the pricing.
 
----
 ## <a id="subversion"></a>App Subversion parameter for A/B Testing (requires DataVault)
 
 If you are running A/B tests and want to report the differences, we can append a numeric value to your app version using the `AppendAppSubversion()` method. For example, if your app version `1.0.1`, and set `AppendAppSubversion(8888)`, it will report app version as `1.0.1.8888`.
@@ -645,7 +628,7 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.AppendAppSubversion(8888);
 instance.Connect();
 ```
----
+
 ## <a id="liveops-campaigns"></a>LiveOps Campaigns
 
 Tenjin supports retrieving of user attribution information, like sourcing ad network and campaign, from the SDK. This will allow developers to collect and analyze user-level attribution data in real-time. Here are the possible use cases using Tenjin LiveOps Campaigns:
@@ -653,9 +636,8 @@ Tenjin supports retrieving of user attribution information, like sourcing ad net
 - If you have your own data anlytics tool, custom callback will allow you to tie the attribution data to your in-game data per device level.
 - Show different app content depending on where the user comes from. For example, if user A is attributed to organic and user B is attributed to Facebook and user B is likely to be more engaged with your app, then you want to show a special in-game offer after the user installs the app. If you want to discuss more specific use cases, please write to support@tenjin.com.
 
-:Warning **NOTE: LiveOps Campaigns is a paid feature, so please contact your Tenjin account manager if you would like to get access.
+:warning **NOTE: LiveOps Campaigns is a paid feature, so please contact your Tenjin account manager if you would like to get access.
 
----
 ## <a id="customer-user-id"></a>Customer User ID
 
 You can set and get customer user id to send as a parameter on events.
@@ -669,7 +651,7 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.SetCustomerUserId("user_id");
 string userId = instance.GetCustomerUserId(); 
 ```
----
+
 ## <a id="retry-cache"></a>Retry/cache events and IAP
 You can enable/disable retrying and caching events and IAP when requests fail or users don't have internet connection. These events will be sent after a new event has been added to the queue and user has recovered connection.
 
@@ -679,7 +661,7 @@ You can enable/disable retrying and caching events and IAP when requests fail or
 BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.SetCacheEventSetting(true);
 ```
----
+
 # <a id="ilrd"></a>Impression Level Ad Revenue Integration
 
 Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from,
@@ -695,7 +677,6 @@ This feature allows you to receive events which correspond to your ad revenue wh
 
 :warning: **NOTE: ILRD is a paid feature, so please contact your Tenjin account manager to discuss the price at first before sending ILRD events.**
 
----
 # <a id="testing"></a>Testing
 
 You can verify if the integration is working through our <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">Live Test Device Data Tool</a>. Add your `advertising_id` or `IDFA/GAID` to the list of test devices. You can find this under Support -\> <a href="https://www.tenjin.io/dashboard/debug_app_users">Test Devices</a>. Go to the <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">SDK Live page</a> and send the test events from your app. You should see live events come in:
