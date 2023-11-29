@@ -5,7 +5,17 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 - Please see our <a href="https://github.com/tenjin/tenjin-unity-sdk/blob/master/RELEASE_NOTES.md" target="_new">Release Notes</a> to see detailed version history of changes.
 - Tenjin Unity SDK supports both iOS and Android.
 - Review the [iOS][1] and [Android][2] documentation and apply the proper platform settings to your builds.
-- For any issues or support, please contact: support@tenjin.com
+- For any issues or support, please contact: support@tenjin.com.
+
+:info **(IMPORTANT)**
+
+If you are using Unity SDK v1.12.29 or lower, please follow [these](https://docs.google.com/document/d/1AXn_IJXc4z_C-0Dzu7r8stOPFchxd3gCfQiO6tscdFI/edit?usp=sharing) steps before completing the SDK integration.
+
+To upgrade to v1.12.30 or higher from lower versions, please ensure to remove the Tenjin binaries before installing the latest Unity version.
+
+:warning **(NOTE)**
+
+If you have `libTenjinSDK.a` and/or `libTenjinSDKUniversal.a` from older Tenjin SDK versions, please delete them and run `pod install` to integrate it on iOS
 
 # Table of contents
 
@@ -28,9 +38,9 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 	- [iOS IAP Validation][21]
 	- [Android IAP Validation][22]
   - [Custom Events][23]
-  - [Deferred Deeplinks][24]
   - [Server-to-server integration][25]
   - [App Subversion][26]
+  - [LiveOps Campaigns][70]
   - [Customer User ID][27]
   - [Retry/cache events and IAP][69]
   - [Impression Level Ad Revenue Integration][68]
@@ -62,7 +72,7 @@ The Tenjin SDK requires the following permissions:
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required to get network connectivity (i.e. wifi vs. mobile) -->
 ```
 
-Google Play Services will require all API level 32 (Android 13) apps using the advertising_id(Android Advertising ID (AAID)) to declare the Google Play Services AD_ID permission (shown below) in their manifest file. You are required to update the tenjin-android-sdk to version 1.12.8 in order to use the below permission.
+Google Play Services requires all API level 32 (Android 13) apps using the advertising_id(Android Advertising ID (AAID)) to declare the Google Play Services AD_ID permission (shown below) in their manifest file. You are required to update the tenjin-android-sdk to version 1.12.8 in order to use the below permission.
 
 ```xml
 <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
@@ -286,9 +296,6 @@ As of iOS 16.1, which supports SKAdNetwork 4.0, you can now send `coarseValue` (
     
 -   For iOS versions lower than 16.1 supporting SKAdnetWork versions lower than 4.0, you can call this method and our SDK will automatically detect the iOS version and update `conversionValue` only.
 
-- <a href="https://docs.google.com/spreadsheets/d/1jrRrTP6YX62of2WaJamtPBSWZJ-97IpTWn0IwTroH6Y/edit#gid=1596716780">Examples for IAP based games </a>
-- <a href="https://docs.google.com/spreadsheets/d/15JaN44yQyW7dqqRGi5Wwnq2P6ng-4n6EztMmMj5A7c4/edit#gid=0">Examples for Ad revenue based games </a>
-
 ```csharp
 using UnityEngine;
 using System.Collections;
@@ -401,6 +408,7 @@ boolean CheckOptInValue()
 - If you intend to use Google Ad Words, you will also need to add:
   - `platform`
   - `os_version`
+  - `app_version`
   - `locale`
   - `device_model`
   - `build_id`
@@ -458,8 +466,6 @@ instance.Connect();
 | country               | locale country               | All      | [Android][64], [iOS][65]                  |
 | timezone              | timezone                     | All      | [Android][66], [iOS][67]                  |
 
-<br/>
-
 ## <a id="purchase-events"></a>Purchase Events
 
 ## <a id="ios-iap-validation"></a>iOS IAP Validation
@@ -475,6 +481,11 @@ iOS receipt validation requires `transactionId` and `receipt`. For `receipt`, be
 Google Play receipt validation requires `receipt` and `signature` parameters.
 
 **IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> \> Select your app \> Monetization setup.
+
+:warning **(NOTE)**
+
+For Google play, Please ensure to 'acknowledge' the purchase event before sending it to Tenjin. For more details, read <a href="https://developer.android.com/google/play/billing/integrate#non-consumable-products" target="_blank">here</a>.
+
 
 ### <a id="android-iap-validation-amazon"></a>Amazon AppStore
 
@@ -551,6 +562,17 @@ In the example below, we are using the widely used <a href="https://gist.github.
 
 **Disclaimer:** If you are implementing purchase events on Tenjin for the first time, make sure to verify the data with other tools you’re using before you start scaling up your user acquisition campaigns using purchase data.
 
+:warning **(Flexible App Store Commission setup)**
+
+
+Choose between 15% and 30% App Store’s revenue commission via our new setup. The steps are -
+* Go to CONFIGURE --> Apps
+* Click on the app you want to change it for
+* Under the ‘App Store Commission’ section click ‘Edit’
+* Choose 30% or 15% as your desired app store commission.
+* Select the start date and end date (Or you can keep the end date blank if you dont want an end date)
+* Click Save (note: the 15% commission can be applied only to dates moving forward and not historical dates. So please set the start date from the date you make the change and forward)
+
 ### <a id="subscription-iap"></a> Subscription IAP
 
 - You are responsible to send a subscription transaction one time during each subscription interval (i.e., For example, for a monthly subscription, you will need to send us 1 transaction per month). In the example timeline below, a transaction event should only be sent at the "First Charge" and "Renewal" events. During the trial period, do not send Tenjin the transaction event.
@@ -590,11 +612,6 @@ void MethodWithCustomEvent(){
 
 `.SendEvent("name", "value")` is for events that you want to do math on a property of that event. For example, `("coins_purchased", "100")` will let you analyze a sum or average of the coins that are purchased for that event.
 
-## <a id="deferred-deeplinks"></a> Deferred Deeplinks
-
-Tenjin supports the ability to direct users to a specific part of your app after a new attributed installation via Tenjin's campaign tracking URLs. You can utilize the `GetDeeplink` method and callback to access the deferred deeplink through the data object.
-
-:warning: **NOTE: Deferred Deeplink is a paid feature, so please contact your Tenjin account manager if you are interested in.**
 
 ## <a id="server-to-server"></a>Server-to-server integration
 
@@ -612,6 +629,15 @@ instance.AppendAppSubversion(8888);
 instance.Connect();
 ```
 
+## <a id="liveops-campaigns"></a>LiveOps Campaigns
+
+Tenjin supports retrieving of user attribution information, like sourcing ad network and campaign, from the SDK. This will allow developers to collect and analyze user-level attribution data in real-time. Here are the possible use cases using Tenjin LiveOps Campaigns:
+
+- If you have your own data anlytics tool, custom callback will allow you to tie the attribution data to your in-game data per device level.
+- Show different app content depending on where the user comes from. For example, if user A is attributed to organic and user B is attributed to Facebook and user B is likely to be more engaged with your app, then you want to show a special in-game offer after the user installs the app. If you want to discuss more specific use cases, please write to support@tenjin.com.
+
+:warning **NOTE: LiveOps Campaigns is a paid feature, so please contact your Tenjin account manager if you would like to get access.
+
 ## <a id="customer-user-id"></a>Customer User ID
 
 You can set and get customer user id to send as a parameter on events.
@@ -626,7 +652,7 @@ instance.SetCustomerUserId("user_id");
 string userId = instance.GetCustomerUserId(); 
 ```
 
-## <a id="retry-cache"></a>Retry/cache of events/IAP
+## <a id="retry-cache"></a>Retry/cache events and IAP
 You can enable/disable retrying and caching events and IAP when requests fail or users don't have internet connection. These events will be sent after a new event has been added to the queue and user has recovered connection.
 
 `.SetCacheEventSetting(true)`
@@ -636,7 +662,7 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.SetCacheEventSetting(true);
 ```
 
-# <a id="ilrd"></a>Impression Level Ad Revenue Integration
+## <a id="ilrd"></a>Impression Level Ad Revenue Integration
 
 Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from,
 - AppLovin
@@ -688,9 +714,7 @@ You can verify if the integration is working through our <a href="https://www.te
 [25]:	#server-to-server
 [26]:	#subversion
 [27]:	#customer-user-id
-[68]:	#ilrd
 [28]:	#testing
-[69]:   #retry-cache
 [29]:	https://github.com/tenjin/tenjin-unity-sdk-demo
 [30]:	https://developer.apple.com/app-store/user-privacy-and-data-use/
 [31]:	https://developer.apple.com/documentation/storekit/skadnetwork/receiving_ad_attributions_and_postbacks
@@ -730,6 +754,9 @@ You can verify if the integration is working through our <a href="https://www.te
 [65]:	https://developer.apple.com/documentation/foundation/nslocalecountrycode
 [66]:	https://developer.android.com/reference/java/util/TimeZone.html
 [67]:	https://developer.apple.com/documentation/foundation/nstimezone/1387209-localtimezone
+[68]:	#ilrd
+[69]:   #retry-cache
+[70]:   #liveops-campaigns
 
 [image-1]:	https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events_2.png
 [image-2]:	https://s3.amazonaws.com/tenjin-instructions/app_api_key.png
