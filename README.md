@@ -545,7 +545,7 @@ In the example below, we are using the widely used <a href="https://gist.github.
   private static void CompletedAmazonPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string ReceiptId, string UserId)
   {
     BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
-    instance.TransactionAndroid(ProductId, CurrencyCode, Quantity, UnitPrice, ReceiptId, UserId);
+    instance.TransactionAmazon(ProductId, CurrencyCode, Quantity, UnitPrice, ReceiptId, UserId);
   }
 ```
 
