@@ -381,3 +381,24 @@ v1.13.2
 
 - Android v1.13.0
 - iOS v1.12.29
+
+v1.13.2
+----
+* Fix asset error in Unity 2020 and below
+
+- Android v1.13.0
+- iOS v1.12.29
+
+v1.13.3
+----
+* Fix GetCustomerUserId method
+
+- Android v1.13.0
+- iOS v1.12.29
+
+v1.13.4
+----
+* Fix SetCacheEventSetting method
+
+- Android v1.13.0
+- iOS v1.12.29
