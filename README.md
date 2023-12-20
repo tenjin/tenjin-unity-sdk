@@ -7,15 +7,12 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 - Review the [iOS][1] and [Android][2] documentation and apply the proper platform settings to your builds.
 - For any issues or support, please contact: support@tenjin.com.
 
-:info: **(IMPORTANT)**
+> [!NOTE]
+> If you are using Unity SDK v1.12.29 or lower, please follow [these](https://docs.google.com/document/d/1AXn_IJXc4z_C-0Dzu7r8stOPFchxd3gCfQiO6tscdFI/edit?usp=sharing) steps before completing the SDK integration.
+> To upgrade to v1.12.30 or higher from lower versions, please ensure to remove the Tenjin binaries before installing the latest Unity version.
 
-If you are using Unity SDK v1.12.29 or lower, please follow [these](https://docs.google.com/document/d/1AXn_IJXc4z_C-0Dzu7r8stOPFchxd3gCfQiO6tscdFI/edit?usp=sharing) steps before completing the SDK integration.
-
-To upgrade to v1.12.30 or higher from lower versions, please ensure to remove the Tenjin binaries before installing the latest Unity version.
-
-:warning: **(NOTE)**
-
-If you have `libTenjinSDK.a` and/or `libTenjinSDKUniversal.a` from older Tenjin SDK versions, please delete them and run `pod install` to integrate it on iOS
+> [!WARNING]
+> If you have `libTenjinSDK.a` and/or `libTenjinSDKUniversal.a` from older Tenjin SDK versions, please delete them and run `pod install` to integrate it on iOS.
 
 # Table of contents
 
@@ -180,7 +177,8 @@ If you are using Huawei libraries, you can to use these settings:
     }
     ```
 
-**NOTE:** Please ensure you implement this code on every `Start()`, not only on the first app open of the app. If we notice that you don't follow our recommendation, we can't give you the proper support or your account might be suspended.
+> [!NOTE]
+> Please ensure you implement this code on every `Start()`, not only on the first app open of the app. If we notice that you don't follow our recommendation, we can't give you the proper support or your account might be suspended.
 
 ## <a id="app-store"></a> App Store
 
@@ -263,7 +261,8 @@ public class TenjinExampleScript : MonoBehaviour {
 
 To comply with Apple’s ATT guidelines, you must provide a description for the ATT permission prompt, then implement the permission request in your application.
 
-> Note: You must implement the permission request before serving ads in your game.
+> [!NOTE]
+> You must implement the permission request before serving ads in your game.
 
 #### <a id="configureusertrackdescription"></a> Configuring a user tracking description
 Apple requires a description for the ATT permission prompt. You need to set the description with the `NSUserTrackingUsageDescription` key in the `Info.plist` file of your Xcode project. You have to provide a message that informs the user why you are requesting permission to use device tracking data:
@@ -277,7 +276,8 @@ Apple requires a description for the ATT permission prompt. You need to set the 
 	- "We try to show ads for apps and products that will be most interesting to you based on the apps you use, the device you are on, and the country you are in."
 	- "We try to show ads for apps and products that will be most interesting to you based on the apps you use."
 
-> Note: Apple provides specific [app store guidelines][30] that define acceptable use and messaging for all end-user facing privacy-related features. Tenjin does not provide legal advice. Therefore, the information on this page is not a substitute for seeking your own legal counsel to determine the legal requirements of your business and processes, and how to address them.
+> [!NOTE]
+> Apple provides specific [app store guidelines][30] that define acceptable use and messaging for all end-user facing privacy-related features. Tenjin does not provide legal advice. Therefore, the information on this page is not a substitute for seeking your own legal counsel to determine the legal requirements of your business and processes, and how to address them.
 
 ## <a id="skadnetwork-cv"></a> SKAdNetwork and Conversion Values
 
@@ -350,7 +350,8 @@ To specify Tenjin as the destination for your [SK Ad Network postbacks][31], do 
 
 These steps are adapted from Apple's instructions at [https://developer.apple.com/documentation/storekit/skadnetwork/configuring\_an\_advertised\_app][32].
 
-**NOTE**: If you are using AppLovin MAX for mediation, their Unity SDK will overwrite any value you entered for `NSAdvertisingAttributionReportEndpoint` with their own URL during the build process. You should be able to set the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com` in XCode after it's been overwritten in the following process.
+> [!NOTE]
+> If you are using AppLovin MAX for mediation, their Unity SDK will overwrite any value you entered for `NSAdvertisingAttributionReportEndpoint` with their own URL during the build process. You should be able to set the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com` in XCode after it's been overwritten in the following process.
 
 1. Export the iOS app following the steps Unity outlines [here][33].
 
@@ -482,16 +483,16 @@ Google Play receipt validation requires `receipt` and `signature` parameters.
 
 **IMPORTANT:** You will need to add your app's public key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. You can retrieve your Base64-encoded RSA public key from the <a href="https://play.google.com/apps/publish/" target="_new"> Google Play Developer Console</a> \> Select your app \> Monetization setup.
 
-:warning **(NOTE)**
-
-For Google play, Please ensure to 'acknowledge' the purchase event before sending it to Tenjin. For more details, read <a href="https://developer.android.com/google/play/billing/integrate#non-consumable-products" target="_blank">here</a>.
+> [!WARNING]
+> For Google play, Please ensure to 'acknowledge' the purchase event before sending it to Tenjin. For more details, read <a href="https://developer.android.com/google/play/billing/integrate#non-consumable-products" target="_blank">here</a>.
 
 
 ### <a id="android-iap-validation-amazon"></a>Amazon AppStore
 
 Amazon AppStore receipt validation requires `receiptId` and `userId` parameters.
 
-**IMPORTANT:** You will need to add your Amazon app's Shared Key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. The shared secret can be found on the Shared Key in your developer account with the <a href="https://developer.amazon.com/settings/console/sdk/shared-key/" target="_new">Amazon Appstore account</a> 
+> [!IMPORTANT]
+> You will need to add your Amazon app's Shared Key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. The shared secret can be found on the Shared Key in your developer account with the <a href="https://developer.amazon.com/settings/console/sdk/shared-key/" target="_new">Amazon Appstore account</a> 
 
 
 ### iOS and Android IAP Example:
@@ -562,7 +563,7 @@ In the example below, we are using the widely used <a href="https://gist.github.
 
 **Disclaimer:** If you are implementing purchase events on Tenjin for the first time, make sure to verify the data with other tools you’re using before you start scaling up your user acquisition campaigns using purchase data.
 
-:warning **(Flexible App Store Commission setup)**
+:warning: **(Flexible App Store Commission setup)**
 
 
 Choose between 15% and 30% App Store’s revenue commission via our new setup. The steps are -
@@ -636,7 +637,8 @@ Tenjin supports retrieving of user attribution information, like sourcing ad net
 - If you have your own data anlytics tool, custom callback will allow you to tie the attribution data to your in-game data per device level.
 - Show different app content depending on where the user comes from. For example, if user A is attributed to organic and user B is attributed to Facebook and user B is likely to be more engaged with your app, then you want to show a special in-game offer after the user installs the app. If you want to discuss more specific use cases, please write to support@tenjin.com.
 
-:warning **NOTE: LiveOps Campaigns is a paid feature, so please contact your Tenjin account manager if you would like to get access.
+> [!WARNING]
+> LiveOps Campaigns is a paid feature, so please contact your Tenjin account manager if you would like to get access.
 
 ## <a id="customer-user-id"></a>Customer User ID
 
@@ -675,7 +677,8 @@ Tenjin supports the ability to integrate with the Impression Level Ad Revenue (I
 
 This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. To enable this feature, follow the below instructions.
 
-:warning: **NOTE: ILRD is a paid feature, so please contact your Tenjin account manager to discuss the price at first before sending ILRD events.**
+> [!WARNING]
+> ILRD is a paid feature, so please contact your Tenjin account manager to discuss the price at first before sending ILRD events.
 
 # <a id="testing"></a>Testing
 
