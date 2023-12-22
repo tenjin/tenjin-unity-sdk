@@ -395,3 +395,11 @@ v1.13.4
 
 - Android v1.13.0
 - iOS v1.12.29
+
+v1.14.0
+----
+* Add `optInOutUsingCMP` method to manage GDPR opt-in/opt-out through CMP consents
+* Add `analytics_installation_id` parameter and getter method `getAnalyticsInstallationId`
+
+- Android v1.14.0
+- iOS v1.13.0
