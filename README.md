@@ -39,6 +39,8 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [App Subversion][26]
   - [LiveOps Campaigns][70]
   - [Customer User ID][27]
+  - [Analytics Installation ID][71]
+  - [Opt in/Opt out using CMP consents][72]
   - [Retry/cache events and IAP][69]
   - [Impression Level Ad Revenue Integration][68]
 - [Testing][29]
@@ -654,6 +656,26 @@ instance.SetCustomerUserId("user_id");
 string userId = instance.GetCustomerUserId(); 
 ```
 
+## <a id="analytics-id"></a>Analytics Installation ID
+You can get the analytics id which is generated randomly and saved in the local storage of the device.
+
+`GetAnalyticsInstallationId()`
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+analyticsId = instance.GetAnalyticsInstallationId; 
+```
+
+## <a id="optin-cmp"></a>Opt in/out using CMP
+You can automatically opt in or opt out using your CMP consents (purpose 1) which are already saved in the user's device. The method returns a boolean to let you know if it's opted in or out.
+
+`OptInOutUsingCMP()`
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+optInOut = instance.OptInOutUsingCMP(); 
+```
+
 ## <a id="retry-cache"></a>Retry/cache events and IAP
 You can enable/disable retrying and caching events and IAP when requests fail or users don't have internet connection. These events will be sent after a new event has been added to the queue and user has recovered connection.
 
@@ -760,6 +782,8 @@ You can verify if the integration is working through our <a href="https://www.te
 [68]:	#ilrd
 [69]:   #retry-cache
 [70]:   #liveops-campaigns
+[71]: #analytics-id
+[72]: #optin-cmp
 
 [image-1]:	https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events_2.png
 [image-2]:	https://s3.amazonaws.com/tenjin-instructions/app_api_key.png
