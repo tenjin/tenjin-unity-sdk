@@ -403,3 +403,11 @@ v1.14.0
 
 - Android v1.14.0
 - iOS v1.13.0
+
+v1.15.0
+----
+* Capture and send Google DMA parameters `ad_personalization` and `ad_user_data`
+* Add `deferred_deeplink_url` and `click_id` to `getAttributionInfo` method
+
+- Android v1.15.0
+- iOS v1.14.0

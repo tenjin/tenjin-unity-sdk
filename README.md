@@ -41,6 +41,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Customer User ID][27]
   - [Analytics Installation ID][71]
   - [Opt in/Opt out using CMP consents][72]
+  - [Google DMA parameters][73]
   - [Retry/cache events and IAP][69]
   - [Impression Level Ad Revenue Integration][68]
 - [Testing][29]
@@ -676,6 +677,16 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 optInOut = instance.OptInOutUsingCMP(); 
 ```
 
+## <a id="google-dma"></a>Google DMA parameters
+Tenjin automatically sends Google DMA parameters (`ad_personalization` and `ad_user_data`) if you use a CMP in your app based in user's consents. If you'd like to override those parameters or you don't use a CMP 'you can use the following method:
+
+`SetGoogleDMAParameters(bool, bool)`
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+instance.SetGoogleDMAParameters(adPersonalization, adUserData); 
+```
+
 ## <a id="retry-cache"></a>Retry/cache events and IAP
 You can enable/disable retrying and caching events and IAP when requests fail or users don't have internet connection. These events will be sent after a new event has been added to the queue and user has recovered connection.
 
@@ -784,6 +795,7 @@ You can verify if the integration is working through our <a href="https://www.te
 [70]:   #liveops-campaigns
 [71]: #analytics-id
 [72]: #optin-cmp
+[73]: #google-dma
 
 [image-1]:	https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events_2.png
 [image-2]:	https://s3.amazonaws.com/tenjin-instructions/app_api_key.png
