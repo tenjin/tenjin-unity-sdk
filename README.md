@@ -31,6 +31,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [SKAdNetwork and Conversion Value][17]
   - [SKAdNetwork iOS 15+ Postbacks][18]
   - [GDPR][19]
+    - [Opt in/Opt out using CMP consents][72]
   - [Purchase Events][20]
 	- [iOS IAP Validation][21]
 	- [Android IAP Validation][22]
@@ -40,7 +41,6 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [LiveOps Campaigns][70]
   - [Customer User ID][27]
   - [Analytics Installation ID][71]
-  - [Opt in/Opt out using CMP consents][72]
   - [Google DMA parameters][73]
   - [Retry/cache events and IAP][69]
   - [Impression Level Ad Revenue Integration][68]
@@ -439,6 +439,16 @@ instance.OptOutParams(optOutParams);
 instance.Connect();
 ```
 
+### <a id="optin-cmp"></a>Opt in/out using CMP
+You can automatically opt in or opt out using your CMP consents (purpose 1) which are already saved in the user's device. The method returns a boolean to let you know if it's opted in or out.
+
+`OptInOutUsingCMP()`
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+optInOut = instance.OptInOutUsingCMP(); 
+```
+
 #### Device-Related Parameters
 
 | Param                 | Description                  | Platform | Reference                                 |
@@ -667,18 +677,9 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 analyticsId = instance.GetAnalyticsInstallationId; 
 ```
 
-## <a id="optin-cmp"></a>Opt in/out using CMP
-You can automatically opt in or opt out using your CMP consents (purpose 1) which are already saved in the user's device. The method returns a boolean to let you know if it's opted in or out.
-
-`OptInOutUsingCMP()`
-
-```csharp
-BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
-optInOut = instance.OptInOutUsingCMP(); 
-```
-
 ## <a id="google-dma"></a>Google DMA parameters
-Tenjin automatically sends Google DMA parameters (`ad_personalization` and `ad_user_data`) if you use a CMP in your app based in user's consents. If you'd like to override those parameters or you don't use a CMP 'you can use the following method:
+If you already have a CMP integrated, Google DMA parameters will be automatically collected by the Tenjin SDK. There’s nothing to implement in the Tenjin SDK if you have a CMP integrated.
+If you want to override your CMP, or simply want to build your own consent mechanisms, you can use the following:
 
 `SetGoogleDMAParameters(bool, bool)`
 
