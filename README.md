@@ -688,6 +688,13 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.SetGoogleDMAParameters(adPersonalization, adUserData); 
 ```
 
+To explicitly manage the collection of Google DMA parameters, you have the flexibility to opt in or opt out at any time. While the default setting is to opt in, you can easily adjust your preferences using the OptInGoogleDMA or OptOutGoogleDMA methods, ensuring full control over your data privacy settings:
+
+```csharp
+instance.OptInGoogleDMA(); 
+instance.OptOutGoogleDMA(); 
+```
+
 ## <a id="retry-cache"></a>Retry/cache events and IAP
 You can enable/disable retrying and caching events and IAP when requests fail or users don't have internet connection. These events will be sent after a new event has been added to the queue and user has recovered connection.
 
