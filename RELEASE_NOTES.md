@@ -411,3 +411,10 @@ v1.15.0
 
 - Android v1.15.0
 - iOS v1.14.0
+
+v1.15.1
+----
+* Add opt out (`OptOutGoogleDMA`) and opt in (`OptInGoogleDMA`) methods for Google DMA
+
+- Android v1.15.1
+- iOS v1.14.1
