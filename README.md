@@ -324,12 +324,12 @@ public class TenjinExampleScript : MonoBehaviour {
       instance.Connect();
 
       // Sets SKAdNetwork Conversion Value
-      // You will need to use a value between 0-63 for <YOUR 6 bit value>
-      instance.updatePostbackConversionValue(<your 6 bit value>);
+      // You will need to use a value between 0-63
+      instance.updatePostbackConversionValue(<Integer between 0 and 63>);
       
       // For iOS 16.1+ (SKAN 4.0)
-      instance.updatePostbackConversionValue(<your 6 bit value>, "medium");
-      instance.updatePostbackConversionValue(<your 6 bit value>, "medium", true);
+      instance.updatePostbackConversionValue(<Integer between 0 and 63>, "medium");
+      instance.updatePostbackConversionValue(<Integer between 0 and 63>, "medium", true);
 
 #elif UNITY_ANDROID
 
