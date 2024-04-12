@@ -418,3 +418,11 @@ v1.15.1
 
 - Android v1.15.1
 - iOS v1.14.1
+
+v1.15.2
+----
+* iOS: Add Privacy manifest (`PrivacyInfo.xcprivacy`) to the SDK
+* Android: Add support for Meta install referrer
+
+- Android v1.16.0
+- iOS v1.14.1
