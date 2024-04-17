@@ -52,7 +52,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 
 2. Import the `TenjinUnityPackage.unitypackage` into your project: `Assets -> Import Package`.
 
-> We have a demo project - [tenjin-unity-sdk-demo][29] that demonstrates the integration of tenjin-unity-sdk. You can this project as example to understand how to integrate the tenjin-unity-sdk.
+> We have a demo project - [tenjin-unity-sdk-demo][29] that demonstrates the integration of tenjin-unity-sdk. You can use this project as an example to understand how to integrate the tenjin-unity-sdk.
 
 ## <a id="google-play"></a>Google Play
 By default, <b>unspecified</b> is the default App Store. Update the app store value to <b>googleplay</b>, if you distribute your app on Google Play Store.
