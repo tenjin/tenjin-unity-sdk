@@ -425,4 +425,12 @@ v1.15.2
 * Android: Add support for Meta install referrer
 
 - Android v1.16.0
-- iOS v1.14.1
+- iOS v1.14.2
+
+v1.15.3
+----
+* Update IronSource ILRD methods with their latest version
+* Android: Update Meta Install Referrer implementation
+
+- Android v1.16.3
+- iOS v1.14.2
