@@ -427,7 +427,7 @@ v1.15.2
 - Android v1.16.0
 - iOS v1.14.2
 
-v1.15.3
+v1.15.4
 ----
 * Update IronSource ILRD methods with their latest version
 * Android: Update Meta Install Referrer implementation
