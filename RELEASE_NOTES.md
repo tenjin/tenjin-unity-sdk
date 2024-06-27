@@ -434,3 +434,10 @@ v1.15.4
 
 - Android v1.16.3
 - iOS v1.14.2
+
+v1.15.5
+----
+* iOS: Fix other frameworks deletion issue when importing XCFramework
+
+- Android v1.16.3
+- iOS v1.14.2
