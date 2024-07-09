@@ -52,7 +52,18 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 
 2. Import the `TenjinUnityPackage.unitypackage` into your project: `Assets -> Import Package`.
 
-> We have a demo project - [tenjin-unity-sdk-demo][29] that demonstrates the integration of tenjin-unity-sdk. You can use this project as an example to understand how to integrate the tenjin-unity-sdk.
+### Important Note for Android
+
+To ensure Tenjin works seamlessly with the latest features and fixes, please make sure your Maven (Gradle) dependencies are up to date, as we distribute our Tenjin Android SDK through Maven. We've noticed some developers still using outdated versions, which might cause issues.
+
+If you build through Android Studio, please make sure to run Gradle sync to update the dependencies.
+
+If you don't use Android Studio, please update your dependencies in Unity by following these steps:
+
+- Open Unity.
+- Navigate to Assets > External Dependency Manager > Android Resolver.
+- Select Force Resolve to update your Gradle dependencies to the latest versions.
+
 
 ## <a id="google-play"></a>Google Play
 By default, <b>unspecified</b> is the default App Store. Update the app store value to <b>googleplay</b>, if you distribute your app on Google Play Store.
@@ -88,6 +99,8 @@ dependencies {
 }
 ```
 
+#### Meta Install Referrer integration
+
 To be able to collect <a href="https://developers.facebook.com/docs/app-ads/meta-install-referrer/" target="_new">Meta's Install Referrer</a>, add these queries to your Android Manifest:
 ```xml
 <queries>
@@ -97,6 +110,16 @@ To be able to collect <a href="https://developers.facebook.com/docs/app-ads/meta
 <queries>
   <package android:name="com.instagram.android" />
 </queries>
+```
+
+If you haven't set up Facebook's SDK (Meta) yet, add the following to your `AndroidManifest.xml` file:
+```xml
+<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
+```
+
+Next, add this value to your `strings.xml` file:
+```xml
+<string name="facebook_app_id" translatable="false">YOUR_APP_ID</string>
 ```
 
 ## <a id="amazon"></a>Amazon store
@@ -770,7 +793,6 @@ You can verify if the integration is working through our <a href="https://www.te
 [26]:	#subversion
 [27]:	#customer-user-id
 [28]:	#testing
-[29]:	https://github.com/tenjin/tenjin-unity-sdk-demo
 [30]:	https://developer.apple.com/app-store/user-privacy-and-data-use/
 [31]:	https://developer.apple.com/documentation/storekit/skadnetwork/receiving_ad_attributions_and_postbacks
 [32]:	https://developer.apple.com/documentation/storekit/skadnetwork/configuring_an_advertised_app
