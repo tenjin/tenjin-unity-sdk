@@ -99,7 +99,7 @@ dependencies {
 }
 ```
 
-#### Meta Install Referrer integration
+#### Meta Install Referrer Integration
 
 To be able to collect <a href="https://developers.facebook.com/docs/app-ads/meta-install-referrer/" target="_new">Meta's Install Referrer</a>, add these queries to your Android Manifest:
 ```xml
