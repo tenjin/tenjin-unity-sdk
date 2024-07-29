@@ -441,3 +441,11 @@ v1.15.5
 
 - Android v1.16.3
 - iOS v1.14.2
+
+v1.15.6
+----
+* Fix BuildPostProcessor error when building for iOS
+* Android: Improved the process for retrieving Google Advertising ID (GAID)
+
+- Android v1.16.5
+- iOS v1.14.2
