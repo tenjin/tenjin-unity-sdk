@@ -449,3 +449,10 @@ v1.15.6
 
 - Android v1.16.5
 - iOS v1.14.2
+
+v1.15.7
+----
+* iOS: Remove deprecated Apple `iAd` framework from the SDK
+
+- Android v1.16.5
+- iOS v1.14.4
