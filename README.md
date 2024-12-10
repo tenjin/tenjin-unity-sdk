@@ -112,7 +112,12 @@ To be able to collect <a href="https://developers.facebook.com/docs/app-ads/meta
 </queries>
 ```
 
-If you haven't set up Facebook's SDK (Meta) yet, add the following to your `strings.xml` file:
+If you haven't set up Facebook's SDK (Meta) yet, add the following to your `AndroidManifest.xml` file:
+```xml
+<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id" />
+```
+
+Next, add this value to your `strings.xml` file:
 ```xml
 <string name="facebook_app_id" translatable="false">YOUR_APP_ID</string>
 ```
