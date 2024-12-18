@@ -456,3 +456,14 @@ v1.15.7
 
 - Android v1.16.5
 - iOS v1.14.4
+
+v1.15.9
+----
+* Fix post processor loading loop
+* Enable multiple ad types subscriptions for AdMob
+* iOS: Remove deprecated Apple `iAd` framework from the SDK
+* Android: Improve dependency management (add Gradle dependencies automatically)
+* Android: Improve Install Referrer implementation
+
+- Android v1.16.6
+- iOS v1.14.6
