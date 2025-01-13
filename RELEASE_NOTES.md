@@ -467,3 +467,11 @@ v1.15.9
 
 - Android v1.16.6
 - iOS v1.14.6
+
+v1.15.10
+----
+* Remove Bitcode from the SDK
+* Add debug symbols (dSYM)
+
+- Android v1.16.6
+- iOS v1.14.7
