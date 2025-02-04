@@ -112,9 +112,9 @@ To be able to collect <a href="https://developers.facebook.com/docs/app-ads/meta
 </queries>
 ```
 
-If you haven't set up Facebook's SDK (Meta) yet, add the following to your `strings.xml` file:
+Next, add the following to your `strings.xml` file:
 ```xml
-<string name="facebook_app_id" translatable="false">YOUR_APP_ID</string>
+<string name="facebook_app_id" translatable="false">YOUR_META_APP_ID</string>
 ```
 
 ## <a id="amazon"></a>Amazon store
