@@ -475,3 +475,10 @@ v1.15.10
 
 - Android v1.16.6
 - iOS v1.14.7
+
+v1.15.11
+----
+* Add extra layer of security to HTTP requests
+
+- Android v1.16.7
+- iOS v1.14.9
