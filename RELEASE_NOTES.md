@@ -482,3 +482,10 @@ v1.15.12
 
 - Android v1.16.7
 - iOS v1.14.9
+
+v1.15.13
+----
+* Add missing fields to attribution data
+
+- Android v1.16.7
+- iOS v1.14.9
