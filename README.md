@@ -636,7 +636,7 @@ Choose between 15% and 30% App Store’s revenue commission via our new setup. T
 
 - Include the Assets folder in your Unity project
 - In your projects' method for the custom event, write the following for a named event: `Tenjin.getInstance("<SDK_KEY>").SendEvent("name")` and the following for a named event with an integer value: `Tenjin.getInstance("<SDK_KEY>").SendEvent("nameWithValue","value")`
-- Make sure `value` passed is an integer. If `value` is not an integer, your event will not be passed.
+- Make sure `value` passed is an integer value("2000" for example, not "0.02"). If `value` is not an integer value, `value` parameter will be omitted.
 
 Here's an example of the code:
 
