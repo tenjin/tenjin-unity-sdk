@@ -489,3 +489,10 @@ v1.15.13
 
 - Android v1.16.7
 - iOS v1.14.9
+
+v1.15.14
+----
+* Improve device parameters management
+
+- Android v1.16.7
+- iOS v1.14.10
