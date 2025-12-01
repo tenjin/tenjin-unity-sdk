@@ -541,6 +541,8 @@ Amazon AppStore receipt validation requires `receiptId` and `userId` parameters.
 
 In the example below, we are using the widely used <a href="https://gist.github.com/darktable/1411710" target="_new">MiniJSON</a> library for JSON deserializing.
 
+If you're using Unity IAP version 5 and above:
+
 ```csharp
 public static void OnPurchasePending(PendingOrder pendingOrder) {
     ProcessOrder(pendingOrder);
@@ -558,7 +560,7 @@ public static void ProcessOrder(Order order) {
 
     // UnifiedReceipt wrapper JSON
     var info = order.Info;
-    var wrapper = Json.Deserialize(info.Receipt) as Dictionary<string, object>;
+    var wrapper = Json.Deserialize(info.Receipt) as Dictionary<string, object>;  // https://gist.github.com/darktable/1411710
     if (wrapper == null) {
         return;
     }
@@ -612,6 +614,70 @@ private static void CompletedAmazonPurchase(string ProductId, string CurrencyCod
 {
     BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
     instance.TransactionAmazon(ProductId, CurrencyCode, Quantity, UnitPrice, ReceiptId, UserId);
+}
+```
+
+If you're using Unity IAP version 4 (or earlier):
+
+```csharp
+public static void OnProcessPurchase(PurchaseEventArgs purchaseEventArgs) {
+var price = purchaseEventArgs.purchasedProduct.metadata.localizedPrice;
+double lPrice = decimal.ToDouble(price);
+var currencyCode = purchaseEventArgs.purchasedProduct.metadata.isoCurrencyCode;
+
+var wrapper = Json.Deserialize(purchaseEventArgs.purchasedProduct.receipt) as Dictionary<string, object>;  // https://gist.github.com/darktable/1411710
+if (null == wrapper) {
+    return;
+}
+
+var store     = (string)wrapper["Store"]; // GooglePlay, AmazonAppStore, AppleAppStore, etc.
+var payload   = (string)wrapper["Payload"]; // For Apple this will be the base64 encoded ASN.1 receipt. For Android, it is the raw JSON receipt.
+var productId = purchaseEventArgs.purchasedProduct.definition.id;
+
+#if UNITY_ANDROID
+
+if (store.Equals("GooglePlay")) {
+var googleDetails = Json.Deserialize(payload) as Dictionary<string, object>;
+var googleJson    = (string)googleDetails["json"];
+var googleSig     = (string)googleDetails["signature"];
+
+CompletedAndroidPurchase(productId, currencyCode, 1, lPrice, googleJson, googleSig);
+}
+
+if (store.Equals("AmazonApps")) {
+var amazonDetails   = Json.Deserialize(payload) as Dictionary<string, object>;
+var amazonReceiptId = (string)amazonDetails["receiptId"];
+var amazonUserId    = (string)amazonDetails["userId"];
+
+CompletedAmazonPurchase(productId, currencyCode, 1, lPrice, amazonReceiptId, amazonUserId);
+}
+
+#elif UNITY_IOS
+
+var transactionId = purchaseEventArgs.purchasedProduct.transactionID;
+
+CompletedIosPurchase(productId, currencyCode, 1, lPrice , transactionId, payload);
+
+#endif
+
+}
+
+private static void CompletedAndroidPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string Receipt, string Signature)
+{
+BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
+instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, null, Receipt, Signature);
+}
+
+private static void CompletedIosPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string TransactionId, string Receipt)
+{
+BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
+instance.Transaction(ProductId, CurrencyCode, Quantity, UnitPrice, TransactionId, Receipt, null);
+}
+
+private static void CompletedAmazonPurchase(string ProductId, string CurrencyCode, int Quantity, double UnitPrice, string ReceiptId, string UserId)
+{
+BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
+instance.TransactionAmazon(ProductId, CurrencyCode, Quantity, UnitPrice, ReceiptId, UserId);
 }
 ```
 
