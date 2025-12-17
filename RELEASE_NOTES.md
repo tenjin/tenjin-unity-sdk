@@ -496,3 +496,11 @@ v1.15.14
 
 - Android v1.16.7
 - iOS v1.14.10
+
+v1.16.0
+----
+* Add support for LevelPlay (IronSource) v9.0.0+
+* Add User Profile - LiveOps Analytics metrics
+
+- Android v1.17.0
+- iOS v1.15.0
