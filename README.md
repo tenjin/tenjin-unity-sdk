@@ -42,6 +42,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Customer User ID][27]
   - [Analytics Installation ID][71]
   - [Google DMA parameters][73]
+  - [User Profile - LiveOps Metrics][74]
   - [Retry/cache events and IAP][69]
   - [Impression Level Ad Revenue Integration][68]
 - [Testing][29]
@@ -798,9 +799,97 @@ instance.SetGoogleDMAParameters(adPersonalization, adUserData);
 To explicitly manage the collection of Google DMA parameters, you have the flexibility to opt in or opt out at any time. While the default setting is to opt in, you can easily adjust your preferences using the OptInGoogleDMA or OptOutGoogleDMA methods, ensuring full control over your data privacy settings:
 
 ```csharp
-instance.OptInGoogleDMA(); 
-instance.OptOutGoogleDMA(); 
+instance.OptInGoogleDMA();
+instance.OptOutGoogleDMA();
 ```
+
+## <a id="user-profile"></a>User Profile - LiveOps Metrics
+
+The Tenjin SDK automatically tracks and aggregates user session and revenue metrics that can be used for LiveOps campaigns, user segmentation, and analytics. The User Profile feature provides real-time access to these metrics for individual users.
+
+### Tracked Metrics
+
+The SDK automatically tracks the following metrics per user:
+
+| Metric | Description | Type |
+|--------|-------------|------|
+| `session_count` | Total number of sessions | Integer |
+| `total_session_time` | Cumulative session time in **milliseconds** | Number |
+| `average_session_length` | Average session duration in **milliseconds** | Number |
+| `first_session_date` | ISO8601 timestamp of first session | String |
+| `last_session_date` | ISO8601 timestamp of most recent session | String |
+| `last_session_update` | ISO8601 timestamp of last session update | String |
+| `iap_transaction_count` | Total number of IAP transactions | Integer |
+| `iap_total_spend_usd` | Total IAP revenue in USD | Number |
+| `iap_revenue_by_currency` | Revenue breakdown by currency code | JSON String |
+| `purchased_product_ids` | Array of purchased product IDs | JSON String |
+| `ilrd_total_revenue_usd` | Total ILRD ad revenue in USD | Number |
+| `ilrd_revenue_by_network` | ILRD revenue by ad network | JSON String |
+
+**Note:** Conditional fields (dates, revenue maps, product arrays) are only included in the dictionary if data exists.
+
+### Available Methods
+
+#### Get User Profile Dictionary
+
+Returns a dictionary containing all tracked metrics for the current user. All values are returned as strings (numbers, JSON arrays, and JSON objects are converted to strings).
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+Dictionary<string, string> profile = instance.GetUserProfileDictionary();
+
+if (profile != null && profile.Count > 0)
+{
+    Debug.Log("Session Count: " + profile["session_count"]);
+    Debug.Log("Total Session Time (ms): " + profile["total_session_time"]);
+    Debug.Log("Average Session Length (ms): " + profile["average_session_length"]);
+    Debug.Log("Total IAP Spend USD: " + profile["iap_total_spend_usd"]);
+
+    // Convert milliseconds to seconds if needed
+    long totalTimeMs = long.Parse(profile["total_session_time"]);
+    Debug.Log($"Total Session Time: {totalTimeMs / 1000.0:F1} seconds");
+
+    // Revenue by currency is a JSON string
+    if (profile.ContainsKey("iap_revenue_by_currency"))
+    {
+        Debug.Log("IAP Revenue by Currency: " + profile["iap_revenue_by_currency"]);
+        // Example: {"USD":99.99,"EUR":49.99}
+    }
+
+    // Product IDs is a JSON array string
+    if (profile.ContainsKey("purchased_product_ids"))
+    {
+        Debug.Log("Purchased Products: " + profile["purchased_product_ids"]);
+        // Example: ["com.app.coins100","com.app.coins500"]
+    }
+}
+else
+{
+    Debug.Log("User profile not available yet");
+}
+```
+
+#### Reset User Profile
+
+Clears all tracked metrics for the current user. Useful for testing or when a user logs out.
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+instance.ResetUserProfile();
+Debug.Log("User profile has been reset");
+```
+
+### Platform-Specific Notes
+
+- **Time Units**:
+  - **All time values are now in milliseconds** on both iOS and Android for consistency
+  - Convert to seconds if needed: `milliseconds / 1000.0`
+
+- **Complex Data Types**:
+  - Revenue maps (`iap_revenue_by_currency`, `ilrd_revenue_by_network`) are returned as JSON strings: `{"USD":99.99,"EUR":49.99}`
+  - Product ID arrays (`purchased_product_ids`) are returned as JSON strings: `["product1","product2"]`
+
+- **Data Availability**: User profile data becomes available after the first session is tracked. The `GetUserProfileDictionary()` method returns real-time data from the SDK's in-memory cache.
 
 ## <a id="retry-cache"></a>Retry/cache events and IAP
 You can enable/disable retrying and caching events and IAP when requests fail or users don't have internet connection. These events will be sent after a new event has been added to the queue and user has recovered connection.
@@ -910,6 +999,7 @@ You can verify if the integration is working through our <a href="https://www.te
 [71]: #analytics-id
 [72]: #optin-cmp
 [73]: #google-dma
+[74]: #user-profile
 
 [image-1]:	https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events_2.png
 [image-2]:	https://s3.amazonaws.com/tenjin-instructions/app_api_key.png
