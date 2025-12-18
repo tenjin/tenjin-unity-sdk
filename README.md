@@ -816,17 +816,17 @@ The SDK automatically tracks the following metrics per user:
 | `session_count` | Total number of sessions | Integer |
 | `total_session_time` | Cumulative session time in **milliseconds** | Number |
 | `average_session_length` | Average session duration in **milliseconds** | Number |
-| `first_session_date` | ISO8601 timestamp of first session | String |
-| `last_session_date` | ISO8601 timestamp of most recent session | String |
-| `last_session_update` | ISO8601 timestamp of last session update | String |
+| `last_session_length` | Last completed session duration in **milliseconds** | Number |
 | `iap_transaction_count` | Total number of IAP transactions | Integer |
-| `iap_total_spend_usd` | Total IAP revenue in USD | Number |
+| `total_ilrd_revenue_usd` | Total ILRD ad revenue in USD | Number |
+| `first_session_date` | ISO8601 timestamp of first session | String |
+| `last_session_date` | ISO8601 timestamp of most recent completed session | String |
+| `current_session_length` | Current active session duration in **milliseconds** | Number |
 | `iap_revenue_by_currency` | Revenue breakdown by currency code | JSON String |
 | `purchased_product_ids` | Array of purchased product IDs | JSON String |
-| `ilrd_total_revenue_usd` | Total ILRD ad revenue in USD | Number |
 | `ilrd_revenue_by_network` | ILRD revenue by ad network | JSON String |
 
-**Note:** Conditional fields (dates, revenue maps, product arrays) are only included in the dictionary if data exists.
+**Note:** Conditional fields (dates, current session, revenue maps, product arrays) are only included in the dictionary if data exists.
 
 ### Available Methods
 
@@ -843,20 +843,22 @@ if (profile != null && profile.Count > 0)
     Debug.Log("Session Count: " + profile["session_count"]);
     Debug.Log("Total Session Time (ms): " + profile["total_session_time"]);
     Debug.Log("Average Session Length (ms): " + profile["average_session_length"]);
-    Debug.Log("Total IAP Spend USD: " + profile["iap_total_spend_usd"]);
+    Debug.Log("Last Session Length (ms): " + profile["last_session_length"]);
+    Debug.Log("IAP Transaction Count: " + profile["iap_transaction_count"]);
+    Debug.Log("Total ILRD Revenue USD: " + profile["total_ilrd_revenue_usd"]);
 
     // Convert milliseconds to seconds if needed
     long totalTimeMs = long.Parse(profile["total_session_time"]);
     Debug.Log($"Total Session Time: {totalTimeMs / 1000.0:F1} seconds");
 
-    // Revenue by currency is a JSON string
+    // Revenue by currency is a JSON string (conditional)
     if (profile.ContainsKey("iap_revenue_by_currency"))
     {
         Debug.Log("IAP Revenue by Currency: " + profile["iap_revenue_by_currency"]);
         // Example: {"USD":99.99,"EUR":49.99}
     }
 
-    // Product IDs is a JSON array string
+    // Product IDs is a JSON array string (conditional)
     if (profile.ContainsKey("purchased_product_ids"))
     {
         Debug.Log("Purchased Products: " + profile["purchased_product_ids"]);
