@@ -509,5 +509,5 @@ v1.16.1
 ----
 * Improve support for LevelPlay (IronSource) v9.0.0+
 
-- Android v1.17.0
-- iOS v1.15.0
+- Android v1.17.1
+- iOS v1.15.1
