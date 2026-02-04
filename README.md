@@ -535,42 +535,48 @@ Google Play receipt validation requires `receipt` and `signature` parameters.
 Amazon AppStore receipt validation requires `receiptId` and `userId` parameters.
 
 > [!IMPORTANT]
-> You will need to add your Amazon app's Shared Key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. The shared secret can be found on the Shared Key in your developer account with the <a href="https://developer.amazon.com/settings/console/sdk/shared-key/" target="_new">Amazon Appstore account</a> 
+> You will need to add your Amazon app's Shared Key in the <a href="https://www.tenjin.io/dashboard/apps" target="_new">Tenjin dashboard</a>. The shared secret can be found on the Shared Key in your developer account with the <a href="https://developer.amazon.com/settings/console/sdk/shared-key/" target="_new">Amazon Appstore account</a>
 
 
 ### iOS and Android IAP Example:
 
 In the example below, we are using the widely used <a href="https://gist.github.com/darktable/1411710" target="_new">MiniJSON</a> library for JSON deserializing.
 
+> [!WARNING]
+> **Unity IAP 5.0.3 Known Issue:** There is a known bug in Unity IAP version 5.0.3 where `OnProductsFetchFailed` is incorrectly called on iOS even when products are fetched successfully. If you experience this issue, upgrade to Unity IAP 5.0.4 or later.
+
 If you're using Unity IAP version 5 and above:
+
+> [!IMPORTANT]
+> **For consumable products**, the receipt is **only available** in `PendingOrder`. Once confirmed (`ConfirmedOrder`), the receipt becomes empty. Always process purchases and send to Tenjin in `OnPurchasePending` for consumables.
 
 ```csharp
 public static void OnPurchasePending(PendingOrder pendingOrder) {
     ProcessOrder(pendingOrder);
-    // You may call: UnityIAPServices.StoreController().ConfirmPurchase(pendingOrder);
+    // Confirm the purchase after processing
+    UnityIAPServices.DefaultPurchase().ConfirmPurchase(pendingOrder);
 }
 
 public static void ProcessOrder(Order order) {
-    // Price and currency metadata
+    // Get the first item from the cart
     var item = order.CartOrdered.Items().FirstOrDefault();
-    var product = item.Product;
+    if (item == null) return;
 
+    var product = item.Product;
     var price = product.metadata.localizedPrice;
     double lPrice = decimal.ToDouble(price);
     var currencyCode = product.metadata.isoCurrencyCode;
-
-    // UnifiedReceipt wrapper JSON
-    var info = order.Info;
-    var wrapper = Json.Deserialize(info.Receipt) as Dictionary<string, object>;  // https://gist.github.com/darktable/1411710
-    if (wrapper == null) {
-        return;
-    }
-
-    var store     = (string)wrapper["Store"];   // GooglePlay, AmazonAppStore, AppleAppStore, etc.
-    var payload   = (string)wrapper["Payload"]; // iOS = base64 SK1 receipt, Android = raw JSON receipt
     var productId = product.definition.id;
+    var info = order.Info;
 
 #if UNITY_ANDROID
+
+    // Parse the unified receipt JSON
+    var wrapper = Json.Deserialize(info.Receipt) as Dictionary<string, object>;  // https://gist.github.com/darktable/1411710
+    if (wrapper == null) return;
+
+    var store   = (string)wrapper["Store"];
+    var payload = (string)wrapper["Payload"];
 
     if (store.Equals("GooglePlay")) {
         var googleDetails = Json.Deserialize(payload) as Dictionary<string, object>;
@@ -590,8 +596,14 @@ public static void ProcessOrder(Order order) {
 
 #elif UNITY_IOS
 
+    var receipt = info.Apple?.AppReceipt;
+    if (string.IsNullOrEmpty(receipt)) {
+        Debug.LogError("Apple.AppReceipt is empty - no receipt available");
+        return;
+    }
+
     var transactionId = info.TransactionID;
-    CompletedIosPurchase(productId, currencyCode, 1, lPrice, transactionId, payload);
+    CompletedIosPurchase(productId, currencyCode, 1, lPrice, transactionId, receipt);
 
 #endif
 }
@@ -617,6 +629,11 @@ private static void CompletedAmazonPurchase(string ProductId, string CurrencyCod
     instance.TransactionAmazon(ProductId, CurrencyCode, Quantity, UnitPrice, ReceiptId, UserId);
 }
 ```
+
+**iOS Receipt Notes for Unity IAP 5.0+:**
+- Use `order.Info.Apple.AppReceipt` to get the SK1 receipt directly (base64-encoded ASN.1 receipt)
+- This is the recommended approach for Unity IAP 5.0+ as it provides direct access to the Apple receipt
+- The unified receipt JSON (`order.Info.Receipt`) with `Payload` field might not be reliable in Unity IAP 5.0+
 
 If you're using Unity IAP version 4 (or earlier):
 
