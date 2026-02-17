@@ -542,9 +542,6 @@ Amazon AppStore receipt validation requires `receiptId` and `userId` parameters.
 
 In the example below, we are using the widely used <a href="https://gist.github.com/darktable/1411710" target="_new">MiniJSON</a> library for JSON deserializing.
 
-> [!WARNING]
-> **Unity IAP 5.0.3 Known Issue:** There is a known bug in Unity IAP version 5.0.3 where `OnProductsFetchFailed` is incorrectly called on iOS even when products are fetched successfully. If you experience this issue, upgrade to Unity IAP 5.0.4 or later.
-
 If you're using Unity IAP version 5 and above:
 
 > [!IMPORTANT]
@@ -596,9 +593,14 @@ public static void ProcessOrder(Order order) {
 
 #elif UNITY_IOS
 
-    var receipt = info.Apple?.AppReceipt;
+    // Try SK2 first (Unity IAP 5.1+ on iOS 15+), fall back to SK1
+    var receipt = info.Apple?.jwsRepresentation;
     if (string.IsNullOrEmpty(receipt)) {
-        Debug.LogError("Apple.AppReceipt is empty - no receipt available");
+        receipt = info.Apple?.AppReceipt;
+    }
+
+    if (string.IsNullOrEmpty(receipt)) {
+        Debug.LogError("No receipt available");
         return;
     }
 
@@ -629,11 +631,6 @@ private static void CompletedAmazonPurchase(string ProductId, string CurrencyCod
     instance.TransactionAmazon(ProductId, CurrencyCode, Quantity, UnitPrice, ReceiptId, UserId);
 }
 ```
-
-**iOS Receipt Notes for Unity IAP 5.0+:**
-- Use `order.Info.Apple.AppReceipt` to get the SK1 receipt directly (base64-encoded ASN.1 receipt)
-- This is the recommended approach for Unity IAP 5.0+ as it provides direct access to the Apple receipt
-- The unified receipt JSON (`order.Info.Receipt`) with `Payload` field might not be reliable in Unity IAP 5.0+
 
 If you're using Unity IAP version 4 (or earlier):
 
