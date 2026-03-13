@@ -504,3 +504,10 @@ v1.16.2
 
 - Android v1.17.2
 - iOS v1.15.1
+
+v1.16.3
+----
+* Add Unity Package Manager (UMP) support
+
+- Android v1.17.2
+- iOS v1.15.1
