@@ -1,0 +1,21 @@
+{
+  "name": "com.tenjin.sdk",
+  "version": "1.16.3",
+  "displayName": "Tenjin SDK",
+  "description": "Tenjin attribution and analytics SDK for Unity",
+  "unity": "2020.3",
+  "documentationUrl": "https://docs.tenjin.com/v1/docs/unity-sdk",
+  "license": "MIT",
+  "author": {
+    "name": "Tenjin",
+    "url": "https://www.tenjin.com"
+  },
+  "keywords": [
+    "tenjin",
+    "MMP",
+    "attribution",
+    "analytics",
+    "ads",
+    "ILRD"
+  ]
+}

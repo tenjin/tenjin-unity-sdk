@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get latest version from RELEASE_NOTES.md
+        id: get_version
+        run: |
+          version=$(grep -E "^v[0-9]+\.[0-9]+\.[0-9]+" RELEASE_NOTES.md | tail -1 | tr -d '\r')
+          if [[ -z "$version" ]]; then
+            echo "::error::Could not detect version from RELEASE_NOTES.md"
+            exit 1
+          fi
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "Detected version: $version"
+
+      - name: Check if release already exists
+        id: check_tag
+        run: |
+          if git rev-parse -q --verify "refs/tags/${{ steps.get_version.outputs.version }}" >/dev/null 2>&1; then
+            echo "Tag ${{ steps.get_version.outputs.version }} already exists; skipping release."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract release notes
+        if: steps.check_tag.outputs.skip != 'true'
+        run: |
+          version="${{ steps.get_version.outputs.version }}"
+          awk "/^${version}/,/^v[0-9]+\.[0-9]+\.[0-9]+/{if(/^v[0-9]+\.[0-9]+\.[0-9]+/ && !/^${version}/)exit; print}" RELEASE_NOTES.md > release_notes.md
+          if [[ ! -s release_notes.md ]]; then
+            echo "::warning::No release notes found for ${version}"
+            echo "${version}" > release_notes.md
+          fi
+          cat release_notes.md
+
+      - name: Create GitHub Release
+        if: steps.check_tag.outputs.skip != 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get_version.outputs.version }}
+          name: ${{ steps.get_version.outputs.version }}
+          body_path: release_notes.md
+          files: Legacy~/TenjinUnityPackage.unitypackage
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
