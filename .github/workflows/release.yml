@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  github_release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,44 +17,41 @@ jobs:
           fetch-depth: 0
 
       - name: Get latest version from RELEASE_NOTES.md
-        id: get_version
+        id: version
         run: |
-          version=$(grep -E "^v[0-9]+\.[0-9]+\.[0-9]+" RELEASE_NOTES.md | tail -1 | tr -d '\r')
-          if [[ -z "$version" ]]; then
+          RAW_VERSION=$(grep -E "^v[0-9]+\.[0-9]+\.[0-9]+" RELEASE_NOTES.md | tail -1 | tr -d '\r')
+          if [[ -z "$RAW_VERSION" ]]; then
             echo "::error::Could not detect version from RELEASE_NOTES.md"
             exit 1
           fi
-          echo "version=$version" >> $GITHUB_OUTPUT
-          echo "Detected version: $version"
+          VERSION="${RAW_VERSION#v}"
+          echo "raw_version=$RAW_VERSION" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Check if release already exists
-        id: check_tag
+      - name: Ensure tag does not already exist
         run: |
-          if git rev-parse -q --verify "refs/tags/${{ steps.get_version.outputs.version }}" >/dev/null 2>&1; then
-            echo "Tag ${{ steps.get_version.outputs.version }} already exists; skipping release."
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
+          if git rev-parse -q --verify "refs/tags/${{ steps.version.outputs.version }}" >/dev/null; then
+            echo "Tag ${{ steps.version.outputs.version }} already exists; skipping release."
+            exit 1
           fi
 
       - name: Extract release notes
-        if: steps.check_tag.outputs.skip != 'true'
+        id: release_notes
         run: |
-          version="${{ steps.get_version.outputs.version }}"
-          awk "/^${version}/,/^v[0-9]+\.[0-9]+\.[0-9]+/{if(/^v[0-9]+\.[0-9]+\.[0-9]+/ && !/^${version}/)exit; print}" RELEASE_NOTES.md > release_notes.md
-          if [[ ! -s release_notes.md ]]; then
-            echo "::warning::No release notes found for ${version}"
-            echo "${version}" > release_notes.md
-          fi
-          cat release_notes.md
+          RAW_VERSION="${{ steps.version.outputs.raw_version }}"
+          NOTES=$(awk "/^${RAW_VERSION}\$/{found=1; next} /^----\$/{if(found) {capture=1; next}} /^v[0-9]/{if(capture) exit} capture && /^[*-] /{print}" RELEASE_NOTES.md)
+          {
+            echo "notes<<EOF"
+            echo "$NOTES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub Release
-        if: steps.check_tag.outputs.skip != 'true'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.get_version.outputs.version }}
-          name: ${{ steps.get_version.outputs.version }}
-          body_path: release_notes.md
+          tag_name: ${{ steps.version.outputs.version }}
+          name: ${{ steps.version.outputs.version }}
+          body: ${{ steps.release_notes.outputs.notes }}
           files: Legacy~/TenjinUnityPackage.unitypackage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
