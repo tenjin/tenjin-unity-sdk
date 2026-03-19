@@ -55,6 +55,6 @@ jobs:
           tag_name: ${{ steps.get_version.outputs.version }}
           name: ${{ steps.get_version.outputs.version }}
           body_path: release_notes.md
-          files: TenjinUnityPackage.unitypackage
+          files: Legacy~/TenjinUnityPackage.unitypackage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
