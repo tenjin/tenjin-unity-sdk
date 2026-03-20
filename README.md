@@ -49,6 +49,20 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 
 # <a id="sdk-integration"></a> SDK Integration
 
+## Unity Package Manager (UPM)
+
+To install a UPM package from a Git URL:
+
+1. Open the Package Manager window, if it's not already open.
+2. Open the Add (+) menu in the Package Manager's toolbar.
+3. Select **Install package from git URL** from the install menu. A text box and an Install button appear.
+4. Enter the following valid Git URL in the text box:
+   `https://github.com/tenjin/tenjin-unity-sdk.git`
+   *(Optional: If you want to use a specific version, append `#` followed by the version tag, e.g., `https://github.com/tenjin/tenjin-unity-sdk.git#1.16.3`)*
+5. Click **Install**.
+
+## Manual Installation (.unitypackage)
+
 1. Download the latest Unity SDK from <a href="https://github.com/tenjin/tenjin-unity-sdk/releases" target="_new">here.</a>
 
 2. Import the `TenjinUnityPackage.unitypackage` into your project: `Assets -> Import Package`.
