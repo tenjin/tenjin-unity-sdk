@@ -36,11 +36,13 @@ v1.10.1
 
 v1.10.2
 ----
+
 - Android v1.10.2
 - iOS v1.10.2
 
 v1.10.3
 ----
+
 * Remove universal lib from device ios build, and device lib from simulator ios build in generated ios project
 
 - Android v1.10.2
@@ -48,6 +50,7 @@ v1.10.3
 
 v1.10.4
 ----
+
 * Debug logs with unity api for iOS
 * Update iOS sdk with duplicate event call bugfix
 
@@ -56,6 +59,7 @@ v1.10.4
 
 v1.10.5
 ----
+
 * Update android sdk
 * Prevent duplicate subscriptions to ILRD
 
@@ -64,6 +68,7 @@ v1.10.5
 
 v1.11.0
 ----
+
 * Passing Unity sdk version into native lib
 
 - Android v1.11.0
@@ -71,6 +76,7 @@ v1.11.0
 
 v1.11.1
 ----
+
 * Updating Unity SDK CI build pipeline
 
 - Android v1.11.0
@@ -78,6 +84,7 @@ v1.11.1
 
 v1.11.2
 ----
+
 * Update Android installreferrer version
 
 - Android v1.11.0
@@ -85,6 +92,7 @@ v1.11.2
 
 v1.11.3
 ----
+
 * Bumping version to test build pipeline
 
 - Android v1.11.0
@@ -92,6 +100,7 @@ v1.11.3
 
 v1.12.0
 ----
+
 * iOS 14 support build
 
 - Android v1.12.0
@@ -99,6 +108,7 @@ v1.12.0
 
 v1.12.2
 ----
+
 * Fix Android bug on connect
 
 - Android v1.12.2
@@ -106,49 +116,46 @@ v1.12.2
 
 v1.12.3
 ----
-* Remove JAR files from build/ci for Android
-
-- Android v1.12.3
-- iOS v1.12.2
+Remove JAR files from build/ci for Android
+Android v1.12.3
+iOS v1.12.3
 
 v1.12.4
 ----
-* Fix memory bug
-* Remove legacy AndroidManifest.xml entry
-
-- Android v1.12.4
-- iOS v1.12.2
+Cleanup AndroidManifest.xml
+iOS v1.12.4
 
 v1.12.5
 ----
-* Add MSA OAID support
-
-- Android SDK 1.12.5
-- iOS SDK 1.12.5
+Android v1.12.4 (OAID support)
+iOS v1.12.4
 
 v1.12.6
 ----
-* Adds AdServices.framework support
-* MoPub Build 
-* Make GetTrackingAuthorizationStatus private
 
-- Android SDK 1.12.5
-- iOS SDK 1.12.6
+* Apple Attribution Token - Add iOS SDK 1.12.6 [TENJIN-7383]
+
+- Android v1.12.5
+- iOS v1.12.6
 
 v1.12.7
 ----
-* Fix MSA OAID
 
-- Android SDK 1.12.6
-- iOS SDK 1.12.7
+* Fix MSA OAID issue in unity and android
+* Fix mopub issue in ios
+
+- Android v1.12.6
+- iOS v1.12.7
 
 v1.12.8
 ----
-* Update minimum supported Unity Editor version from 2019.4.21f1 to 2020.1.16f1
-* Update Android dependencies
-  * installreferrer from 1.1.2 to 2.2
-  * play-services-ads-identifier from 17.0.0 to 17.1.0
-  * play-services-basement from 17.4.0 to 17.6.0
+
+- Update Unity Editor from 2019.4.21f1 to 2020.1.16f1
+- Update Android dependencies
+  - installreferrer from 1.1.2 to 2.2
+  - play-services-ads-identifier from 17.0.0 to 17.1.0
+  - play-services-basement from 17.4.0 to 17.6.0
+- Update com.google.external-dependency-manager from 1.2.164 to 1.2.167
 
 - Android v1.12.7
 - iOS v1.12.7
@@ -164,6 +171,8 @@ v1.12.9
 v1.12.10
 ----
 * Downgrade minimum supported Unity Editor version from 2019.4.21f1 to 2019.2.21f1
+* Refactor AdvertiserInfo class with new set methods for advertisingId and limitAdTracking
+* Bugfix for referral parameter not being sent on first start of the SDK
 * AppLovin Impression Level Ad Revenue
 
 - Android v1.12.11
@@ -196,6 +205,7 @@ v1.12.14
 * Added public method `getAttributionInfo`
 * Bug fix for non-numeric values in `publisher_revenue_decimal` and `publisher_revenue_micro ILRD` parameters
 * Deprecate support for mopub ILRD
+
 
 - Android v1.12.14
 - iOS v1.12.14
@@ -370,14 +380,14 @@ v1.13.0
 
 v1.13.1
 ----
-* iOS - Fix duplicated frameworks error
+* iOS - Fix duplicated binaries error
 
 - Android v1.13.0
 - iOS v1.12.28
 
 v1.13.2
 ----
-* Fix asset error in Unity 2020 and below
+* Fix asset error in Unity 2020 and bellow
 
 - Android v1.13.0
 - iOS v1.12.29
@@ -424,8 +434,9 @@ v1.15.2
 * iOS: Add Privacy manifest (`PrivacyInfo.xcprivacy`) to the SDK
 * Android: Add support for Meta install referrer
 
-- Android v1.16.0
-- iOS v1.14.2
+- Android v1.16.1
+- iOS v1.14.1
+
 
 v1.15.4
 ----
@@ -457,6 +468,15 @@ v1.15.7
 - Android v1.16.5
 - iOS v1.14.4
 
+v1.15.8
+----
+* Fix post processor loading loop
+* Enable multiple ad types subscriptions for AdMob
+* Android: Improve dependency management (add Gradle dependencies automatically)
+
+- Android v1.16.5
+- iOS v1.14.4
+
 v1.15.9
 ----
 * Fix post processor loading loop
@@ -476,12 +496,12 @@ v1.15.10
 - Android v1.16.6
 - iOS v1.14.7
 
-v1.15.12
+v1.15.11
 ----
 * Add extra layer of security to HTTP requests
 
 - Android v1.16.7
-- iOS v1.14.9
+- iOS v1.14.8
 
 v1.15.13
 ----
@@ -497,10 +517,31 @@ v1.15.14
 - Android v1.16.7
 - iOS v1.14.10
 
-v1.16.2
+v1.16.0
 ----
-* Improve support for LevelPlay (IronSource) v9.0.0+
+* Add support for LevelPlay (IronSource) v9.0.0+
 * Add User Profile - LiveOps Analytics metrics
 
+- Android v1.17.0
+- iOS v1.15.0
+
+v1.16.1
+----
+* Improve support for LevelPlay (IronSource) v9.0.0+
+
+- Android v1.17.0
+- iOS v1.15.0
+
+v1.16.2
+----
+* Update Android configuration to improve Unity build process
+
 - Android v1.17.2
+- iOS v1.15.1
+
+v1.16.3
+----
+* Add support for Unity Package Manager (UPM)
+
+- Android v1.17.3
 - iOS v1.15.1
