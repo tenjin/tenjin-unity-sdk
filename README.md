@@ -460,12 +460,12 @@ boolean CheckOptInValue()
   - `device_model`
   - `build_id`
 
-If you want to only get specific device-related parameters, use `OptInParams()`. In example below, we will only these device-related parameters: `ip_address`, `advertising_id`, `developer_device_id`, `limit_ad_tracking`, `referrer`, and `iad`:
+If you want to only get specific device-related parameters, use `OptInParams()`. In example below, we will only these device-related parameters: `ip_address`, `advertising_id`, `developer_device_id`, `limit_ad_tracking`, and `referrer`:
 
 ```csharp
 BaseTenjin instance = Tenjin.getInstance("SDK_KEY");
 
-List<string> optInParams = new List<string> {"ip_address", "advertising_id", "developer_device_id", "limit_ad_tracking", "referrer", "iad"};
+List<string> optInParams = new List<string> {"ip_address", "advertising_id", "developer_device_id", "limit_ad_tracking", "referrer"};
 instance.OptInParams(optInParams);
 
 instance.Connect();
@@ -504,7 +504,6 @@ optInOut = instance.OptInOutUsingCMP();
 | limit\_ad\_tracking   | limit ad tracking enabled    | All      | [Android][39], [iOS][40]                  |
 | platform              | platform                     | All      | iOS or Android                            |
 | referrer              | Google Play Install Referrer | Android  | [Android][41]                             |
-| iad                   | Apple Search Ad parameters   | iOS      | [iOS][42]                                 |
 | os\_version           | operating system version     | All      | [Android][43], [iOS][44]                  |
 | device                | device name                  | All      | [Android][45], [iOS (hw.machine)][46]     |
 | device\_manufacturer  | device manufactuer           | Android  | [Android][47]                             |
@@ -714,13 +713,13 @@ instance.TransactionAmazon(ProductId, CurrencyCode, Quantity, UnitPrice, Receipt
 :warning: **(Flexible App Store Commission setup)**
 
 
-Choose between 15% and 30% App Store’s revenue commission via our new setup. The steps are -
+Choose between 0%, 15% and 30% App Store’s revenue commission via our new setup. The steps are -
 * Go to CONFIGURE --> Apps
 * Click on the app you want to change it for
 * Under the ‘App Store Commission’ section click ‘Edit’
-* Choose 30% or 15% as your desired app store commission.
+* Choose 30%, 15% or 0% as your desired app store commission.
 * Select the start date and end date (Or you can keep the end date blank if you dont want an end date)
-* Click Save (note: the 15% commission can be applied only to dates moving forward and not historical dates. So please set the start date from the date you make the change and forward)
+* Click Save (note: the commission can be applied only to dates moving forward and not historical dates. So please set the start date from the date you make the change and forward)
 
 ### <a id="subscription-iap"></a> Subscription IAP
 
@@ -764,7 +763,7 @@ void MethodWithCustomEvent(){
 
 ## <a id="server-to-server"></a>Server-to-server integration
 
-Tenjin offers server-to-server integration, which is a paid feature. If you want to access to the documentation, please send email to support@tenjin.com and discuss the pricing.
+Tenjin offers [server-to-server integration](https://tenjin.com/docs/server-to-server-s2s-setup/). This allows you to send your Install and post-Install events directly from your servers to Tenjin servers without needing an SDK integration.
 
 ## <a id="subversion"></a>App Subversion parameter for A/B Testing (requires DataVault)
 
@@ -784,9 +783,6 @@ Tenjin supports retrieving of user attribution information, like sourcing ad net
 
 - If you have your own data anlytics tool, custom callback will allow you to tie the attribution data to your in-game data per device level.
 - Show different app content depending on where the user comes from. For example, if user A is attributed to organic and user B is attributed to Facebook and user B is likely to be more engaged with your app, then you want to show a special in-game offer after the user installs the app. If you want to discuss more specific use cases, please write to support@tenjin.com.
-
-> [!WARNING]
-> LiveOps Campaigns is a paid feature, so please contact your Tenjin account manager if you would like to get access.
 
 ## <a id="customer-user-id"></a>Customer User ID
 
@@ -933,7 +929,7 @@ instance.SetCacheEventSetting(true);
 ## <a id="ilrd"></a>Impression Level Ad Revenue Integration
 
 Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from,
-- AppLovin
+- AppLovin MAX
 - Unity LevelPlay
 - HyperBid
 - AdMob
@@ -941,10 +937,7 @@ Tenjin supports the ability to integrate with the Impression Level Ad Revenue (I
 - CAS
 - TradPlus
 
-This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. To enable this feature, follow the below instructions.
-
-> [!WARNING]
-> ILRD is a paid feature, so please contact your Tenjin account manager to discuss the price at first before sending ILRD events.
+This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. Access to the integration guide is [here](https://tenjin.com/docs/category/ad-revenue-ad-mediation-setup/).
 
 # <a id="testing"></a>Testing
 
