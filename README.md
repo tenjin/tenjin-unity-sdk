@@ -784,6 +784,8 @@ Tenjin supports retrieving of user attribution information, like sourcing ad net
 - If you have your own data anlytics tool, custom callback will allow you to tie the attribution data to your in-game data per device level.
 - Show different app content depending on where the user comes from. For example, if user A is attributed to organic and user B is attributed to Facebook and user B is likely to be more engaged with your app, then you want to show a special in-game offer after the user installs the app. If you want to discuss more specific use cases, please write to support@tenjin.com.
 
+Details on using LiveOps can be found [here](https://tenjin.com/docs/liveops-campaigns/).
+
 ## <a id="customer-user-id"></a>Customer User ID
 
 You can set and get customer user id to send as a parameter on events.
