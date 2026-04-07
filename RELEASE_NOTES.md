@@ -545,3 +545,10 @@ v1.16.3
 
 - Android v1.17.3
 - iOS v1.15.1
+
+v1.16.4
+----
+* Fix Unity Package Manager (UPM) installation issue by including .meta files for directories
+
+- Android v1.17.3
+- iOS v1.15.1
