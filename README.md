@@ -35,6 +35,7 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
   - [Purchase Events][20]
 	- [iOS IAP Validation][21]
 	- [Android IAP Validation][22]
+	- [Subscription Tracking][75]
   - [Custom Events][23]
   - [Server-to-server integration][25]
   - [App Subversion][26]
@@ -735,6 +736,28 @@ Choose between 0%, 15% and 30% App Store’s revenue commission via our new setu
 
 - For more information on Android subscriptions, please see: <a href="https://developer.android.com/distribute/best-practices/earn/subscriptionss">Google Play Billing subscriptions documentation</a>
 
+### <a id="subscription-tracking"></a> Subscription Tracking (iOS only)
+
+Track subscription purchases for server-side verification and attribution. Subscription tracking is currently only available on iOS. Android support is coming soon. See [SUBSCRIPTIONS_TRACKING.md](SUBSCRIPTIONS_TRACKING.md) for the full guide, including integration examples with Unity IAP and RevenueCat.
+
+Pass all SK2 transaction data manually:
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("API_KEY");
+instance.Subscription(
+    productId, currencyCode, unitPrice,
+    transactionId, originalTransactionId, receipt, skTransaction,
+    null, null, null  // Android params (not yet available)
+);
+```
+
+For IAP libraries that don't expose SK2 transaction data (e.g., RevenueCat), use `SubscriptionWithStoreKit()` — it fetches the SK2 data natively (iOS 16+):
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("API_KEY");
+instance.SubscriptionWithStoreKit(productId, currencyCode, unitPrice);
+```
+
 ## <a id="custom-events"></a> Custom Events
 
 **IMPORTANT: Limit custom event names to less than 80 characters. Do not exceed 500 unique custom event names.**
@@ -1024,6 +1047,7 @@ You can verify if the integration is working through our <a href="https://www.te
 [72]: #optin-cmp
 [73]: #google-dma
 [74]: #user-profile
+[75]: #subscription-tracking
 
 [image-1]:	https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events_2.png
 [image-2]:	https://s3.amazonaws.com/tenjin-instructions/app_api_key.png
