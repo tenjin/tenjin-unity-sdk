@@ -1,6 +1,6 @@
 {
   "name": "com.tenjin.sdk",
-  "version": "1.16.4",
+  "version": "1.16.5",
   "displayName": "Tenjin SDK",
   "description": "Tenjin attribution and analytics SDK for Unity",
   "unity": "2020.3",

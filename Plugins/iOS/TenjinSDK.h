@@ -1,6 +1,6 @@
 //
 // Created by Tenjin on 2016-05-20.
-//  Version 1.15.1
+//  Version 1.16.1
 
 //  Copyright (c) 2016 Tenjin. All rights reserved.
 //
@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
+@class TenjinPurchasesManager;
 @class TJNUserProfileData;
 
 @interface TenjinSDK : NSObject
@@ -82,6 +83,9 @@ andDeferredDeeplink:(NSURL *)url
 //returns the shared Tenjin SDK instance
 + (TenjinSDK *)sharedInstance;
 
+//returns the shared Purchases Manager instance for StoreKit 2 on-demand tracking
++ (TenjinPurchasesManager *)purchasesManager;
+
 #pragma mark - Functionality
 
 //use connect to send connect call. sharedInstanceWithToken automatically does a connect
@@ -135,6 +139,21 @@ andDeferredDeeplink:(NSURL *)url
 
 //notify Tenjin of a new subscription purchase
 - (void)handleSubscriptionPurchase:(SKPaymentTransaction *)transaction;
+
+//track subscription with manual parameters (useful for plugins like Flutter, Unity, etc.)
++ (void)subscriptionWithProductName:(NSString *)productName
+                   andCurrencyCode:(NSString *)currencyCode
+                      andUnitPrice:(NSDecimalNumber *)price
+                  andTransactionId:(NSString *)transactionId
+         andOriginalTransactionId:(NSString *)originalTransactionId
+                  andBase64Receipt:(NSString *)receipt
+                 andSKTransaction:(NSString *)skTransaction;
+
+//track subscription by fetching the latest SK2 transaction natively
+//recommended for IAP libraries that don't expose SK2 data (e.g., RevenueCat)
++ (void)subscriptionWithStoreKitForProductId:(NSString *)productId
+                            andCurrencyCode:(NSString *)currencyCode
+                               andUnitPrice:(NSDecimalNumber *)price API_AVAILABLE(ios(16.0));
 
 // GDPR opt-out
 + (void)optOut;
@@ -213,6 +232,8 @@ andDeferredDeeplink:(NSURL *)url
 
 + (void)setWrapperVersion:(NSString *)wrapperVersion;
 
++ (void)setPluginVersion:(NSString *)plugin version:(NSString *)version;
+
 + (void)setValue:(NSString *)value
           forKey:(NSString *)key;
 
@@ -227,7 +248,6 @@ andDeferredDeeplink:(NSURL *)url
 
 @end
 
-
 //
 // Created by Tenjin
 // Copyright (c) 2022 Tenjin. All rights reserved.
@@ -240,6 +260,7 @@ andDeferredDeeplink:(NSURL *)url
 + (void)topOnImpressionFromDict:(NSDictionary *)adImpression;
 + (void)topOnImpressionFromJSON:(NSString *)jsonString;
 @end
+
 //
 // Created by Tenjin
 // Copyright (c) 2022 Tenjin. All rights reserved.
@@ -252,6 +273,7 @@ andDeferredDeeplink:(NSURL *)url
 + (void)subscribeAppLovinImpressions;
 + (void)appLovinImpressionFromJSON:(NSString *)jsonString;
 @end
+
 //
 // Created by Tenjin
 // Copyright (c) 2022 Tenjin. All rights reserved.
@@ -264,6 +286,7 @@ andDeferredDeeplink:(NSURL *)url
 + (void)hyperBidImpressionFromDict:(NSDictionary *)adImpression;
 + (void)hyperBidImpressionFromJSON:(NSString *)jsonString;
 @end
+
 //
 // Created by Tenjin
 // Copyright (c) 2022 Tenjin. All rights reserved.
@@ -278,6 +301,7 @@ andDeferredDeeplink:(NSURL *)url
 + (void)handleAdMobILRD:(NSObject *)adView :(GADAdValue *)adValue;
 + (void)adMobImpressionFromJSON:(NSString *)jsonString;
 @end
+
 //
 // Created by Tenjin
 // Copyright (c) 2022 Tenjin. All rights reserved.

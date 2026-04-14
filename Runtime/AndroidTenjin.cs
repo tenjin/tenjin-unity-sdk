@@ -169,6 +169,30 @@ public class AndroidTenjin : BaseTenjin
 		}
 	}
 
+	public override void Subscription(string productId, string currencyCode, double unitPrice, string transactionId, string originalTransactionId, string receipt, string skTransaction, string purchaseToken, string purchaseData, string dataSignature){
+		// TODO: uncomment when subscription is available in the Android SDK
+		// if(purchaseToken != null && purchaseData != null && dataSignature != null){
+		// 	if (Debug.isDebugBuild) {
+		// 		Debug.Log ("Android Subscription " + productId + ", " + currencyCode + ", " + unitPrice);
+		// 	}
+		// 	tenjinJava.Call ("subscription", productId, currencyCode, unitPrice, purchaseToken, purchaseData, dataSignature);
+		// }
+		// else{
+		// 	if (Debug.isDebugBuild) {
+		// 		Debug.Log ("Android Subscription missing required Android parameters");
+		// 	}
+		// }
+		if (Debug.isDebugBuild) {
+			Debug.Log ("Android Subscription is not yet available");
+		}
+	}
+
+	public override void SubscriptionWithStoreKit(string productId, string currencyCode, double unitPrice){
+		if (Debug.isDebugBuild) {
+			Debug.Log ("SubscriptionWithStoreKit is only available on iOS");
+		}
+	}
+
 		public override void TransactionAmazon(string productId, string currencyCode, int quantity, double unitPrice, string receiptId, string userId){
 		if(receiptId != null && userId != null){
 			object[] receiptArgs = new object[]{productId, currencyCode, quantity, unitPrice, receiptId, userId, ""};
@@ -719,6 +743,16 @@ public class AndroidTenjin : BaseTenjin
     public override void TransactionAmazon(string productId, string currencyCode, int quantity, double unitPrice, string receiptId, string userId)
     {
         Debug.Log("Android Transaction " + productId + ", " + currencyCode + ", " + quantity + ", " + unitPrice + ", " + receiptId + ", " + userId);
+    }
+
+    public override void Subscription(string productId, string currencyCode, double unitPrice, string transactionId, string originalTransactionId, string receipt, string skTransaction, string purchaseToken, string purchaseData, string dataSignature)
+    {
+        Debug.Log("Android Subscription " + productId + ", " + currencyCode + ", " + unitPrice);
+    }
+
+    public override void SubscriptionWithStoreKit(string productId, string currencyCode, double unitPrice)
+    {
+        Debug.Log("SubscriptionWithStoreKit is only available on iOS");
     }
 
     public override void GetDeeplink(Tenjin.DeferredDeeplinkDelegate deferredDeeplinkDelegate)
