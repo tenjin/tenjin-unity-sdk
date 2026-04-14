@@ -59,6 +59,16 @@ public class DebugTenjin : BaseTenjin
         Debug.Log("Transaction Amazon" + productId + ", " + currencyCode + ", " + quantity + ", " + unitPrice + ", " + receiptId + ", " + userId);
     }
 
+    public override void Subscription(string productId, string currencyCode, double unitPrice, string transactionId, string originalTransactionId, string receipt, string skTransaction, string purchaseToken, string purchaseData, string dataSignature)
+    {
+        Debug.Log("Subscription " + productId + ", " + currencyCode + ", " + unitPrice);
+    }
+
+    public override void SubscriptionWithStoreKit(string productId, string currencyCode, double unitPrice)
+    {
+        Debug.Log("SubscriptionWithStoreKit " + productId + ", " + currencyCode + ", " + unitPrice);
+    }
+
     public override void GetDeeplink(Tenjin.DeferredDeeplinkDelegate deferredDeeplinkDelegate)
     {
         Debug.Log("Sending DebugTenjin::GetDeeplink");

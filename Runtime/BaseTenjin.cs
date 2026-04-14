@@ -16,7 +16,7 @@ public abstract class BaseTenjin : MonoBehaviour
     protected bool optOut;
     protected int appSubversion;
 
-    public string SdkVersion { get; } = "1.16.4";
+    public string SdkVersion { get; } = "1.16.5";
 
     public string ApiKey
     {
@@ -72,6 +72,8 @@ public abstract class BaseTenjin : MonoBehaviour
     public abstract void SendEvent(string eventName, string eventValue);
     public abstract void Transaction(string productId, string currencyCode, int quantity, double unitPrice, string transactionId, string receipt, string signature);
     public abstract void TransactionAmazon(string productId, string currencyCode, int quantity, double unitPrice, string receiptId, string userId);
+    public abstract void Subscription(string productId, string currencyCode, double unitPrice, string transactionId, string originalTransactionId, string receipt, string skTransaction, string purchaseToken, string purchaseData, string dataSignature);
+    public abstract void SubscriptionWithStoreKit(string productId, string currencyCode, double unitPrice);
     public abstract void GetDeeplink(Tenjin.DeferredDeeplinkDelegate deferredDeeplinkDelegate);
     public abstract void GetAttributionInfo(Tenjin.AttributionInfoDelegate attributionInfoDelegate);
     public abstract void RegisterAppForAdNetworkAttribution();

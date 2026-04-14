@@ -83,6 +83,12 @@ public class IosTenjin : BaseTenjin
     private static extern void iosTenjinTransactionWithReceiptData(string productId, string currencyCode, int quantity, double unitPrice, string transactionId, string receipt);
 
     [DllImport ("__Internal")]
+    private static extern void iosTenjinSubscription(string productId, string currencyCode, double unitPrice, string transactionId, string originalTransactionId, string receipt, string skTransaction);
+
+    [DllImport ("__Internal")]
+    private static extern void iosTenjinSubscriptionWithStoreKit(string productId, string currencyCode, double unitPrice);
+
+    [DllImport ("__Internal")]
      private static extern void iosTenjinRegisterDeepLinkHandler(DeepLinkHandlerNativeDelegate deepLinkHandlerNativeDelegate);
 
     [DllImport ("__Internal")]
@@ -377,6 +383,22 @@ public class IosTenjin : BaseTenjin
 
     public override void TransactionAmazon(string productId, string currencyCode, int quantity, double unitPrice, string receiptId, string userId)
     {
+    }
+
+    public override void Subscription(string productId, string currencyCode, double unitPrice, string transactionId, string originalTransactionId, string receipt, string skTransaction, string purchaseToken, string purchaseData, string dataSignature)
+    {
+        if (Debug.isDebugBuild) {
+            Debug.Log ("iOS Subscription " + productId + ", " + currencyCode + ", " + unitPrice);
+        }
+        iosTenjinSubscription(productId, currencyCode, unitPrice, transactionId, originalTransactionId, receipt, skTransaction);
+    }
+
+    public override void SubscriptionWithStoreKit(string productId, string currencyCode, double unitPrice)
+    {
+        if (Debug.isDebugBuild) {
+            Debug.Log ("iOS SubscriptionWithStoreKit " + productId + ", " + currencyCode + ", " + unitPrice);
+        }
+        iosTenjinSubscriptionWithStoreKit(productId, currencyCode, unitPrice);
     }
 
     public override void SetAppStoreType(AppStoreType appStoreType)
@@ -863,6 +885,16 @@ public class IosTenjin : BaseTenjin
         public override void TransactionAmazon(string productId, string currencyCode, int quantity, double unitPrice, string receiptId, string userId)
         {
                 Debug.Log("iOS TransactionAmazon");
+        }
+
+        public override void Subscription(string productId, string currencyCode, double unitPrice, string transactionId, string originalTransactionId, string receipt, string skTransaction, string purchaseToken, string purchaseData, string dataSignature)
+        {
+                Debug.Log("iOS Subscription " + productId + ", " + currencyCode + ", " + unitPrice);
+        }
+
+        public override void SubscriptionWithStoreKit(string productId, string currencyCode, double unitPrice)
+        {
+                Debug.Log("iOS SubscriptionWithStoreKit " + productId + ", " + currencyCode + ", " + unitPrice);
         }
 
         public override void GetDeeplink(Tenjin.DeferredDeeplinkDelegate deferredDeeplinkDelegate)

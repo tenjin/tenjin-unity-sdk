@@ -39,6 +39,8 @@ void iosTenjinSendEvent(const char* eventName);
 void iosTenjinSendEventWithValue(const char* eventName, const char* eventValue);
 void iosTenjinTransaction(const char* productId, const char* currencyCode, int quantity, double price);
 void iosTenjinTransactionWithReceiptData(const char* productId, const char* currencyCode, int quantity, double price, const char* transactionId, const char* receipt);
+void iosTenjinSubscription(const char* productId, const char* currencyCode, double unitPrice, const char* transactionId, const char* originalTransactionId, const char* receipt, const char* skTransaction);
+void iosTenjinSubscriptionWithStoreKit(const char* productId, const char* currencyCode, double unitPrice);
 void iosTenjinRegisterDeepLinkHandler(TenjinDeeplinkHandlerFunc deeplinkHandlerFunc);
 void iosTenjinGetAttributionInfo(TenjinAttributionInfoFunc attributionInfoFunc);
 

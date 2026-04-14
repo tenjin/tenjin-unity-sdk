@@ -95,6 +95,35 @@ void iosTenjinTransactionWithReceiptData(const char* productId, const char* curr
     [TenjinSDK transactionWithProductName: prodId andCurrencyCode:curCode andQuantity:quantity andUnitPrice:pr andTransactionId:tid andBase64Receipt:rec];
 }
     
+void iosTenjinSubscription(const char* productId, const char* currencyCode, double unitPrice, const char* transactionId, const char* originalTransactionId, const char* receipt, const char* skTransaction){
+    NSString *prodId = [NSString stringWithUTF8String:productId];
+    NSString *curCode = [NSString stringWithUTF8String:currencyCode];
+    NSDecimalNumber *price = [[NSDecimalNumber alloc] initWithDouble:unitPrice];
+    NSString *txId = transactionId ? [NSString stringWithUTF8String:transactionId] : @"";
+    NSString *origTxId = originalTransactionId ? [NSString stringWithUTF8String:originalTransactionId] : @"";
+    NSString *rec = receipt ? [NSString stringWithUTF8String:receipt] : @"";
+    NSString *skTx = skTransaction ? [NSString stringWithUTF8String:skTransaction] : @"";
+
+    NSLog(@"Called Tenjin [TenjinSDK subscriptionWithProductName:%@ andCurrencyCode:%@ andUnitPrice:%@ andTransactionId:%@ andOriginalTransactionId:%@ andBase64Receipt:(length:%lu) andSKTransaction:(length:%lu)]", prodId, curCode, price, txId, origTxId, (unsigned long)rec.length, (unsigned long)skTx.length);
+    [TenjinSDK subscriptionWithProductName:prodId
+                           andCurrencyCode:curCode
+                              andUnitPrice:price
+                          andTransactionId:txId
+                  andOriginalTransactionId:origTxId
+                          andBase64Receipt:rec
+                         andSKTransaction:skTx];
+}
+
+void iosTenjinSubscriptionWithStoreKit(const char* productId, const char* currencyCode, double unitPrice){
+    NSString *prodId = [NSString stringWithUTF8String:productId];
+    NSString *curCode = [NSString stringWithUTF8String:currencyCode];
+    NSDecimalNumber *price = [[NSDecimalNumber alloc] initWithDouble:unitPrice];
+
+    [TenjinSDK subscriptionWithStoreKitForProductId:prodId
+                                   andCurrencyCode:curCode
+                                      andUnitPrice:price];
+}
+
 void iosTenjinOptIn(){
     NSLog(@"Called Tenjin [TenjinSDK optIn]");
     [TenjinSDK optIn];
