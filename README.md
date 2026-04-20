@@ -58,7 +58,7 @@ To install a UPM package from a Git URL:
 2. Open the Add (+) menu in the Package Manager's toolbar.
 3. Select **Install package from git URL** from the install menu. A text box and an Install button appear.
 4. Enter the following valid Git URL in the text box (you must append `#` followed by the version tag):
-   `https://github.com/tenjin/tenjin-unity-sdk.git#1.16.3`
+   `https://github.com/tenjin/tenjin-unity-sdk.git#1.16.5`
 5. Click **Install**.
 
 ## Manual Installation (.unitypackage)
