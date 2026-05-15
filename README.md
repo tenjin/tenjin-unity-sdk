@@ -14,8 +14,19 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 > [!WARNING]
 > If you have `libTenjinSDK.a` and/or `libTenjinSDKUniversal.a` from older Tenjin SDK versions, please delete them and run `pod install` to integrate it on iOS.
 
+# Integrate with an AI assistant (LLM)
+
+You can integrate the Tenjin Unity SDK with the help of an AI assistant (Claude, Cursor, GitHub Copilot, etc.). Paste the following prompt into your assistant of choice:
+
+```
+Add Tenjin SDK to my project using: https://raw.githubusercontent.com/tenjin/sdk-llm-guides/main/guides/unity/llm-guide.md
+```
+
+The guide walks the assistant through the complete integration. For more details, see the [Tenjin SDK Guides for LLMs](https://github.com/tenjin/sdk-llm-guides).
+
 # Table of contents
 
+- [Integrate with an AI assistant (LLM)](#integrate-with-an-ai-assistant-llm)
 - [SDK Integration][5]
   - [Google Play][6]
   - [Amazon store][7]
