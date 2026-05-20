@@ -23,6 +23,7 @@ namespace Tenjin
         private static readonly string tenjin_topon = "tenjin_topon_enabled";
         private static readonly string tenjin_cas = "tenjin_cas_enabled";
         private static readonly string tenjin_tradplus = "tenjin_tradplus_enabled";
+        private static readonly string tenjin_cloudx = "tenjin_cloudx_enabled";
 
         public int callbackOrder => 0;
 
@@ -60,6 +61,7 @@ namespace Tenjin
             UpdateTopOn();
             UpdateCAS();
             UpdateTradPlus();
+            UpdateCloudX();
         }
 
         #region Third Party Library Detection
@@ -170,6 +172,12 @@ namespace Tenjin
         {
             var tradplusTypes = new[] { "TradplusAds" };
             UpdateDefines(tenjin_tradplus, TypeExists(tradplusTypes), new[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
+        }
+
+        private static void UpdateCloudX()
+        {
+            var cloudXTypes = new[] { "io.cloudx.sdk.CloudX", "CloudX" };
+            UpdateDefines(tenjin_cloudx, TypeExists(cloudXTypes), new[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
         }
         #endregion
     }

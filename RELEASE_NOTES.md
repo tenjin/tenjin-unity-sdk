@@ -559,3 +559,10 @@ v1.16.5
 
 - Android v1.17.4
 - iOS v1.16.1
+
+v1.16.6
+----
+* Add CloudX ILRD integration
+
+- Android v1.18.0
+- iOS v1.17.0

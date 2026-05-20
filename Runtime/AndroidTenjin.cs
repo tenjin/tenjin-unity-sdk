@@ -576,6 +576,24 @@ public class AndroidTenjin : BaseTenjin
 		TenjinTradPlusIntegration.ImpressionFromAdInfo(TradPlusILRDHandler, adInfo);
 	}
 
+	public override void SubscribeCloudXImpressions()
+    {
+        Debug.Log("Subscribing to CloudX ILRD");
+        TenjinCloudXIntegration.ListenForImpressions(CloudXImpressionHandler);
+    }
+
+	public override void CloudXImpressionFromJSON(string json)
+	{
+		CloudXImpressionHandler(json);
+	}
+
+	private void CloudXImpressionHandler(string json)
+	{
+        Debug.Log($"Got CloudX ILRD impression data {json}");
+        var args = new object[] {json};
+        tenjinJava.Call ("eventAdImpressionCloudX", args);
+	}
+
 	public void TradPlusILRDHandler(string json)
 	{
 		if(!string.IsNullOrEmpty(json))
@@ -914,6 +932,16 @@ public class AndroidTenjin : BaseTenjin
     public override void TradPlusImpressionFromAdInfo(Dictionary<string, object> adInfo)
     {
         Debug.Log("Sending AndroidTenjin:: TradPlusImpressionFromImpression");
+    }
+
+    public override void SubscribeCloudXImpressions()
+    {
+        Debug.Log("Sending AndroidTenjin:: SubscribeCloudXImpressions");
+    }
+
+    public override void CloudXImpressionFromJSON(string json)
+    {
+        Debug.Log("Sending AndroidTenjin:: CloudXImpressionFromJSON");
     }
 
     public override void DebugLogs()
