@@ -363,6 +363,16 @@ public class DebugTenjin : BaseTenjin
         Debug.Log("TradPlusImpressionFromAdInfo");
     }
 
+    public override void SubscribeCloudXImpressions()
+    {
+        Debug.Log("SubscribeCloudXImpressions");
+    }
+
+    public override void CloudXImpressionFromJSON(string json)
+    {
+        Debug.Log("CloudXImpressionFromJSON");
+    }
+
     public override Dictionary<string, string> GetUserProfileDictionary()
     {
         Debug.Log("GetUserProfileDictionary");

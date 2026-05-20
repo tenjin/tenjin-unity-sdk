@@ -116,6 +116,9 @@ public class IosTenjin : BaseTenjin
     private static extern void iosTenjinTradPlusImpressionFromJSON(string jsonString);
 
     [DllImport ("__Internal")]
+    private static extern void iosTenjinCloudXImpressionFromJSON(string jsonString);
+
+    [DllImport ("__Internal")]
     private static extern void iosTenjinSetDebugLogs();
 
     [DllImport ("__Internal")]
@@ -599,6 +602,26 @@ public class IosTenjin : BaseTenjin
     public override void TradPlusImpressionFromAdInfo(Dictionary<string, object> adInfo)
     {
         TenjinTradPlusIntegration.ImpressionFromAdInfo(TradPlusILRDHandler, adInfo);
+    }
+
+    public override void SubscribeCloudXImpressions()
+    {
+        Debug.Log("Subscribing to CloudX ILRD");
+        TenjinCloudXIntegration.ListenForImpressions(CloudXILRDHandler);
+    }
+
+    public override void CloudXImpressionFromJSON(string json)
+    {
+        CloudXILRDHandler(json);
+    }
+
+    private void CloudXILRDHandler(string json)
+    {
+        if(!string.IsNullOrEmpty(json))
+        {
+            Debug.Log($"Got CloudX ILRD impression data {json}");
+            iosTenjinCloudXImpressionFromJSON(json);
+        }
     }
 
     private void TradPlusILRDHandler(string json)
@@ -1091,6 +1114,16 @@ public class IosTenjin : BaseTenjin
         public override void TradPlusImpressionFromAdInfo(Dictionary<string, object> adInfo)
         {
                 Debug.Log("iOS TradPlusImpressionFromImpression");
+        }
+
+        public override void SubscribeCloudXImpressions()
+        {
+                Debug.Log("iOS SubscribeCloudXImpressions");
+        }
+
+        public override void CloudXImpressionFromJSON(string json)
+        {
+                Debug.Log("iOS CloudXImpressionFromJSON");
         }
 
         public override void SetAppStoreType(AppStoreType appStoreType)

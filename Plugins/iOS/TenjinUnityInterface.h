@@ -69,6 +69,7 @@ void iosTenjinSubscribeAbMobImpressionFromJSON(const char* jsonString);
 void iosTenjinTopOnImpressionFromJSON(const char* jsonString);
 void iosTenjinCASImpressionFromJSON(const char* jsonString);
 void iosTenjinTradPlusImpressionFromJSON(const char* jsonString);
+void iosTenjinCloudXImpressionFromJSON(const char* jsonString);
 
 void iosTenjinSetCustomerUserId(const char* userId);
 const char* iosTenjinGetSetCustomerUserId();
