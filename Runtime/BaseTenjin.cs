@@ -16,7 +16,7 @@ public abstract class BaseTenjin : MonoBehaviour
     protected bool optOut;
     protected int appSubversion;
 
-    public string SdkVersion { get; } = "1.16.6";
+    public string SdkVersion { get; } = "1.17.0";
 
     public string ApiKey
     {
@@ -108,6 +108,7 @@ public abstract class BaseTenjin : MonoBehaviour
     public abstract void TradPlusImpressionFromAdInfo(Dictionary<string, object> adInfo);
     public abstract void SubscribeCloudXImpressions();
     public abstract void CloudXImpressionFromJSON(string json);
+    public abstract void CustomImpressionFromJSON(string json);
     public abstract void SetCustomerUserId(string userId);
     public abstract string GetCustomerUserId();
     public abstract void SetSessionTime(int time);

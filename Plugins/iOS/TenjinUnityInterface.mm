@@ -272,6 +272,15 @@ void iosTenjinCloudXImpressionFromJSON(const char* jsonString){
     [TenjinSDK cloudXImpressionFromJSON:jsonStr];
 }
 
+void iosTenjinCustomImpressionFromJSON(const char* jsonString){
+    if (jsonString == NULL) {
+        return;
+    }
+    NSString *jsonStr = [NSString stringWithUTF8String:jsonString];
+
+    [TenjinSDK customImpressionFromJSON:jsonStr];
+}
+
 void iosTenjinRegisterDeepLinkHandler(TenjinDeeplinkHandlerFunc deeplinkHandlerFunc) {
     NSLog(@"Called iosTenjinRegisterDeepLinkHandler");
     registeredDeeplinkHandlerFunc = deeplinkHandlerFunc;
