@@ -594,6 +594,17 @@ public class AndroidTenjin : BaseTenjin
         tenjinJava.Call ("eventAdImpressionCloudX", args);
 	}
 
+	public override void CustomImpressionFromJSON(string json)
+	{
+		if (string.IsNullOrEmpty(json))
+		{
+			return;
+		}
+		Debug.Log($"Got Custom ILRD impression data {json}");
+		var args = new object[] {json};
+		tenjinJava.Call ("eventAdImpressionCustom", args);
+	}
+
 	public void TradPlusILRDHandler(string json)
 	{
 		if(!string.IsNullOrEmpty(json))
@@ -942,6 +953,11 @@ public class AndroidTenjin : BaseTenjin
     public override void CloudXImpressionFromJSON(string json)
     {
         Debug.Log("Sending AndroidTenjin:: CloudXImpressionFromJSON");
+    }
+
+    public override void CustomImpressionFromJSON(string json)
+    {
+        Debug.Log("Sending AndroidTenjin:: CustomImpressionFromJSON");
     }
 
     public override void DebugLogs()

@@ -373,6 +373,11 @@ public class DebugTenjin : BaseTenjin
         Debug.Log("CloudXImpressionFromJSON");
     }
 
+    public override void CustomImpressionFromJSON(string json)
+    {
+        Debug.Log("CustomImpressionFromJSON");
+    }
+
     public override Dictionary<string, string> GetUserProfileDictionary()
     {
         Debug.Log("GetUserProfileDictionary");

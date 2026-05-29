@@ -566,3 +566,10 @@ v1.16.6
 
 - Android v1.18.0
 - iOS v1.17.0
+
+v1.17.0
+----
+* Add `eventAdImpressionCustom:` method to send ILRD impressions for custom mediation providers without a dedicated Tenjin integration
+
+- Android v1.19.0
+- iOS v1.17.1

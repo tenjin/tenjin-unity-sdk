@@ -119,6 +119,9 @@ public class IosTenjin : BaseTenjin
     private static extern void iosTenjinCloudXImpressionFromJSON(string jsonString);
 
     [DllImport ("__Internal")]
+    private static extern void iosTenjinCustomImpressionFromJSON(string jsonString);
+
+    [DllImport ("__Internal")]
     private static extern void iosTenjinSetDebugLogs();
 
     [DllImport ("__Internal")]
@@ -624,6 +627,15 @@ public class IosTenjin : BaseTenjin
         }
     }
 
+    public override void CustomImpressionFromJSON(string json)
+    {
+        if(!string.IsNullOrEmpty(json))
+        {
+            Debug.Log($"Got Custom ILRD impression data {json}");
+            iosTenjinCustomImpressionFromJSON(json);
+        }
+    }
+
     private void TradPlusILRDHandler(string json)
     {
         if(!string.IsNullOrEmpty(json))
@@ -1124,6 +1136,11 @@ public class IosTenjin : BaseTenjin
         public override void CloudXImpressionFromJSON(string json)
         {
                 Debug.Log("iOS CloudXImpressionFromJSON");
+        }
+
+        public override void CustomImpressionFromJSON(string json)
+        {
+                Debug.Log("iOS CustomImpressionFromJSON");
         }
 
         public override void SetAppStoreType(AppStoreType appStoreType)
