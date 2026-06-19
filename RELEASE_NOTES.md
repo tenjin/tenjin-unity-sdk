@@ -573,3 +573,10 @@ v1.17.0
 
 - Android v1.19.0
 - iOS v1.17.1
+
+v1.18.0
+----
+* Add subscriptions tracking support (Android)
+
+- Android v1.20.0
+- iOS v1.17.1

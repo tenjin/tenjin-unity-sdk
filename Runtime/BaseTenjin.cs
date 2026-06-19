@@ -16,7 +16,7 @@ public abstract class BaseTenjin : MonoBehaviour
     protected bool optOut;
     protected int appSubversion;
 
-    public string SdkVersion { get; } = "1.17.0";
+    public string SdkVersion { get; } = "1.18.0";
 
     public string ApiKey
     {

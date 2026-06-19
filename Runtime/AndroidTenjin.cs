@@ -106,6 +106,7 @@ public class AndroidTenjin : BaseTenjin
 		}
 
 		sdk.CallStatic("setWrapperVersion", unitySdkVersion);
+		sdk.CallStatic("setPluginVersion", "unity", this.SdkVersion);
     }
 
 	private void initActivity(){
@@ -170,21 +171,26 @@ public class AndroidTenjin : BaseTenjin
 	}
 
 	public override void Subscription(string productId, string currencyCode, double unitPrice, string transactionId, string originalTransactionId, string receipt, string skTransaction, string purchaseToken, string purchaseData, string dataSignature){
-		// TODO: uncomment when subscription is available in the Android SDK
-		// if(purchaseToken != null && purchaseData != null && dataSignature != null){
-		// 	if (Debug.isDebugBuild) {
-		// 		Debug.Log ("Android Subscription " + productId + ", " + currencyCode + ", " + unitPrice);
-		// 	}
-		// 	tenjinJava.Call ("subscription", productId, currencyCode, unitPrice, purchaseToken, purchaseData, dataSignature);
-		// }
-		// else{
-		// 	if (Debug.isDebugBuild) {
-		// 		Debug.Log ("Android Subscription missing required Android parameters");
-		// 	}
-		// }
-		if (Debug.isDebugBuild) {
-			Debug.Log ("Android Subscription is not yet available");
+		if(productId == null || currencyCode == null || purchaseToken == null || purchaseData == null || dataSignature == null){
+			if (Debug.isDebugBuild) {
+				Debug.Log ("Android Subscription missing required Android parameters");
+			}
+			return;
 		}
+
+		long purchaseDate = 0L;
+		try {
+			AndroidJavaObject json = new AndroidJavaObject("org.json.JSONObject", purchaseData);
+			purchaseDate = json.Call<long>("optLong", "purchaseTime", 0L);
+		} catch (System.Exception) {
+			purchaseDate = 0L;
+		}
+
+		if (Debug.isDebugBuild) {
+			Debug.Log ("Android Subscription " + productId + ", " + currencyCode + ", " + unitPrice);
+		}
+		object[] args = new object[]{productId, purchaseToken, unitPrice, currencyCode, purchaseDate, purchaseData, dataSignature};
+		tenjinJava.Call ("subscription", args);
 	}
 
 	public override void SubscriptionWithStoreKit(string productId, string currencyCode, double unitPrice){

@@ -369,6 +369,13 @@ void iosTenjinSetWrapperVersion(const char* wrapperString) {
     [TenjinSDK setWrapperVersion:utfStr];
 }
 
+void iosTenjinSetPluginVersion(const char* pluginString, const char* versionString) {
+    NSString *plugin = [NSString stringWithUTF8String:pluginString];
+    NSString *version = [NSString stringWithUTF8String:versionString];
+
+    [TenjinSDK setPluginVersion:plugin version:version];
+}
+
 void iosTenjinSetCustomerUserId(const char* userId) {
     NSString *utfStr = [NSString stringWithUTF8String:userId];
     

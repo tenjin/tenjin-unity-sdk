@@ -128,6 +128,9 @@ public class IosTenjin : BaseTenjin
     private static extern void iosTenjinSetWrapperVersion(string wrapperString);
 
     [DllImport ("__Internal")]
+    private static extern void iosTenjinSetPluginVersion(string plugin, string version);
+
+    [DllImport ("__Internal")]
     private static extern void iosTenjinSetCustomerUserId(string userId);
 
     [DllImport ("__Internal")]
@@ -213,6 +216,7 @@ public class IosTenjin : BaseTenjin
         var unitySdkVersion = this.SdkVersion + "u";
 
         iosTenjinSetWrapperVersion(unitySdkVersion);
+        iosTenjinSetPluginVersion("unity", this.SdkVersion);
     }
 
     public override void Connect()
