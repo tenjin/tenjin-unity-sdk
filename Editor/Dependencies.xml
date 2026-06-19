@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dependencies>
     <androidPackages>
-        <androidPackage spec="com.tenjin:android-sdk:1.19.0" />
+        <androidPackage spec="com.tenjin:android-sdk:1.20.0" />
     </androidPackages>
     <androidPackages>
         <androidPackage spec="com.google.android.gms:play-services-ads-identifier:18.1.0" />

@@ -76,6 +76,7 @@ void iosTenjinSetCustomerUserId(const char* userId);
 const char* iosTenjinGetSetCustomerUserId();
 void iosTenjinSetCacheEventSetting(bool setting);
 void iosTenjinSetEncryptRequestsSetting(bool setting);
+void iosTenjinSetPluginVersion(const char* plugin, const char* version);
 const char* iosTenjinGetAnalyticsInstallationId();
 void iosTenjinGetUserProfileDictionary(TenjinUserProfileFunc userProfileFunc);
 void iosTenjinResetUserProfile();
