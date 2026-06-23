@@ -9,7 +9,7 @@ using UnityEditor.Build.Reporting;
 using UnityEditor.iOS.Xcode;
 #endif
 
-namespace Tenjin
+namespace TenjinEditor
 {
     class TenjinEditorPrefs : IPreprocessBuildWithReport
     {

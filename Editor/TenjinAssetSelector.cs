@@ -9,7 +9,7 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace Tenjin
+namespace TenjinEditor
 {
 
     class TenjinAssetTree : TreeView
