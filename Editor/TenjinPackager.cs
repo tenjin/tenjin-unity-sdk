@@ -9,7 +9,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Tenjin
+namespace TenjinEditor
 {
     //a simple wrapper class because Unity's json serializer can't deal with primitives..
     [Serializable]
