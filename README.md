@@ -747,22 +747,24 @@ Choose between 0%, 15% and 30% App Store’s revenue commission via our new setu
 
 - For more information on Android subscriptions, please see: <a href="https://developer.android.com/distribute/best-practices/earn/subscriptionss">Google Play Billing subscriptions documentation</a>
 
-### <a id="subscription-tracking"></a> Subscription Tracking (iOS only)
+### <a id="subscription-tracking"></a> Subscription Tracking
 
-Track subscription purchases for server-side verification and attribution. Subscription tracking is currently only available on iOS. Android support is coming soon. See [SUBSCRIPTIONS_TRACKING.md](SUBSCRIPTIONS_TRACKING.md) for the full guide, including integration examples with Unity IAP and RevenueCat.
+Track subscription purchases for server-side verification and attribution on **iOS** and **Android**. See [SUBSCRIPTIONS_TRACKING.md](SUBSCRIPTIONS_TRACKING.md) for the full guide, including integration examples with Unity IAP and RevenueCat.
 
-Pass all SK2 transaction data manually:
+> **Note:** Android subscription tracking requires Unity SDK 1.18.0+ (bundles Tenjin Android SDK 1.20.0+).
+
+Pass the iOS transaction data on iOS and the Google Play purchase data on Android (leave the other platform's params `null`):
 
 ```csharp
 BaseTenjin instance = Tenjin.getInstance("API_KEY");
 instance.Subscription(
     productId, currencyCode, unitPrice,
-    transactionId, originalTransactionId, receipt, skTransaction,
-    null, null, null  // Android params (not yet available)
+    transactionId, originalTransactionId, receipt, skTransaction,  // iOS params
+    purchaseToken, purchaseData, dataSignature                     // Android params
 );
 ```
 
-For IAP libraries that don't expose SK2 transaction data (e.g., RevenueCat), use `SubscriptionWithStoreKit()` — it fetches the SK2 data natively (iOS 16+):
+For IAP libraries that don't expose SK2 transaction data (e.g., RevenueCat), use `SubscriptionWithStoreKit()` — it fetches the SK2 data natively (iOS 16+, iOS-only):
 
 ```csharp
 BaseTenjin instance = Tenjin.getInstance("API_KEY");

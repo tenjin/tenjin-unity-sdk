@@ -1,10 +1,12 @@
 # Tenjin – Unity Subscription Tracking
 
-Track subscription purchases with Tenjin for server-side verification and attribution.
+Track subscription purchases with Tenjin for server-side verification and attribution on **iOS** and **Android**.
 
-> **Note:** Subscription tracking is currently only available on iOS. Android support is coming soon.
+> **Note:** Android subscription tracking requires Unity SDK 1.18.0+ (bundles Tenjin Android SDK 1.20.0+).
 
 ## Method
+
+The same `Subscription` method handles both platforms — pass the iOS parameters on iOS and the Android parameters on Android (leave the others `null`).
 
 ```csharp
 BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
@@ -12,13 +14,13 @@ instance.Subscription(
     productId,                  // string: Product ID
     currencyCode,               // string: e.g., "USD"
     unitPrice,                  // double: e.g., 9.99
-    transactionId,              // string: SK2 transaction ID
-    originalTransactionId,      // string: Original transaction ID (for renewals)
-    receipt,                    // string: JWS signed transaction or base64 receipt
-    skTransaction,              // string: SK2 transaction JSON representation
-    null,                       // string: Android purchase token (not yet available)
-    null,                       // string: Android purchase data (not yet available)
-    null                        // string: Android data signature (not yet available)
+    transactionId,              // string (iOS): SK2 transaction ID
+    originalTransactionId,      // string (iOS): Original transaction ID (for renewals)
+    receipt,                    // string (iOS): JWS signed transaction or base64 receipt
+    skTransaction,              // string (iOS): SK2 transaction JSON representation
+    purchaseToken,              // string (Android): Google Play purchase token
+    purchaseData,               // string (Android): original JSON from the purchase object
+    dataSignature               // string (Android): signature for purchase verification
 );
 ```
 
@@ -33,9 +35,11 @@ instance.Subscription(
 | `originalTransactionId` | `string` | iOS | Original transaction ID (for renewals) |
 | `receipt` | `string` | iOS | JWS signed transaction token or base64 receipt |
 | `skTransaction` | `string` | iOS | StoreKit 2 transaction JSON representation |
-| `purchaseToken` | `string` | Android | Purchase token from Google Play Billing (coming soon) |
-| `purchaseData` | `string` | Android | Original JSON from the purchase object (coming soon) |
-| `dataSignature` | `string` | Android | Signature for purchase verification (coming soon) |
+| `purchaseToken` | `string` | Android | Purchase token from Google Play Billing |
+| `purchaseData` | `string` | Android | Original JSON from the purchase object |
+| `dataSignature` | `string` | Android | Signature for purchase verification |
+
+> **Android note:** Tenjin derives the purchase date from the `purchaseTime` field inside `purchaseData` (the original JSON). On Android, `productId`, `currencyCode`, `purchaseToken`, `purchaseData`, and `dataSignature` are all required — the call is skipped if any are missing.
 
 ---
 
@@ -54,14 +58,16 @@ instance.SubscriptionWithStoreKit(productId, currencyCode, unitPrice);
 
 ---
 
-## Using Unity IAP (Direct Integration, iOS only)
+## Using Unity IAP (Direct Integration)
 
-Unity IAP 5.x provides SK2 data through the `IOrderInfo.Apple` properties. Extract the JWS receipt and decode the payload to get the SK2 transaction JSON.
+On **iOS**, Unity IAP 5.x exposes SK2 data through `IOrderInfo.Apple`, but the simplest path is `SubscriptionWithStoreKit()`, which fetches the SK2 transaction natively — no manual extraction needed.
+
+On **Android**, the Google Play purchase details live in the unified receipt (`IOrderInfo.Receipt`). Parse the `Payload` to get the original JSON (`json`) and `signature`, then read the `purchaseToken` from the original JSON.
 
 ```csharp
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine.Purchasing;
-using UnityEngine.Purchasing.Extension;
-using System.Text;
 using Json = MiniJSON.Json;
 
 void OnPurchasePending(PendingOrder pendingOrder) {
@@ -71,16 +77,35 @@ void OnPurchasePending(PendingOrder pendingOrder) {
     var product = item.Product;
     var info = pendingOrder.Info;
 
-    // Check if this is a subscription
+    // Only track subscriptions here
     if (product.definition.type == ProductType.Subscription) {
-        var price = product.metadata.localizedPrice;
-        double lPrice = decimal.ToDouble(price);
+        double lPrice = decimal.ToDouble(product.metadata.localizedPrice);
         var currencyCode = product.metadata.isoCurrencyCode;
         var productId = product.definition.id;
-
-        // Fetches SK2 data natively — no manual extraction needed
         BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+
+#if UNITY_IOS
+        // Fetches SK2 data natively — no manual extraction needed (iOS 16+)
         instance.SubscriptionWithStoreKit(productId, currencyCode, lPrice);
+#elif UNITY_ANDROID
+        // Extract Google Play purchase data from the unified receipt
+        var wrapper = Json.Deserialize(info.Receipt) as Dictionary<string, object>;
+        if (wrapper != null && (string)wrapper["Store"] == "GooglePlay") {
+            var payload = Json.Deserialize((string)wrapper["Payload"]) as Dictionary<string, object>;
+            var purchaseData = (string)payload["json"];        // original JSON
+            var dataSignature = (string)payload["signature"];
+
+            // purchaseToken lives inside the original JSON
+            var purchaseJson = Json.Deserialize(purchaseData) as Dictionary<string, object>;
+            var purchaseToken = (string)purchaseJson["purchaseToken"];
+
+            instance.Subscription(
+                productId, currencyCode, lPrice,
+                null, null, null, null,                       // iOS params
+                purchaseToken, purchaseData, dataSignature    // Android params
+            );
+        }
+#endif
     }
 
     UnityIAPServices.DefaultPurchase().ConfirmPurchase(pendingOrder);
