@@ -39,7 +39,7 @@ jobs:
         id: release_notes
         run: |
           RAW_VERSION="${{ steps.version.outputs.raw_version }}"
-          NOTES=$(awk "/^${RAW_VERSION}\$/{found=1; next} /^----\$/{if(found) {capture=1; next}} /^v[0-9]/{if(capture) exit} capture && /^[*-] /{print}" RELEASE_NOTES.md)
+          NOTES=$(awk "/^${RAW_VERSION}\$/{found=1; next} /^----\$/{if(found) {capture=1; next}} /^v[0-9]/{if(capture) exit} capture && /^[*-] /{print}" RELEASE_NOTES.md | sed 's/ \[TENJIN-[0-9]*\]//g')
           {
             echo "notes<<EOF"
             echo "$NOTES"

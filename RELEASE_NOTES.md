@@ -1,7 +1,7 @@
 v1.19.0
 ----
-* Add prefab object [TENJIN-25954]
-* Update release-please manifest to current version 1.18.0 [TENJIN-28270]
+* Add prefab object
+* Update release-please manifest to current version 1.18.0
 
 - Android v1.20.0
 - iOS v1.17.1
@@ -447,7 +447,7 @@ v1.12.7
 
 v1.12.6
 ----
-* Apple Attribution Token - Add iOS SDK 1.12.6 [TENJIN-7383]
+* Apple Attribution Token - Add iOS SDK 1.12.6
 
 - Android v1.12.5
 - iOS v1.12.6
