@@ -19,7 +19,7 @@ jobs:
       - name: Get latest version from RELEASE_NOTES.md
         id: version
         run: |
-          RAW_VERSION=$(grep -E "^v[0-9]+\.[0-9]+\.[0-9]+" RELEASE_NOTES.md | tail -1 | tr -d '\r')
+          RAW_VERSION=$(grep -E "^v[0-9]+\.[0-9]+\.[0-9]+" RELEASE_NOTES.md | head -1 | tr -d '\r')
           if [[ -z "$RAW_VERSION" ]]; then
             echo "::error::Could not detect version from RELEASE_NOTES.md"
             exit 1
@@ -39,7 +39,7 @@ jobs:
         id: release_notes
         run: |
           RAW_VERSION="${{ steps.version.outputs.raw_version }}"
-          NOTES=$(awk "/^${RAW_VERSION}\$/{found=1; next} /^----\$/{if(found) {capture=1; next}} /^v[0-9]/{if(capture) exit} capture && /^[*-] /{print}" RELEASE_NOTES.md)
+          NOTES=$(awk "/^${RAW_VERSION}\$/{found=1; next} /^----\$/{if(found) {capture=1; next}} /^v[0-9]/{if(capture) exit} capture && /^[*-] /{print}" RELEASE_NOTES.md | sed 's/ \[TENJIN-[0-9]*\]//g')
           {
             echo "notes<<EOF"
             echo "$NOTES"
