@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/tenjin/unity-sdk/compare/1.19.0...1.19.1) (2026-07-08)
+
+
+### Bug Fixes
+
+* Add asmdef to improve UPM integration ([#193](https://github.com/tenjin/unity-sdk/issues/193)) ([fbb2017](https://github.com/tenjin/unity-sdk/commit/fbb20174e4f87d9f21729fe1ae106b00032b80e0))
+
 v1.19.0
 ----
 * Add prefab object
