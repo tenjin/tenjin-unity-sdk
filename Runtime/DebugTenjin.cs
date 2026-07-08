@@ -133,7 +133,7 @@ public class DebugTenjin : BaseTenjin
     public override void SubscribeAppLovinImpressions()
     {
         Debug.Log("Subscribing to applovin impressions");
-        TenjinAppLovinIntegration.ListenForImpressions(AppLovinImpressionHandler);
+        TenjinAdNetworks.AppLovinListenForImpressions?.Invoke(AppLovinImpressionHandler);
     }
 
     public override void AppLovinImpressionFromJSON(string json)
@@ -149,7 +149,7 @@ public class DebugTenjin : BaseTenjin
     public override void SubscribeIronSourceImpressions()
     {
         Debug.Log("Subscribing to ironsource impressions");
-        TenjinIronSourceIntegration.ListenForImpressions(IronSourceImpressionHandler);
+        TenjinAdNetworks.IronSourceListenForImpressions?.Invoke(IronSourceImpressionHandler);
     }
 
     public override void IronSourceImpressionFromJSON(string json)
@@ -160,19 +160,19 @@ public class DebugTenjin : BaseTenjin
     public override void SubscribeLevelPlayRewardedAdImpressions(object rewardedAd)
     {
         Debug.Log("Subscribing to LevelPlay rewarded impressions");
-        TenjinIronSourceIntegration.SubscribeLevelPlayRewardedImpressions(rewardedAd, IronSourceImpressionHandler);
+        TenjinAdNetworks.IronSourceSubscribeLevelPlayRewardedImpressions?.Invoke(rewardedAd, IronSourceImpressionHandler);
     }
 
     public override void SubscribeLevelPlayInterstitialAdImpressions(object interstitialAd)
     {
         Debug.Log("Subscribing to LevelPlay interstitial impressions");
-        TenjinIronSourceIntegration.SubscribeLevelPlayInterstitialImpressions(interstitialAd, IronSourceImpressionHandler);
+        TenjinAdNetworks.IronSourceSubscribeLevelPlayInterstitialImpressions?.Invoke(interstitialAd, IronSourceImpressionHandler);
     }
 
     public override void SubscribeLevelPlayBannerAdImpressions(object bannerAd)
     {
         Debug.Log("Subscribing to LevelPlay banner impressions");
-        TenjinIronSourceIntegration.SubscribeLevelPlayBannerImpressions(bannerAd, IronSourceImpressionHandler);
+        TenjinAdNetworks.IronSourceSubscribeLevelPlayBannerImpressions?.Invoke(bannerAd, IronSourceImpressionHandler);
     }
 
     private void IronSourceImpressionHandler(string json)
@@ -183,7 +183,7 @@ public class DebugTenjin : BaseTenjin
     public override void SubscribeHyperBidImpressions()
     {
         Debug.Log("Subscribing to hyperbid impressions");
-        TenjinHyperBidIntegration.ListenForImpressions(HyperBidImpressionHandler);
+        TenjinAdNetworks.HyperBidListenForImpressions?.Invoke(HyperBidImpressionHandler);
     }
 
     public override void HyperBidImpressionFromJSON(string json)
@@ -199,25 +199,25 @@ public class DebugTenjin : BaseTenjin
     public override void SubscribeAdMobBannerViewImpressions(object bannerView, string adUnitId)
     {
         Debug.Log("Subscribing to admob bannerView impressions");
-        TenjinAdMobIntegration.ListenForBannerViewImpressions(bannerView, adUnitId, AdMobBannerViewImpressionHandler);
+        TenjinAdNetworks.AdMobListenForBannerViewImpressions?.Invoke(bannerView, adUnitId, AdMobBannerViewImpressionHandler);
     }
 
     public override void SubscribeAdMobRewardedAdImpressions(object rewardedAd, string adUnitId)
     {
         Debug.Log("Subscribing to admob rewardedAd impressions");
-        TenjinAdMobIntegration.ListenForRewardedAdImpressions(rewardedAd, adUnitId, AdMobRewardedAdImpressionHandler);
+        TenjinAdNetworks.AdMobListenForRewardedAdImpressions?.Invoke(rewardedAd, adUnitId, AdMobRewardedAdImpressionHandler);
     }
 
     public override void SubscribeAdMobInterstitialAdImpressions(object interstitialAd, string adUnitId)
     {
         Debug.Log("Subscribing to admob interstitialAd impressions");
-        TenjinAdMobIntegration.ListenForInterstitialAdImpressions(interstitialAd, adUnitId, AdMobInterstitialAdImpressionHandler);
+        TenjinAdNetworks.AdMobListenForInterstitialAdImpressions?.Invoke(interstitialAd, adUnitId, AdMobInterstitialAdImpressionHandler);
     }
 
     public override void SubscribeAdMobRewardedInterstitialAdImpressions(object rewardedInterstitialAd, string adUnitId)
     {
         Debug.Log("Subscribing to admob rewardedInterstitialAd impressions");
-        TenjinAdMobIntegration.ListenForRewardedInterstitialAdImpressions(rewardedInterstitialAd, adUnitId, AdMobRewardedInterstitialAdImpressionHandler);
+        TenjinAdNetworks.AdMobListenForRewardedInterstitialAdImpressions?.Invoke(rewardedInterstitialAd, adUnitId, AdMobRewardedInterstitialAdImpressionHandler);
     }
 
     public override void AdMobImpressionFromJSON(string json)
@@ -273,7 +273,7 @@ public class DebugTenjin : BaseTenjin
     public override void SubscribeTopOnImpressions()
     {
         Debug.Log("Subscribing to topon impressions");
-        TenjinTopOnIntegration.ListenForImpressions(TopOnImpressionHandler);
+        TenjinAdNetworks.TopOnListenForImpressions?.Invoke(TopOnImpressionHandler);
     }
 
     public override void TopOnImpressionFromJSON(string json)
