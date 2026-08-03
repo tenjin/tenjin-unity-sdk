@@ -19,14 +19,19 @@ jobs:
       - name: Get latest version from RELEASE_NOTES.md
         id: version
         run: |
-          RAW_VERSION=$(grep -E "^v[0-9]+\.[0-9]+\.[0-9]+" RELEASE_NOTES.md | head -1 | tr -d '\r')
-          if [[ -z "$RAW_VERSION" ]]; then
+          RAW_LINE=$(grep -m1 -E '^(## \[[0-9]+\.[0-9]+\.[0-9]+\]|v[0-9]+\.[0-9]+\.[0-9]+$)' RELEASE_NOTES.md | tr -d '\r')
+          if [[ -z "$RAW_LINE" ]]; then
             echo "::error::Could not detect version from RELEASE_NOTES.md"
             exit 1
           fi
-          VERSION="${RAW_VERSION#v}"
-          echo "raw_version=$RAW_VERSION" >> "$GITHUB_OUTPUT"
+          VERSION=$(echo "$RAW_LINE" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+          if [[ "$RAW_LINE" == "##"* ]]; then
+            FORMAT="header"
+          else
+            FORMAT="legacy"
+          fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "format=$FORMAT" >> "$GITHUB_OUTPUT"
 
       - name: Ensure tag does not already exist
         run: |
@@ -38,8 +43,17 @@ jobs:
       - name: Extract release notes
         id: release_notes
         run: |
-          RAW_VERSION="${{ steps.version.outputs.raw_version }}"
-          NOTES=$(awk "/^${RAW_VERSION}\$/{found=1; next} /^----\$/{if(found) {capture=1; next}} /^v[0-9]/{if(capture) exit} capture && /^[*-] /{print}" RELEASE_NOTES.md | sed 's/ \[TENJIN-[0-9]*\]//g')
+          VERSION="${{ steps.version.outputs.version }}"
+          FORMAT="${{ steps.version.outputs.format }}"
+          if [[ "$FORMAT" == "header" ]]; then
+            NOTES=$(awk -v ver="$VERSION" '
+              index($0, "## [" ver "]") == 1 {found=1; next}
+              found && /^## \[/ {exit}
+              found && /^\* /{print}
+            ' RELEASE_NOTES.md | sed 's/ \[TENJIN-[0-9]*\]//g')
+          else
+            NOTES=$(awk "/^v${VERSION}\$/{found=1; next} /^----\$/{if(found) {capture=1; next}} /^v[0-9]/{if(capture) exit} capture && /^[*-] /{print}" RELEASE_NOTES.md | sed 's/ \[TENJIN-[0-9]*\]//g')
+          fi
           {
             echo "notes<<EOF"
             echo "$NOTES"
