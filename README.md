@@ -965,7 +965,7 @@ instance.SetCacheEventSetting(true);
 ```
 
 > [!IMPORTANT]
-> This setting is stored on the device and persists across app sessions on both iOS and Android. Once a build has enabled it, removing the `SetCacheEventSetting` call in a later release will **not** disable caching for existing users — the previously stored value stays in effect. To turn it off, explicitly call:
+> This setting is stored on the device and persists across app sessions on both iOS and Android. Once a build has enabled it, removing the `SetCacheEventSetting` call in a later release will **not** disable caching for existing users, because the previously stored value stays in effect. To turn it off, explicitly call:
 >
 > ```csharp
 > instance.SetCacheEventSetting(false);
