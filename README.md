@@ -984,6 +984,16 @@ Tenjin supports the ability to integrate with the Impression Level Ad Revenue (I
 
 This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. Access to the integration guide is [here](https://tenjin.com/docs/category/ad-revenue-ad-mediation-setup/).
 
+### Custom mediation
+
+If your mediation provider is not on the list above, you can report impressions with the generic custom mediation method, available since v1.17.0. Pass a JSON object string with your impression data and include the revenue as `revenue_decimal` (revenue for this impression) or `revenue_cpm` (revenue per 1,000 impressions). Impressions sent this way are reported under the `custom` mediation source.
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+string impressionJson = "{\"network_name\":\"my_network\",\"mediation_country\":\"US\",\"currency\":\"USD\",\"ad_unit_id\":\"my_ad_unit_id\",\"ad_format\":\"banner\",\"revenue_decimal\":0.001,\"precision\":\"BID\"}";
+instance.CustomImpressionFromJSON(impressionJson);
+```
+
 # <a id="testing"></a>Testing
 
 You can verify if the integration is working through our <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">Live Test Device Data Tool</a>. Add your `advertising_id` or `IDFA/GAID` to the list of test devices. You can find this under Support -\> <a href="https://www.tenjin.io/dashboard/debug_app_users">Test Devices</a>. Go to the <a href="https://www.tenjin.io/dashboard/sdk_diagnostics">SDK Live page</a> and send the test events from your app. You should see live events come in:
