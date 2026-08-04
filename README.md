@@ -973,16 +973,21 @@ instance.SetCacheEventSetting(true);
 
 ## <a id="ilrd"></a>Impression Level Ad Revenue Integration
 
-Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from,
-- AppLovin MAX
-- Unity LevelPlay
-- HyperBid
-- AdMob
-- Topon
-- CAS
-- TradPlus
+Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from the mediation providers below. Most providers offer a `Subscribe...` helper that hooks the mediation callbacks automatically, plus a `...FromJSON` method to forward an impression payload manually; follow the linked guide for the full setup of each provider.
 
-This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. Access to the integration guide is [here](https://tenjin.com/docs/category/ad-revenue-ad-mediation-setup/).
+| Provider | Methods | Setup guide |
+|----------|---------|-------------|
+| AppLovin MAX | `SubscribeAppLovinImpressions()`, `AppLovinImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-applovin-max/) |
+| Unity LevelPlay | `SubscribeLevelPlayRewardedAdImpressions(ad)`, `SubscribeLevelPlayInterstitialAdImpressions(ad)`, `SubscribeLevelPlayBannerAdImpressions(ad)`, `IronSourceImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-unity-levelplay/) |
+| AdMob | `SubscribeAdMobBannerViewImpressions(ad, adUnitId)`, `SubscribeAdMobRewardedAdImpressions(ad, adUnitId)`, `SubscribeAdMobInterstitialAdImpressions(ad, adUnitId)`, `SubscribeAdMobRewardedInterstitialAdImpressions(ad, adUnitId)`, `AdMobImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-admob/) |
+| HyperBid | `SubscribeHyperBidImpressions()`, `HyperBidImpressionFromJSON(json)` | |
+| TopOn | `SubscribeTopOnImpressions()`, `TopOnImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-topon/) |
+| CAS | `SubscribeCASImpressions(manager)`, `SubscribeCASBannerImpressions(bannerView)`, `CASImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-cas/) |
+| TradPlus | `SubscribeTradPlusImpressions()`, `TradPlusImpressionFromJSON(json)`, `TradPlusImpressionFromAdInfo(adInfo)` | [Guide](https://tenjin.com/docs/unity-plugin-tradplus/) |
+| CloudX | `SubscribeCloudXImpressions()`, `CloudXImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-cloudx/) |
+| Other providers | `CustomImpressionFromJSON(json)` | See [Custom mediation](#custom-mediation) |
+
+This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. Access to the full documentation is [here](https://tenjin.com/docs/category/ad-revenue/).
 
 ### Custom mediation
 
