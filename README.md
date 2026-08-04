@@ -986,7 +986,7 @@ This feature allows you to receive events which correspond to your ad revenue wh
 
 ### Custom mediation
 
-If your mediation provider is not on the list above, you can report impressions with the generic custom mediation method, available since v1.17.0. Pass a JSON object string with your impression data and include the revenue as `revenue_decimal` (revenue for this impression) or `revenue_cpm` (revenue per 1,000 impressions). Impressions sent this way are reported under the `custom` mediation source.
+If your mediation provider is not on the list above, you can report impressions with the generic custom mediation method, available since v1.17.0. Pass a JSON object string with your impression data. Required fields are `network_name`, `currency`, and either `revenue_decimal` (revenue for this impression) or `revenue_cpm` (revenue per 1,000 impressions); the full list of accepted fields is in the [ILRD API documentation](https://tenjin.com/docs/impression-level-revenue-data-api-s2s/). Impressions sent this way are reported under the `custom` mediation source, with `ad_revenue_mediation` and the device parameters set automatically by the SDK.
 
 ```csharp
 BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
