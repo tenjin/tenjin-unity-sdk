@@ -964,18 +964,40 @@ BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
 instance.SetCacheEventSetting(true);
 ```
 
+> [!IMPORTANT]
+> This setting is stored on the device and persists across app sessions on both iOS and Android. Once a build has enabled it, removing the `SetCacheEventSetting` call in a later release will **not** disable caching for existing users, because the previously stored value stays in effect. To turn it off, explicitly call:
+>
+> ```csharp
+> instance.SetCacheEventSetting(false);
+> ```
+
 ## <a id="ilrd"></a>Impression Level Ad Revenue Integration
 
-Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from,
-- AppLovin MAX
-- Unity LevelPlay
-- HyperBid
-- AdMob
-- Topon
-- CAS
-- TradPlus
+Tenjin supports the ability to integrate with the Impression Level Ad Revenue (ILRD) feature from the mediation providers below. Most providers offer a `Subscribe...` helper that hooks the mediation callbacks automatically, plus a `...FromJSON` method to forward an impression payload manually; follow the linked guide for the full setup of each provider.
 
-This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. Access to the integration guide is [here](https://tenjin.com/docs/category/ad-revenue-ad-mediation-setup/).
+| Provider | Methods | Setup guide |
+|----------|---------|-------------|
+| AppLovin MAX | `SubscribeAppLovinImpressions()`, `AppLovinImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-applovin-max/) |
+| Unity LevelPlay | `SubscribeLevelPlayRewardedAdImpressions(ad)`, `SubscribeLevelPlayInterstitialAdImpressions(ad)`, `SubscribeLevelPlayBannerAdImpressions(ad)`, `IronSourceImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-unity-levelplay/) |
+| AdMob | `SubscribeAdMobBannerViewImpressions(ad, adUnitId)`, `SubscribeAdMobRewardedAdImpressions(ad, adUnitId)`, `SubscribeAdMobInterstitialAdImpressions(ad, adUnitId)`, `SubscribeAdMobRewardedInterstitialAdImpressions(ad, adUnitId)`, `AdMobImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-admob/) |
+| HyperBid | `SubscribeHyperBidImpressions()`, `HyperBidImpressionFromJSON(json)` | |
+| TopOn | `SubscribeTopOnImpressions()`, `TopOnImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-topon/) |
+| CAS | `SubscribeCASImpressions(manager)`, `SubscribeCASBannerImpressions(bannerView)`, `CASImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-cas/) |
+| TradPlus | `SubscribeTradPlusImpressions()`, `TradPlusImpressionFromJSON(json)`, `TradPlusImpressionFromAdInfo(adInfo)` | [Guide](https://tenjin.com/docs/unity-plugin-tradplus/) |
+| CloudX | `SubscribeCloudXImpressions()`, `CloudXImpressionFromJSON(json)` | [Guide](https://tenjin.com/docs/unity-plugin-cloudx/) |
+| Other providers | `CustomImpressionFromJSON(json)` | See [Custom mediation](#custom-mediation) |
+
+This feature allows you to receive events which correspond to your ad revenue which is affected by each advertisement shown to a user. Access to the full documentation is [here](https://tenjin.com/docs/category/ad-revenue/).
+
+### Custom mediation
+
+If your mediation provider is not on the list above, you can report impressions with the generic custom mediation method, available since v1.17.0. Pass a JSON object string with your impression data. Required fields are `network_name`, `currency`, and either `revenue_decimal` (revenue for this impression) or `revenue_cpm` (revenue per 1,000 impressions); the full list of accepted fields is in the [ILRD API documentation](https://tenjin.com/docs/impression-level-revenue-data-api-s2s/). Impressions sent this way are reported under the `custom` mediation source, with `ad_revenue_mediation` and the device parameters set automatically by the SDK.
+
+```csharp
+BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+string impressionJson = "{\"network_name\":\"my_network\",\"mediation_country\":\"US\",\"currency\":\"USD\",\"ad_unit_id\":\"my_ad_unit_id\",\"ad_format\":\"banner\",\"revenue_decimal\":0.001,\"precision\":\"BID\"}";
+instance.CustomImpressionFromJSON(impressionJson);
+```
 
 # <a id="testing"></a>Testing
 
