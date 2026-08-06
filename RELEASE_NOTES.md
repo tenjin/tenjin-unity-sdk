@@ -1,3 +1,10 @@
+## [1.20.1](https://github.com/tenjin/unity-sdk/compare/1.20.0...1.20.1) (2026-08-06)
+
+
+### Bug Fixes
+
+* regenerate non-random GUID on TenjinObject.cs ([#197](https://github.com/tenjin/unity-sdk/issues/197)) ([a498428](https://github.com/tenjin/unity-sdk/commit/a4984288442c15a3cd077cbf5457f0d4995a9cc8))
+
 ## [1.20.0](https://github.com/tenjin/unity-sdk/compare/1.19.1...1.20.0) (2026-08-03)
 
 
