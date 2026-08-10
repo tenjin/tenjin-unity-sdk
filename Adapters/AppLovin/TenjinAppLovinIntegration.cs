@@ -11,6 +11,13 @@ public class TenjinAppLovinIntegration
     public TenjinAppLovinIntegration()
     {
     }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+    private static void Register()
+    {
+        TenjinAdNetworks.AppLovinListenForImpressions = ListenForImpressions;
+    }
+
     public static void ListenForImpressions(Action<string> callback)
     {
 #if tenjin_applovin_enabled
