@@ -1,0 +1,17 @@
+{
+    "name": "TenjinSDK.Adapters.AppLovin",
+    "rootNamespace": "",
+    "references": [
+        "TenjinSDK",
+        "MaxSdk.Scripts"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

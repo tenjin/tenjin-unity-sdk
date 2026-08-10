@@ -1,3 +1,10 @@
+## [1.20.2](https://github.com/tenjin/unity-sdk/compare/1.20.1...1.20.2) (2026-08-10)
+
+
+### Bug Fixes
+
+* give AppLovin adapter its own assembly so it compiles under UPM ([#199](https://github.com/tenjin/unity-sdk/issues/199)) ([9981eef](https://github.com/tenjin/unity-sdk/commit/9981eef22efaf204ee0a3149243ca8d3af8bf199))
+
 ## [1.20.1](https://github.com/tenjin/unity-sdk/compare/1.20.0...1.20.1) (2026-08-06)
 
 
