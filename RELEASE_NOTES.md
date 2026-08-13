@@ -1,30 +1,30 @@
-## [1.20.2](https://github.com/tenjin/unity-sdk/compare/1.20.1...1.20.2) (2026-08-10)
+## 1.20.2 (2026-08-10)
 
 
 ### Bug Fixes
 
-* give AppLovin adapter its own assembly so it compiles under UPM ([#199](https://github.com/tenjin/unity-sdk/issues/199)) ([9981eef](https://github.com/tenjin/unity-sdk/commit/9981eef22efaf204ee0a3149243ca8d3af8bf199))
+* give AppLovin adapter its own assembly so it compiles under UPM
 
-## [1.20.1](https://github.com/tenjin/unity-sdk/compare/1.20.0...1.20.1) (2026-08-06)
+## 1.20.1 (2026-08-06)
 
 
 ### Bug Fixes
 
-* Fix file GUID issue when using UPM ([#197](https://github.com/tenjin/unity-sdk/issues/197)) ([a498428](https://github.com/tenjin/unity-sdk/commit/a4984288442c15a3cd077cbf5457f0d4995a9cc8))
+* Fix file GUID issue when using UPM
 
-## [1.20.0](https://github.com/tenjin/unity-sdk/compare/1.19.1...1.20.0) (2026-08-03)
+## 1.20.0 (2026-08-03)
 
 
 ### Features
 
-* update Android SDK to 1.22.0 and iOS SDK to 1.18.0 ([#195](https://github.com/tenjin/unity-sdk/issues/195)) ([3e69fd0](https://github.com/tenjin/unity-sdk/commit/3e69fd04857d6c707e7d34ee69fb1101070d3832))
+* update Android SDK to 1.22.0 and iOS SDK to 1.18.0
 
-## [1.19.1](https://github.com/tenjin/unity-sdk/compare/1.19.0...1.19.1) (2026-07-08)
+## 1.19.1 (2026-07-08)
 
 
 ### Bug Fixes
 
-* Add asmdef to improve UPM integration ([#193](https://github.com/tenjin/unity-sdk/issues/193)) ([fbb2017](https://github.com/tenjin/unity-sdk/commit/fbb20174e4f87d9f21729fe1ae106b00032b80e0))
+* Add asmdef to improve UPM integration
 
 v1.19.0
 ----
