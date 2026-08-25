@@ -749,7 +749,7 @@ Choose between 0%, 15% and 30% App Store’s revenue commission via our new setu
 
 ### <a id="subscription-tracking"></a> Subscription Tracking
 
-Track subscription purchases for server-side verification and attribution on **iOS** and **Android**. See [SUBSCRIPTIONS_TRACKING.md](SUBSCRIPTIONS_TRACKING.md) for the full guide, including integration examples with Unity IAP and RevenueCat.
+Track subscription purchases for server-side verification and attribution on **iOS** and **Android**. See [SUBSCRIPTIONS_TRACKING.md](SUBSCRIPTIONS_TRACKING.md) for the full guide, including integration examples with Unity IAP.
 
 > **Note:** Android subscription tracking requires Unity SDK 1.18.0+ (bundles Tenjin Android SDK 1.20.0+).
 
