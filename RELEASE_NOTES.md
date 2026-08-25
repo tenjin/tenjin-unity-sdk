@@ -1,3 +1,10 @@
+## [1.21.0](https://github.com/tenjin/unity-sdk/compare/1.20.2...1.21.0) (2026-08-25)
+
+
+### Features
+
+* Add HandleOpenUrl for re-engagement deeplinks ([#203](https://github.com/tenjin/unity-sdk/issues/203)) ([0ec5887](https://github.com/tenjin/unity-sdk/commit/0ec5887d8cefaff75ee55f36d7c0e9845095faea))
+
 ## [1.20.2](https://github.com/tenjin/unity-sdk/compare/1.20.1...1.20.2) (2026-08-10)
 
 
