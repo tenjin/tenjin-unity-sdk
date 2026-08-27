@@ -72,6 +72,7 @@ void iosTenjinTradPlusImpressionFromJSON(const char* jsonString);
 void iosTenjinCloudXImpressionFromJSON(const char* jsonString);
 void iosTenjinCustomImpressionFromJSON(const char* jsonString);
 
+void iosTenjinHandleOpenUrl(const char* url);
 void iosTenjinSetCustomerUserId(const char* userId);
 const char* iosTenjinGetSetCustomerUserId();
 void iosTenjinSetCacheEventSetting(bool setting);

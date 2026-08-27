@@ -376,9 +376,18 @@ void iosTenjinSetPluginVersion(const char* pluginString, const char* versionStri
     [TenjinSDK setPluginVersion:plugin version:version];
 }
 
+void iosTenjinHandleOpenUrl(const char* url) {
+    if (url == NULL) {
+        return;
+    }
+    NSString *utfStr = [NSString stringWithUTF8String:url];
+
+    [TenjinSDK handleOpenURLString:utfStr];
+}
+
 void iosTenjinSetCustomerUserId(const char* userId) {
     NSString *utfStr = [NSString stringWithUTF8String:userId];
-    
+
     [TenjinSDK setCustomerUserId:utfStr];
 }
 

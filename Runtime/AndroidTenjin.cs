@@ -633,6 +633,12 @@ public class AndroidTenjin : BaseTenjin
 		}
 	}
 
+	public override void HandleOpenUrl(string url) {
+		Debug.Log($"HandleOpenUrl {url}");
+		var args = new object[] {url};
+		tenjinJava.Call ("handleOpenUrl", args);
+	}
+
 	public override void SetCustomerUserId(string userId) {
 		Debug.Log($"SetCustomerUserId {userId}");
 		var args = new object[] {userId};
@@ -1004,6 +1010,11 @@ public class AndroidTenjin : BaseTenjin
     public override void SetAppStoreType(AppStoreType appStoreType)
     {
         Debug.Log("Setting AndroidTenjin::SetAppStoreType: " + appStoreType);
+    }
+
+    public override void HandleOpenUrl(string url)
+    {
+        Debug.Log("Setting AndroidTenjin::HandleOpenUrl: " + url);
     }
 
     public override void SetCustomerUserId(string userId)
