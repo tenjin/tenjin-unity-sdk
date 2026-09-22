@@ -1,6 +1,6 @@
 //
 // Created by Tenjin on 2016-05-20.
-//  Version 1.19.0
+//  Version 1.19.1
 
 //  Copyright (c) 2016 Tenjin. All rights reserved.
 //
@@ -259,13 +259,13 @@ andDeferredDeeplink:(NSURL *)url
 
 @end
 
+// Impression Level Ad Revenue (ILRD) integrations
+
 //
 // Created by Tenjin
 // Copyright (c) 2022 Tenjin. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "TenjinSDK.h"
 
 @interface TenjinSDK (TopOnILRD)
 + (void)topOnImpressionFromDict:(NSDictionary *)adImpression;
@@ -277,8 +277,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2022 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (AppLovinILRD)
 + (void)subscribeAppLovinImpressions;
@@ -290,8 +288,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2022 Tenjin. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "TenjinSDK.h"
 
 @interface TenjinSDK (HyperBidILRD)
 + (void)hyperBidImpressionFromDict:(NSDictionary *)adImpression;
@@ -303,8 +299,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2022 Tenjin. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "TenjinSDK.h"
 
 @class GADAdValue;
 
@@ -318,8 +312,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2022 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (IronSourceILRD)
 + (void)subscribeIronSourceImpressions;
@@ -331,8 +323,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2023 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (CASILRD)
 + (void)subscribeCASBannerImpressions;
@@ -345,8 +335,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2023 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (TradPlusILRD)
 + (void)subscribeTradPlusImpressions;
@@ -359,8 +347,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2025 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (CloudXILRD)
 + (void)handleCloudXILRD:(id)adImpression;
@@ -372,8 +358,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2026 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (CustomILRD)
 
