@@ -65,11 +65,33 @@ namespace TenjinEditor
         }
 
         #region Third Party Library Detection
+        // Unity 6 deprecates the BuildTargetGroup overloads of Get/SetScriptingDefineSymbols
+        // in favour of NamedBuildTarget, and consumers who build with warnings as errors
+        // fail to compile on the deprecation. NamedBuildTarget landed in 2021.2, so keep
+        // the old overloads for editors older than that.
+        private static string GetDefines(BuildTargetGroup group)
+        {
+#if UNITY_2021_2_OR_NEWER
+            return PlayerSettings.GetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(group));
+#else
+            return PlayerSettings.GetScriptingDefineSymbolsForGroup(group);
+#endif
+        }
+
+        private static void SetDefines(BuildTargetGroup group, string defines)
+        {
+#if UNITY_2021_2_OR_NEWER
+            PlayerSettings.SetScriptingDefineSymbols(NamedBuildTarget.FromBuildTargetGroup(group), defines);
+#else
+            PlayerSettings.SetScriptingDefineSymbolsForGroup(group, defines);
+#endif
+        }
+
         private static void UpdateDefines(string entry, bool enabled, BuildTargetGroup[] groups)
         {
             foreach (var group in groups)
             {
-                var entries = PlayerSettings.GetScriptingDefineSymbolsForGroup(group)
+                var entries = GetDefines(group)
                     .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
                 // Skip updating defines if they are already in the correct state
@@ -83,7 +105,7 @@ namespace TenjinEditor
                     defines = defines.Concat(new[] { entry });
                 }
 
-                PlayerSettings.SetScriptingDefineSymbolsForGroup(group, string.Join(";", defines.ToArray()));
+                SetDefines(group, string.Join(";", defines.ToArray()));
             }
         }
 

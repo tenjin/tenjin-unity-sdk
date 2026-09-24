@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/tenjin/unity-sdk/compare/1.22.0...1.22.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* stop shipping packaging tooling and migrate Unity 6 deprecated editor APIs ([#207](https://github.com/tenjin/unity-sdk/issues/207)) ([2d735af](https://github.com/tenjin/unity-sdk/commit/2d735af1c72a0bef937b962f64c2581d5a3c4e9d))
+
 ## [1.22.0](https://github.com/tenjin/unity-sdk/compare/1.21.0...1.22.0) (2026-09-22)
 
 
