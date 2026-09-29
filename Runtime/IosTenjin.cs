@@ -131,6 +131,9 @@ public class IosTenjin : BaseTenjin
     private static extern void iosTenjinSetPluginVersion(string plugin, string version);
 
     [DllImport ("__Internal")]
+    private static extern void iosTenjinHandleOpenUrl(string url);
+
+    [DllImport ("__Internal")]
     private static extern void iosTenjinSetCustomerUserId(string userId);
 
     [DllImport ("__Internal")]
@@ -667,6 +670,14 @@ public class IosTenjin : BaseTenjin
         iosTenjinGetAttributionInfo(AttributionInfo);
     }
 
+    public override void HandleOpenUrl(string url)
+    {
+        if (Debug.isDebugBuild) {
+            Debug.Log ("Sending IosTenjin::HandleOpenUrl " + url);
+        }
+        iosTenjinHandleOpenUrl(url);
+    }
+
     public override void SetCustomerUserId(string userId)
     {
         if (Debug.isDebugBuild) {
@@ -1150,6 +1161,11 @@ public class IosTenjin : BaseTenjin
         public override void SetAppStoreType(AppStoreType appStoreType)
         {
                 Debug.Log("iOS SetAppStoreType");
+        }
+
+        public override void HandleOpenUrl(string url)
+        {
+                Debug.Log("iOS HandleOpenUrl " + url);
         }
 
         public override void SetCustomerUserId(string userId)

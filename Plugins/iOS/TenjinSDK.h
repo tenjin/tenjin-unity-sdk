@@ -1,6 +1,6 @@
 //
 // Created by Tenjin on 2016-05-20.
-//  Version 1.18.0
+//  Version 1.19.1
 
 //  Copyright (c) 2016 Tenjin. All rights reserved.
 //
@@ -93,6 +93,17 @@ andDeferredDeeplink:(NSURL *)url
 
 //use connect to send connect call. sharedInstanceWithToken automatically does a connect
 + (void)connectWithDeferredDeeplink:(NSURL *)url;
+
+//report the deeplink URL the app was opened with for re-engagement attribution.
+//call from application:openURL:options: and continueUserActivity:, or the UISceneDelegate
+//equivalents (scene:openURLContexts:, scene:continueUserActivity: and, for cold starts,
+//connectionOptions in scene:willConnectToSession:options:). AppDelegate-only apps also get
+//cold launches captured automatically; scene-based apps must forward all cases.
++ (void)handleOpenURL:(NSURL *)url NS_SWIFT_NAME(handleOpenURL(_:));
+
+//raw-string variant of handleOpenURL for plugin wrappers (Unity, Flutter, React Native).
+//safe to call before initialization - the URL is cached and sent with the first connect
++ (void)handleOpenURLString:(NSString *)urlString NS_SWIFT_NAME(handleOpenURLString(_:));
 
 //use sendEventWithName for custom event names
 + (void)sendEventWithName:(NSString *)eventName;
@@ -248,13 +259,13 @@ andDeferredDeeplink:(NSURL *)url
 
 @end
 
+// Impression Level Ad Revenue (ILRD) integrations
+
 //
 // Created by Tenjin
 // Copyright (c) 2022 Tenjin. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "TenjinSDK.h"
 
 @interface TenjinSDK (TopOnILRD)
 + (void)topOnImpressionFromDict:(NSDictionary *)adImpression;
@@ -266,8 +277,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2022 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (AppLovinILRD)
 + (void)subscribeAppLovinImpressions;
@@ -279,8 +288,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2022 Tenjin. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "TenjinSDK.h"
 
 @interface TenjinSDK (HyperBidILRD)
 + (void)hyperBidImpressionFromDict:(NSDictionary *)adImpression;
@@ -292,8 +299,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2022 Tenjin. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "TenjinSDK.h"
 
 @class GADAdValue;
 
@@ -307,8 +312,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2022 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (IronSourceILRD)
 + (void)subscribeIronSourceImpressions;
@@ -320,8 +323,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2023 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (CASILRD)
 + (void)subscribeCASBannerImpressions;
@@ -334,8 +335,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2023 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (TradPlusILRD)
 + (void)subscribeTradPlusImpressions;
@@ -348,8 +347,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2025 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (CloudXILRD)
 + (void)handleCloudXILRD:(id)adImpression;
@@ -361,8 +358,6 @@ andDeferredDeeplink:(NSURL *)url
 // Copyright (c) 2026 Tenjin. All rights reserved.
 //
 
-#import "TenjinSDK.h"
-#import <Foundation/Foundation.h>
 
 @interface TenjinSDK (CustomILRD)
 

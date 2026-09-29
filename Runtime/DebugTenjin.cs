@@ -296,6 +296,11 @@ public class DebugTenjin : BaseTenjin
         Debug.Log("SetAppStoreType");
     }
 
+    public override void HandleOpenUrl(string url)
+    {
+        Debug.Log("HandleOpenUrl " + url);
+    }
+
     public override void SetCustomerUserId(string userId)
     {
         Debug.Log("SetCustomerUserId");

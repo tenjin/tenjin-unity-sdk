@@ -1,3 +1,24 @@
+## 1.22.1 (2026-09-24)
+
+
+### Bug Fixes
+
+* stop shipping packaging tooling and migrate Unity 6 deprecated editor APIs
+
+## 1.22.0 (2026-09-22)
+
+
+### Features
+
+* update Android SDK to 1.24.0 and iOS SDK to 1.19.1
+
+## 1.21.0 (2026-08-25)
+
+
+### Features
+
+* Add HandleOpenUrl for re-engagement deeplinks
+
 ## 1.20.2 (2026-08-10)
 
 
