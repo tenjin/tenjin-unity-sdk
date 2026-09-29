@@ -1,51 +1,51 @@
-## [1.22.1](https://github.com/tenjin/unity-sdk/compare/1.22.0...1.22.1) (2026-09-24)
+## 1.22.1 (2026-09-24)
 
 
 ### Bug Fixes
 
-* stop shipping packaging tooling and migrate Unity 6 deprecated editor APIs ([#207](https://github.com/tenjin/unity-sdk/issues/207)) ([2d735af](https://github.com/tenjin/unity-sdk/commit/2d735af1c72a0bef937b962f64c2581d5a3c4e9d))
+* stop shipping packaging tooling and migrate Unity 6 deprecated editor APIs
 
-## [1.22.0](https://github.com/tenjin/unity-sdk/compare/1.21.0...1.22.0) (2026-09-22)
+## 1.22.0 (2026-09-22)
 
 
 ### Features
 
-* update Android SDK to 1.24.0 and iOS SDK to 1.19.1 ([#205](https://github.com/tenjin/unity-sdk/issues/205)) ([82bf20c](https://github.com/tenjin/unity-sdk/commit/82bf20c056cbd329dff00b1043e4fc0f1cbf4853))
+* update Android SDK to 1.24.0 and iOS SDK to 1.19.1
 
-## [1.21.0](https://github.com/tenjin/unity-sdk/compare/1.20.2...1.21.0) (2026-08-25)
-
-
-### Features
-
-* Add HandleOpenUrl for re-engagement deeplinks ([#203](https://github.com/tenjin/unity-sdk/issues/203)) ([0ec5887](https://github.com/tenjin/unity-sdk/commit/0ec5887d8cefaff75ee55f36d7c0e9845095faea))
-
-## [1.20.2](https://github.com/tenjin/unity-sdk/compare/1.20.1...1.20.2) (2026-08-10)
-
-
-### Bug Fixes
-
-* give AppLovin adapter its own assembly so it compiles under UPM ([#199](https://github.com/tenjin/unity-sdk/issues/199)) ([9981eef](https://github.com/tenjin/unity-sdk/commit/9981eef22efaf204ee0a3149243ca8d3af8bf199))
-
-## [1.20.1](https://github.com/tenjin/unity-sdk/compare/1.20.0...1.20.1) (2026-08-06)
-
-
-### Bug Fixes
-
-* Fix file GUID issue when using UPM ([#197](https://github.com/tenjin/unity-sdk/issues/197)) ([a498428](https://github.com/tenjin/unity-sdk/commit/a4984288442c15a3cd077cbf5457f0d4995a9cc8))
-
-## [1.20.0](https://github.com/tenjin/unity-sdk/compare/1.19.1...1.20.0) (2026-08-03)
+## 1.21.0 (2026-08-25)
 
 
 ### Features
 
-* update Android SDK to 1.22.0 and iOS SDK to 1.18.0 ([#195](https://github.com/tenjin/unity-sdk/issues/195)) ([3e69fd0](https://github.com/tenjin/unity-sdk/commit/3e69fd04857d6c707e7d34ee69fb1101070d3832))
+* Add HandleOpenUrl for re-engagement deeplinks
 
-## [1.19.1](https://github.com/tenjin/unity-sdk/compare/1.19.0...1.19.1) (2026-07-08)
+## 1.20.2 (2026-08-10)
 
 
 ### Bug Fixes
 
-* Add asmdef to improve UPM integration ([#193](https://github.com/tenjin/unity-sdk/issues/193)) ([fbb2017](https://github.com/tenjin/unity-sdk/commit/fbb20174e4f87d9f21729fe1ae106b00032b80e0))
+* give AppLovin adapter its own assembly so it compiles under UPM
+
+## 1.20.1 (2026-08-06)
+
+
+### Bug Fixes
+
+* Fix file GUID issue when using UPM
+
+## 1.20.0 (2026-08-03)
+
+
+### Features
+
+* update Android SDK to 1.22.0 and iOS SDK to 1.18.0
+
+## 1.19.1 (2026-07-08)
+
+
+### Bug Fixes
+
+* Add asmdef to improve UPM integration
 
 v1.19.0
 ----
