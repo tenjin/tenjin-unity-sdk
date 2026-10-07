@@ -1,6 +1,6 @@
 //
 // Created by Tenjin on 2016-05-20.
-//  Version 1.19.1
+//  Version 1.20.0
 
 //  Copyright (c) 2016 Tenjin. All rights reserved.
 //
@@ -165,6 +165,26 @@ andDeferredDeeplink:(NSURL *)url
 + (void)subscriptionWithStoreKitForProductId:(NSString *)productId
                             andCurrencyCode:(NSString *)currencyCode
                                andUnitPrice:(NSDecimalNumber *)price API_AVAILABLE(ios(16.0));
+
+//opt in to automatic StoreKit 2 subscription tracking (iOS 16+), before or after init.
+//Starts with the first connect; purchases, renewals and out-of-app transactions are reported without
+//explicit calls. Auto-renewable purchases go out as they happen, non-renewing ones on the next
+//connect or foreground (StoreKit only surfaces those through current entitlements).
+//Only production, non-family-shared transactions are sent, and nothing is sent while opted out
+//(transactions from that time are picked up after opting back in).
++ (void)enableAutoSubscriptionTracking;
+
++ (void)disableAutoSubscriptionTracking;
+
+//opt in to automatic StoreKit 2 one-time purchase tracking (iOS 16+), before or after init.
+//Non-consumables are reported on the next connect or foreground; consumables can't be auto-tracked
+//(StoreKit drops a finished consumable), so those still need an explicit transaction call.
+//Same filters as subscription tracking. A purchase the app reports itself isn't re-sent when that
+//call supplies a transaction id; the 4-argument transaction methods don't, so an app on those
+//should keep auto purchase tracking off.
++ (void)enableAutoPurchaseTracking;
+
++ (void)disableAutoPurchaseTracking;
 
 // GDPR opt-out
 + (void)optOut;
