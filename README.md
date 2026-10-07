@@ -41,6 +41,7 @@ The guide walks the assistant through the complete integration. For more details
 	  - [Configuring a user tracking description][16]
   - [SKAdNetwork and Conversion Value][17]
   - [SKAdNetwork iOS 15+ Postbacks][18]
+  - [Google Ads On-Device Conversion Measurement (ICM / ODM)][76]
   - [GDPR][19]
     - [Opt in/Opt out using CMP consents][72]
   - [Purchase Events][20]
@@ -417,6 +418,43 @@ These steps are adapted from Apple's instructions at [https://developer.apple.co
 
 3. Navigate to the `Info.plist` file in the XCode project to manually change the NSAdvertisingAttributionReportEndpoint to `https://tenjin-skan.com`.
 Otherwise, you can ask your AppLovin account manager to set up forwarding the postbacks to us.
+
+## <a id="google-odm"></a> Google Ads On-Device Conversion Measurement (ICM / ODM)
+
+> [!NOTE]
+> iOS only. Only needed if you run Google Ads campaigns for your iOS app.
+
+The Tenjin iOS SDK collects Google's on-device conversion data automatically when Google's `GoogleAdsOnDeviceConversion` SDK is in your app. There is no Tenjin method to call.
+
+1. Add Google's SDK with a new file, `Assets/Editor/GoogleAdsOnDeviceConversionDependencies.xml`. Don't edit Tenjin's own `Dependencies.xml`: it is read-only when installed with UPM, and its versions change with each Tenjin release.
+
+    ```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <dependencies>
+      <iosPods>
+        <iosPod name="GoogleAdsOnDeviceConversion" version="~> 3.7" />
+      </iosPods>
+    </dependencies>
+    ```
+
+    Use the current version from [Google's releases](https://github.com/googleads/google-ads-on-device-conversion-ios-sdk/releases). The External Dependency Manager adds the pod on the next iOS build. If your project uses Firebase Analytics, it already includes `GoogleAdsOnDeviceConversion`: don't add this file.
+
+2. Google's SDK needs a moment after Tenjin is initialized to produce its data. On iOS, call the first `Connect()` at least 3 seconds after `Tenjin.getInstance`:
+
+    ```csharp
+    IEnumerator Start() {
+      BaseTenjin instance = Tenjin.getInstance("<SDK_KEY>");
+
+    #if UNITY_IOS && !UNITY_EDITOR
+      yield return new WaitForSecondsRealtime(3f);
+    #endif
+
+      instance.Connect();
+      yield break;
+    }
+    ```
+
+    If you call `Connect()` from the ATT callback, make sure that call also happens at least 3 seconds after initialization. Later `Connect()` calls (for example in `OnApplicationPause`) need no delay.
 
 ## <a id="gdpr"></a> GDPR
 
@@ -1083,6 +1121,7 @@ You can verify if the integration is working through our <a href="https://www.te
 [73]: #google-dma
 [74]: #user-profile
 [75]: #subscription-tracking
+[76]: #google-odm
 
 [image-1]:	https://s3.amazonaws.com/tenjin-instructions/sdk_live_purchase_events_2.png
 [image-2]:	https://s3.amazonaws.com/tenjin-instructions/app_api_key.png
