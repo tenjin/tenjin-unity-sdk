@@ -1,3 +1,12 @@
+## [1.23.1](https://github.com/tenjin/unity-sdk/compare/1.23.0...1.23.1) (2026-10-14)
+
+
+### Bug Fixes
+
+* make TradPlus ILRD detection and SubscribeTradPlusImpressions work ([#212](https://github.com/tenjin/unity-sdk/issues/212)) ([00ad684](https://github.com/tenjin/unity-sdk/commit/00ad684f6c99dd77f7fe8f6fde9adb83486161d8))
+* send TopOn placement and format under the top_on_* keys ([#214](https://github.com/tenjin/unity-sdk/issues/214)) ([df5019a](https://github.com/tenjin/unity-sdk/commit/df5019a385fcb64954dfdb0c229bc5670ebd50f8))
+* stop detecting LevelPlay 8.x as 9.x, which broke compilation ([#211](https://github.com/tenjin/unity-sdk/issues/211)) ([e870064](https://github.com/tenjin/unity-sdk/commit/e8700644294ce3a70e85ec5e0ac82feac9c1c6df))
+
 ## [1.23.0](https://github.com/tenjin/unity-sdk/compare/1.22.1...1.23.0) (2026-10-07)
 
 

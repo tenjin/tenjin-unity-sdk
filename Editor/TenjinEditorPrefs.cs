@@ -152,9 +152,12 @@ namespace TenjinEditor
         {
             var targets = new[] { BuildTargetGroup.iOS, BuildTargetGroup.Android };
 
+            // Full type names only: LevelPlay 8.x already declares types in the
+            // Unity.Services.LevelPlay namespace (Constants, LevelPlayLogger), but its ad
+            // classes live in com.unity3d.mediation, so matching the namespace alone turns
+            // on the 9.x code paths and breaks compilation on 8.x.
             var ironsourceLevelPlayTypes = new[]
             {
-                "Unity.Services.LevelPlay",
                 "Unity.Services.LevelPlay.LevelPlayRewardedAd",
                 "Unity.Services.LevelPlay.LevelPlayInterstitialAd",
                 "Unity.Services.LevelPlay.LevelPlayBannerAd"
@@ -192,7 +195,7 @@ namespace TenjinEditor
 
         private static void UpdateTradPlus()
         {
-            var tradplusTypes = new[] { "TradplusAds" };
+            var tradplusTypes = new[] { "TradplusSDK.Api", "TradplusSDK.Api.TradplusAds" };
             UpdateDefines(tenjin_tradplus, TypeExists(tradplusTypes), new[] { BuildTargetGroup.iOS, BuildTargetGroup.Android });
         }
 
