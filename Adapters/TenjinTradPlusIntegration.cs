@@ -5,6 +5,9 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+#if tenjin_tradplus_enabled
+using TradplusSDK.Api;
+#endif
 
 public class TenjinTradPlusIntegration
 {
@@ -21,10 +24,10 @@ public class TenjinTradPlusIntegration
             Debug.Log("Ignoring duplicate TradPlus subscription");
             return;
         }
-        TradplusAds.Instance().AddGlobalAdImpression(delegate(Dictionary<string, object> adInfo) 
+        TradplusAds.Instance().AddGlobalAdImpression(delegate(Dictionary<string, object> adInfo)
         {
             ImpressionFromAdInfo(callback, adInfo);
-        }
+        });
         _subscribed_tradplus = true;
 #endif
     }

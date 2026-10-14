@@ -55,8 +55,8 @@ public class TenjinTopOnIntegration
                         publisher_revenue = args.callbackInfo.publisher_revenue,
                         currency = args.callbackInfo.currency,
                         country = args.callbackInfo.country,
-                        hyper_bid_placement_id = args.callbackInfo.adunit_id,
-                        hyper_bid_ad_format = args.callbackInfo.adunit_format,
+                        top_on_placement_id = args.callbackInfo.adunit_id,
+                        top_on_ad_format = args.callbackInfo.adunit_format,
                         ecpm_precision = args.callbackInfo.precision,
                         ad_network_type = args.callbackInfo.network_type,
                         network_placement_id = args.callbackInfo.network_placement_id,
@@ -122,8 +122,8 @@ public class TenjinTopOnIntegration
                         publisher_revenue = args.callbackInfo.publisher_revenue,
                         currency = args.callbackInfo.currency,
                         country = args.callbackInfo.country,
-                        hyper_bid_placement_id = args.callbackInfo.adunit_id,
-                        hyper_bid_ad_format = args.callbackInfo.adunit_format,
+                        top_on_placement_id = args.callbackInfo.adunit_id,
+                        top_on_ad_format = args.callbackInfo.adunit_format,
                         ecpm_precision = args.callbackInfo.precision,
                         ad_network_type = args.callbackInfo.network_type,
                         network_placement_id = args.callbackInfo.network_placement_id,
@@ -189,8 +189,8 @@ public class TenjinTopOnIntegration
                         publisher_revenue = args.callbackInfo.publisher_revenue,
                         currency = args.callbackInfo.currency,
                         country = args.callbackInfo.country,
-                        hyper_bid_placement_id = args.callbackInfo.adunit_id,
-                        hyper_bid_ad_format = args.callbackInfo.adunit_format,
+                        top_on_placement_id = args.callbackInfo.adunit_id,
+                        top_on_ad_format = args.callbackInfo.adunit_format,
                         ecpm_precision = args.callbackInfo.precision,
                         ad_network_type = args.callbackInfo.network_type,
                         network_placement_id = args.callbackInfo.network_placement_id,
@@ -256,8 +256,8 @@ public class TenjinTopOnIntegration
                         publisher_revenue = args.callbackInfo.publisher_revenue,
                         currency = args.callbackInfo.currency,
                         country = args.callbackInfo.country,
-                        hyper_bid_placement_id = args.callbackInfo.adunit_id,
-                        hyper_bid_ad_format = args.callbackInfo.adunit_format,
+                        top_on_placement_id = args.callbackInfo.adunit_id,
+                        top_on_ad_format = args.callbackInfo.adunit_format,
                         ecpm_precision = args.callbackInfo.precision,
                         ad_network_type = args.callbackInfo.network_type,
                         network_placement_id = args.callbackInfo.network_placement_id,
@@ -305,8 +305,8 @@ internal class TopOnAdImpressionDataToJSON
     public double publisher_revenue;
     public string currency;
     public string country;
-    public string hyper_bid_placement_id;
-    public string hyper_bid_ad_format;
+    public string top_on_placement_id;
+    public string top_on_ad_format;
     public string ecpm_precision;
     public string ad_network_type;
     public string network_placement_id;
