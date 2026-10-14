@@ -28,6 +28,7 @@ The guide walks the assistant through the complete integration. For more details
 
 - [Integrate with an AI assistant (LLM)](#integrate-with-an-ai-assistant-llm)
 - [SDK Integration][5]
+  - [Unity 2022.3 and older: build fails while dexing](#agp7-error-prone)
   - [Google Play][6]
   - [Amazon store][7]
   - [OAID][8]
@@ -90,6 +91,31 @@ If you don't use Android Studio, please update your dependencies in Unity by fol
 - Open Unity.
 - Navigate to Assets > External Dependency Manager > Android Resolver.
 - Select Force Resolve to update your Gradle dependencies to the latest versions.
+
+### <a id="agp7-error-prone"></a>Unity 2022.3 and older: build fails while dexing
+
+Unity 2022.3 and older ship Android Gradle Plugin 7.x. With Tenjin Android SDK 1.17.0 or newer, the Android build can fail in the dexing step with an error like:
+
+```
+ERROR: .../error_prone_annotations-2.38.0.jar: D8: java.lang.NullPointerException
+Execution failed for task ':launcher:mergeExtDexRelease'.
+```
+
+With minification enabled, the same error appears as `R8: java.lang.NullPointerException` in `:launcher:minifyReleaseWithR8`.
+
+The Tenjin Android SDK depends on Gson, which brings in a newer `error_prone_annotations` library that the D8/R8 bundled with Android Gradle Plugin 7.x can't process. Unity 6 (Android Gradle Plugin 8) is not affected.
+
+To fix it, force an older `error_prone_annotations` version in your **`baseProjectTemplate.gradle`** (enable *Custom Base Gradle Template* under *Player Settings > Android > Publishing Settings*) by adding at the end of the file:
+
+```gradle
+allprojects {
+    configurations.all {
+        resolutionStrategy.force 'com.google.errorprone:error_prone_annotations:2.28.0'
+    }
+}
+```
+
+This has to go in `baseProjectTemplate.gradle`, not `mainTemplate.gradle`: the main template only applies to the `unityLibrary` module, while the failing step runs in the `launcher` module. The library only contains compile-time annotations, so forcing this version has no effect at runtime.
 
 
 ## <a id="google-play"></a>Google Play
