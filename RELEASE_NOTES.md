@@ -1,3 +1,10 @@
+## [1.23.2](https://github.com/tenjin/unity-sdk/compare/1.23.1...1.23.2) (2026-10-27)
+
+
+### Bug Fixes
+
+* update Android SDK to 2.0.2 ([#218](https://github.com/tenjin/unity-sdk/issues/218)) ([d93e850](https://github.com/tenjin/unity-sdk/commit/d93e850ec792a08a61a7cae9054de0dd3ebd156c))
+
 ## [1.23.1](https://github.com/tenjin/unity-sdk/compare/1.23.0...1.23.1) (2026-10-14)
 
 
