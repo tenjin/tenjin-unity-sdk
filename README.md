@@ -14,6 +14,12 @@ The Unity SDK for Tenjin. To learn more about Tenjin and our product offering, p
 > [!WARNING]
 > If you have `libTenjinSDK.a` and/or `libTenjinSDKUniversal.a` from older Tenjin SDK versions, please delete them and run `pod install` to integrate it on iOS.
 
+# Pull request validation
+
+The PR Validation workflow runs `python .github/scripts/validate-package.py` on every pull request, including documentation and release changes. Run the same command locally with Python 3.12.
+
+This static check verifies that `package.json`, `Runtime/BaseTenjin.cs` and the latest release heading in `RELEASE_NOTES.md` agree on the SDK version. It also parses the JSON assembly definitions and `Editor/Dependencies.xml`. It does not compile C#, build a Unity project, resolve native dependencies, or validate the packaged binaries. Unity/device validation remains a separate release QA responsibility. The existing Release workflow is unchanged.
+
 # Integrate with an AI assistant (LLM)
 
 You can integrate the Tenjin Unity SDK with the help of an AI assistant (Claude, Cursor, GitHub Copilot, etc.). Paste the following prompt into your assistant of choice:
