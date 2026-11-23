@@ -25,7 +25,19 @@ static NSString* TJNStringFromC(const char* s) {
     return s ? [NSString stringWithUTF8String:s] : @"";
 }
 
+// Required arguments (apiKey, eventName, productId) must not fall back to an
+// empty string: that would initialise with "" or send an event named "". Log
+// and drop the call instead, like iosTenjinHandleOpenUrl does.
+#define TJN_RETURN_IF_NULL(arg)                                                  \
+    do {                                                                         \
+        if ((arg) == NULL) {                                                     \
+            NSLog(@"Tenjin: %s called with a NULL " #arg ", ignoring", __func__); \
+            return;                                                              \
+        }                                                                        \
+    } while (0)
+
 void iosTenjinInit(const char* apiKey){
+    TJN_RETURN_IF_NULL(apiKey);
     NSString *apiKeyStr = TJNStringFromC(apiKey);
 
     NSLog(@"Called Tenjin [TenjinSDK sharedInstanceWithToken:%@]", apiKeyStr);
@@ -33,6 +45,7 @@ void iosTenjinInit(const char* apiKey){
 }
     
 void iosTenjinInitWithSharedSecret(const char* apiKey, const char* sharedSecret){
+    TJN_RETURN_IF_NULL(apiKey);
     NSString *apiKeyStr = TJNStringFromC(apiKey);
     NSString *sharedSecretStr = TJNStringFromC(sharedSecret);
 
@@ -41,6 +54,7 @@ void iosTenjinInitWithSharedSecret(const char* apiKey, const char* sharedSecret)
 }
     
 void iosTenjinInitWithAppSubversion(const char* apiKey, int subversion){
+    TJN_RETURN_IF_NULL(apiKey);
     NSString *apiKeyStr = TJNStringFromC(apiKey);
     NSNumber *subVersion = [NSNumber numberWithInt:subversion];
 
@@ -49,6 +63,7 @@ void iosTenjinInitWithAppSubversion(const char* apiKey, int subversion){
 }
     
 void iosTenjinInitWithSharedSecretAppSubversion(const char* apiKey, const char* sharedSecret, int subversion){
+    TJN_RETURN_IF_NULL(apiKey);
     NSString *apiKeyStr = TJNStringFromC(apiKey);
     NSString *sharedSecretStr = TJNStringFromC(sharedSecret);
     NSNumber *subVersion = [NSNumber numberWithInt:subversion];
@@ -69,12 +84,14 @@ void iosTenjinConnectWithDeferredDeeplink(const char* deferredDeeplink){
 }
     
 void iosTenjinSendEvent(const char* eventName){
+    TJN_RETURN_IF_NULL(eventName);
     NSString *eventNameStr = TJNStringFromC(eventName);
     NSLog(@"Called Tenjin [TenjinSDK sendEventWithName:%@]", eventNameStr);
     [TenjinSDK sendEventWithName:eventNameStr];
 }
 
 void iosTenjinSendEventWithValue(const char* eventName, const char* eventValue){
+    TJN_RETURN_IF_NULL(eventName);
     NSString *eventNameStr = TJNStringFromC(eventName);
     NSString *eventValueStr = TJNStringFromC(eventValue);
     NSLog(@"Called Tenjin [TenjinSDK sendEventWithName:%@ andEventValue:%@]", eventNameStr, eventValueStr);
@@ -82,6 +99,7 @@ void iosTenjinSendEventWithValue(const char* eventName, const char* eventValue){
 }
 
 void iosTenjinTransaction(const char* productId, const char* currencyCode, int quantity, double price){
+    TJN_RETURN_IF_NULL(productId);
     NSString *prodId = TJNStringFromC(productId);
     NSString *curCode = TJNStringFromC(currencyCode);
     NSDecimalNumber* pr = [[NSDecimalNumber alloc] initWithDouble:price];
@@ -92,6 +110,7 @@ void iosTenjinTransaction(const char* productId, const char* currencyCode, int q
 }
 
 void iosTenjinTransactionWithReceiptData(const char* productId, const char* currencyCode, int quantity, double price, const char* transactionId, const char* receipt){
+    TJN_RETURN_IF_NULL(productId);
     NSString *prodId = TJNStringFromC(productId);
     NSString *curCode = TJNStringFromC(currencyCode);
     NSDecimalNumber *pr = [[NSDecimalNumber alloc] initWithDouble: price];
@@ -104,13 +123,14 @@ void iosTenjinTransactionWithReceiptData(const char* productId, const char* curr
 }
     
 void iosTenjinSubscription(const char* productId, const char* currencyCode, double unitPrice, const char* transactionId, const char* originalTransactionId, const char* receipt, const char* skTransaction){
+    TJN_RETURN_IF_NULL(productId);
     NSString *prodId = TJNStringFromC(productId);
     NSString *curCode = TJNStringFromC(currencyCode);
     NSDecimalNumber *price = [[NSDecimalNumber alloc] initWithDouble:unitPrice];
-    NSString *txId = transactionId ? [NSString stringWithUTF8String:transactionId] : @"";
-    NSString *origTxId = originalTransactionId ? [NSString stringWithUTF8String:originalTransactionId] : @"";
-    NSString *rec = receipt ? [NSString stringWithUTF8String:receipt] : @"";
-    NSString *skTx = skTransaction ? [NSString stringWithUTF8String:skTransaction] : @"";
+    NSString *txId = TJNStringFromC(transactionId);
+    NSString *origTxId = TJNStringFromC(originalTransactionId);
+    NSString *rec = TJNStringFromC(receipt);
+    NSString *skTx = TJNStringFromC(skTransaction);
 
     NSLog(@"Called Tenjin [TenjinSDK subscriptionWithProductName:%@ andCurrencyCode:%@ andUnitPrice:%@ andTransactionId:%@ andOriginalTransactionId:%@ andBase64Receipt:(length:%lu) andSKTransaction:(length:%lu)]", prodId, curCode, price, txId, origTxId, (unsigned long)rec.length, (unsigned long)skTx.length);
     [TenjinSDK subscriptionWithProductName:prodId
@@ -123,6 +143,7 @@ void iosTenjinSubscription(const char* productId, const char* currencyCode, doub
 }
 
 void iosTenjinSubscriptionWithStoreKit(const char* productId, const char* currencyCode, double unitPrice){
+    TJN_RETURN_IF_NULL(productId);
     NSString *prodId = TJNStringFromC(productId);
     NSString *curCode = TJNStringFromC(currencyCode);
     NSDecimalNumber *price = [[NSDecimalNumber alloc] initWithDouble:unitPrice];
