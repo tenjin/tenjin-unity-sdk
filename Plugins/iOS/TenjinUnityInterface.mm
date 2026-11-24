@@ -17,23 +17,45 @@ TenjinDeeplinkHandlerFunc registeredDeeplinkHandlerFunc;
 TenjinAttributionInfoFunc registeredAttributionInfoFunc;
 TenjinUserProfileFunc registeredUserProfileFunc;
 
+// Unity marshals an unset C# string as a NULL char*, and
+// +[NSString stringWithUTF8String:] raises on NULL. Convert through this helper
+// so a missing argument becomes an empty string instead of a crash.
+// TJ-SEC-22 / TENJIN-30645.
+static NSString* TJNStringFromC(const char* s) {
+    return s ? [NSString stringWithUTF8String:s] : @"";
+}
+
+// Required arguments (apiKey, eventName, productId) must not fall back to an
+// empty string: that would initialise with "" or send an event named "". Log
+// and drop the call instead, like iosTenjinHandleOpenUrl does.
+#define TJN_RETURN_IF_NULL(arg)                                                  \
+    do {                                                                         \
+        if ((arg) == NULL) {                                                     \
+            NSLog(@"Tenjin: %s called with a NULL " #arg ", ignoring", __func__); \
+            return;                                                              \
+        }                                                                        \
+    } while (0)
+
 void iosTenjinInit(const char* apiKey){
-    NSString *apiKeyStr = [NSString stringWithUTF8String:apiKey];
+    TJN_RETURN_IF_NULL(apiKey);
+    NSString *apiKeyStr = TJNStringFromC(apiKey);
 
     NSLog(@"Called Tenjin [TenjinSDK sharedInstanceWithToken:%@]", apiKeyStr);
     [TenjinSDK initialize:apiKeyStr];
 }
     
 void iosTenjinInitWithSharedSecret(const char* apiKey, const char* sharedSecret){
-    NSString *apiKeyStr = [NSString stringWithUTF8String:apiKey];
-    NSString *sharedSecretStr = [NSString stringWithUTF8String:sharedSecret];
+    TJN_RETURN_IF_NULL(apiKey);
+    NSString *apiKeyStr = TJNStringFromC(apiKey);
+    NSString *sharedSecretStr = TJNStringFromC(sharedSecret);
 
     NSLog(@"Called Tenjin [TenjinSDK sharedInstanceWithToken:%@ andSharedSecret:*]", apiKeyStr);
     [TenjinSDK initialize:apiKeyStr andSharedSecret:sharedSecretStr];
 }
     
 void iosTenjinInitWithAppSubversion(const char* apiKey, int subversion){
-    NSString *apiKeyStr = [NSString stringWithUTF8String:apiKey];
+    TJN_RETURN_IF_NULL(apiKey);
+    NSString *apiKeyStr = TJNStringFromC(apiKey);
     NSNumber *subVersion = [NSNumber numberWithInt:subversion];
 
     NSLog(@"Called Tenjin [TenjinSDK sharedInstanceWithToken:%@ andAppSubversion:%@]", apiKeyStr, subVersion);
@@ -41,8 +63,9 @@ void iosTenjinInitWithAppSubversion(const char* apiKey, int subversion){
 }
     
 void iosTenjinInitWithSharedSecretAppSubversion(const char* apiKey, const char* sharedSecret, int subversion){
-    NSString *apiKeyStr = [NSString stringWithUTF8String:apiKey];
-    NSString *sharedSecretStr = [NSString stringWithUTF8String:sharedSecret];
+    TJN_RETURN_IF_NULL(apiKey);
+    NSString *apiKeyStr = TJNStringFromC(apiKey);
+    NSString *sharedSecretStr = TJNStringFromC(sharedSecret);
     NSNumber *subVersion = [NSNumber numberWithInt:subversion];
     
     NSLog(@"Called Tenjin [TenjinSDK sharedInstanceWithToken:%@ andSharedSecret:* andAppSubversion:%@]", apiKeyStr, subVersion);
@@ -54,28 +77,31 @@ void iosTenjinConnect(){
 }
 
 void iosTenjinConnectWithDeferredDeeplink(const char* deferredDeeplink){
-    NSString *deferredDeeplinkStr = [NSString stringWithUTF8String:deferredDeeplink];
+    NSString *deferredDeeplinkStr = TJNStringFromC(deferredDeeplink);
     NSURL *deferredDeeplinkStrUri = [NSURL URLWithString:[deferredDeeplinkStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSLog(@"Called Tenjin [TenjinSDK connectWithDeferredDeeplink:%@]", deferredDeeplinkStr);
     [TenjinSDK connectWithDeferredDeeplink:deferredDeeplinkStrUri];
 }
     
 void iosTenjinSendEvent(const char* eventName){
-    NSString *eventNameStr = [NSString stringWithUTF8String:eventName];
+    TJN_RETURN_IF_NULL(eventName);
+    NSString *eventNameStr = TJNStringFromC(eventName);
     NSLog(@"Called Tenjin [TenjinSDK sendEventWithName:%@]", eventNameStr);
     [TenjinSDK sendEventWithName:eventNameStr];
 }
 
 void iosTenjinSendEventWithValue(const char* eventName, const char* eventValue){
-    NSString *eventNameStr = [NSString stringWithUTF8String:eventName];
-    NSString *eventValueStr = [NSString stringWithUTF8String:eventValue];
+    TJN_RETURN_IF_NULL(eventName);
+    NSString *eventNameStr = TJNStringFromC(eventName);
+    NSString *eventValueStr = TJNStringFromC(eventValue);
     NSLog(@"Called Tenjin [TenjinSDK sendEventWithName:%@ andEventValue:%@]", eventNameStr, eventValueStr);
     [TenjinSDK sendEventWithName:eventNameStr andEventValue:eventValueStr];
 }
 
 void iosTenjinTransaction(const char* productId, const char* currencyCode, int quantity, double price){
-    NSString *prodId = [NSString stringWithUTF8String:productId];
-    NSString *curCode = [NSString stringWithUTF8String:currencyCode];
+    TJN_RETURN_IF_NULL(productId);
+    NSString *prodId = TJNStringFromC(productId);
+    NSString *curCode = TJNStringFromC(currencyCode);
     NSDecimalNumber* pr = [[NSDecimalNumber alloc] initWithDouble:price];
     NSLog(@"Called Tenjin [TenjinSDK transactionWithProductName:%@ andCurrencyCode:%@ andQuantity:%d andUnitPrice:%f]", prodId, curCode, quantity, price);
 
@@ -84,11 +110,12 @@ void iosTenjinTransaction(const char* productId, const char* currencyCode, int q
 }
 
 void iosTenjinTransactionWithReceiptData(const char* productId, const char* currencyCode, int quantity, double price, const char* transactionId, const char* receipt){
-    NSString *prodId = [NSString stringWithUTF8String: productId];
-    NSString *curCode = [NSString stringWithUTF8String: currencyCode];
+    TJN_RETURN_IF_NULL(productId);
+    NSString *prodId = TJNStringFromC(productId);
+    NSString *curCode = TJNStringFromC(currencyCode);
     NSDecimalNumber *pr = [[NSDecimalNumber alloc] initWithDouble: price];
-    NSString *tid = [NSString stringWithUTF8String: transactionId];
-    NSString *rec = [NSString stringWithUTF8String: receipt];
+    NSString *tid = TJNStringFromC(transactionId);
+    NSString *rec = TJNStringFromC(receipt);
 
     //call manual tenjin call with receipt data
     NSLog(@"Called Tenjin [TenjinSDK transactionWithProductName:%@ andCurrencyCode:%@ andQuantity:%d andUnitPrice:%f andTransactionId:%@ andBase64Receipt:%@]", prodId, curCode, quantity, price, tid, rec);
@@ -96,13 +123,14 @@ void iosTenjinTransactionWithReceiptData(const char* productId, const char* curr
 }
     
 void iosTenjinSubscription(const char* productId, const char* currencyCode, double unitPrice, const char* transactionId, const char* originalTransactionId, const char* receipt, const char* skTransaction){
-    NSString *prodId = [NSString stringWithUTF8String:productId];
-    NSString *curCode = [NSString stringWithUTF8String:currencyCode];
+    TJN_RETURN_IF_NULL(productId);
+    NSString *prodId = TJNStringFromC(productId);
+    NSString *curCode = TJNStringFromC(currencyCode);
     NSDecimalNumber *price = [[NSDecimalNumber alloc] initWithDouble:unitPrice];
-    NSString *txId = transactionId ? [NSString stringWithUTF8String:transactionId] : @"";
-    NSString *origTxId = originalTransactionId ? [NSString stringWithUTF8String:originalTransactionId] : @"";
-    NSString *rec = receipt ? [NSString stringWithUTF8String:receipt] : @"";
-    NSString *skTx = skTransaction ? [NSString stringWithUTF8String:skTransaction] : @"";
+    NSString *txId = TJNStringFromC(transactionId);
+    NSString *origTxId = TJNStringFromC(originalTransactionId);
+    NSString *rec = TJNStringFromC(receipt);
+    NSString *skTx = TJNStringFromC(skTransaction);
 
     NSLog(@"Called Tenjin [TenjinSDK subscriptionWithProductName:%@ andCurrencyCode:%@ andUnitPrice:%@ andTransactionId:%@ andOriginalTransactionId:%@ andBase64Receipt:(length:%lu) andSKTransaction:(length:%lu)]", prodId, curCode, price, txId, origTxId, (unsigned long)rec.length, (unsigned long)skTx.length);
     [TenjinSDK subscriptionWithProductName:prodId
@@ -115,8 +143,9 @@ void iosTenjinSubscription(const char* productId, const char* currencyCode, doub
 }
 
 void iosTenjinSubscriptionWithStoreKit(const char* productId, const char* currencyCode, double unitPrice){
-    NSString *prodId = [NSString stringWithUTF8String:productId];
-    NSString *curCode = [NSString stringWithUTF8String:currencyCode];
+    TJN_RETURN_IF_NULL(productId);
+    NSString *prodId = TJNStringFromC(productId);
+    NSString *curCode = TJNStringFromC(currencyCode);
     NSDecimalNumber *price = [[NSDecimalNumber alloc] initWithDouble:unitPrice];
 
     [TenjinSDK subscriptionWithStoreKitForProductId:prodId
@@ -137,7 +166,7 @@ void iosTenjinOptOut(){
 void iosTenjinOptInParams(char** params, int size){
     NSMutableArray *paramsList = [[NSMutableArray alloc] init];
     for (int i = 0; i < size; ++i) {
-        NSString *str = [[NSString alloc] initWithCString:params[i] encoding:NSUTF8StringEncoding];
+        NSString *str = TJNStringFromC(params[i]);
         NSLog(@"OptIn Param: %@", str);
         [paramsList addObject:str];
     }
@@ -148,7 +177,7 @@ void iosTenjinOptInParams(char** params, int size){
 void iosTenjinOptOutParams(char** params, int size){
     NSMutableArray *paramsList = [[NSMutableArray alloc] init];
     for (int i = 0; i < size; ++i) {
-        NSString *str = [[NSString alloc] initWithCString:params[i] encoding:NSUTF8StringEncoding];
+        NSString *str = TJNStringFromC(params[i]);
         NSLog(@"OptOut Param: %@", str);
         [paramsList addObject:str];
     }
@@ -189,12 +218,12 @@ void iosTenjinUpdatePostbackConversionValue(int conversionValue){
 
 void iosTenjinUpdatePostbackConversionValueCoarseValue(int conversionValue, const char* coarseValue){
     NSLog(@"Called Tenjin [TenjinSDK updatePostbackConversionValueCoarseValue]");
-    [TenjinSDK updatePostbackConversionValue:conversionValue coarseValue:[NSString stringWithUTF8String:coarseValue]];
+    [TenjinSDK updatePostbackConversionValue:conversionValue coarseValue:TJNStringFromC(coarseValue)];
 }
 
 void iosTenjinUpdatePostbackConversionValueCoarseValueLockWindow(int conversionValue, const char* coarseValue, bool lockWindow){
     NSLog(@"Called Tenjin [TenjinSDK updatePostbackConversionValueCoarseValue]");
-    [TenjinSDK updatePostbackConversionValue:conversionValue coarseValue:[NSString stringWithUTF8String:coarseValue] lockWindow:lockWindow];
+    [TenjinSDK updatePostbackConversionValue:conversionValue coarseValue:TJNStringFromC(coarseValue) lockWindow:lockWindow];
 }
 
 void iosTenjinRegisterAppForAdNetworkAttribution(){
@@ -225,49 +254,49 @@ void iosTenjinSetDebugLogs(){
 }
 
 void iosTenjinAppLovinImpressionFromJSON(const char* jsonString){
-    NSString *jsonStr = [NSString stringWithUTF8String:jsonString];
+    NSString *jsonStr = TJNStringFromC(jsonString);
 
     [TenjinSDK appLovinImpressionFromJSON:jsonStr];
 }
 
 void iosTenjinIronSourceImpressionFromJSON(const char* jsonString){
-    NSString *jsonStr = [NSString stringWithUTF8String:jsonString];
+    NSString *jsonStr = TJNStringFromC(jsonString);
 
     [TenjinSDK ironSourceImpressionFromJSON:jsonStr];
 }
 
 void iosTenjinHyperBidImpressionFromJSON(const char* jsonString){
-    NSString *jsonStr = [NSString stringWithUTF8String:jsonString];
+    NSString *jsonStr = TJNStringFromC(jsonString);
 
     [TenjinSDK hyperBidImpressionFromJSON:jsonStr];
 }
 
 void iosTenjinAdMobImpressionFromJSON(const char* jsonString){
-    NSString *jsonStr = [NSString stringWithUTF8String:jsonString];
+    NSString *jsonStr = TJNStringFromC(jsonString);
 
     [TenjinSDK adMobImpressionFromJSON:jsonStr];
 }
 
 void iosTenjinTopOnImpressionFromJSON(const char* jsonString){
-    NSString *jsonStr = [NSString stringWithUTF8String:jsonString];
+    NSString *jsonStr = TJNStringFromC(jsonString);
 
     [TenjinSDK topOnImpressionFromJSON:jsonStr];
 }
 
 void iosTenjinCASImpressionFromJSON(const char* jsonString){
-    NSString *jsonStr = [NSString stringWithUTF8String:jsonString];
+    NSString *jsonStr = TJNStringFromC(jsonString);
 
     [TenjinSDK casImpressionFromJSON:jsonStr];
 }
 
 void iosTenjinTradPlusImpressionFromJSON(const char* jsonString){
-    NSString *jsonStr = [NSString stringWithUTF8String:jsonString];
+    NSString *jsonStr = TJNStringFromC(jsonString);
 
     [TenjinSDK tradPlusImpressionFromJSON:jsonStr];
 }
 
 void iosTenjinCloudXImpressionFromJSON(const char* jsonString){
-    NSString *jsonStr = [NSString stringWithUTF8String:jsonString];
+    NSString *jsonStr = TJNStringFromC(jsonString);
 
     [TenjinSDK cloudXImpressionFromJSON:jsonStr];
 }
@@ -276,7 +305,7 @@ void iosTenjinCustomImpressionFromJSON(const char* jsonString){
     if (jsonString == NULL) {
         return;
     }
-    NSString *jsonStr = [NSString stringWithUTF8String:jsonString];
+    NSString *jsonStr = TJNStringFromC(jsonString);
 
     [TenjinSDK customImpressionFromJSON:jsonStr];
 }
@@ -364,14 +393,14 @@ void iosTenjin_InternalFreeStringStringKeyValuePairs(TenjinStringStringKeyValueP
 }
 
 void iosTenjinSetWrapperVersion(const char* wrapperString) {
-    NSString *utfStr = [NSString stringWithUTF8String:wrapperString];
+    NSString *utfStr = TJNStringFromC(wrapperString);
     
     [TenjinSDK setWrapperVersion:utfStr];
 }
 
 void iosTenjinSetPluginVersion(const char* pluginString, const char* versionString) {
-    NSString *plugin = [NSString stringWithUTF8String:pluginString];
-    NSString *version = [NSString stringWithUTF8String:versionString];
+    NSString *plugin = TJNStringFromC(pluginString);
+    NSString *version = TJNStringFromC(versionString);
 
     [TenjinSDK setPluginVersion:plugin version:version];
 }
@@ -386,7 +415,7 @@ void iosTenjinHandleOpenUrl(const char* url) {
 }
 
 void iosTenjinSetCustomerUserId(const char* userId) {
-    NSString *utfStr = [NSString stringWithUTF8String:userId];
+    NSString *utfStr = TJNStringFromC(userId);
 
     [TenjinSDK setCustomerUserId:utfStr];
 }
@@ -394,7 +423,7 @@ void iosTenjinSetCustomerUserId(const char* userId) {
 const char* iosTenjinGetCustomerUserId() {
     NSString *userId = [TenjinSDK getCustomerUserId];
 
-    return strdup([userId UTF8String]);
+    return strdup(userId ? [userId UTF8String] : "");
 }
 
 void iosTenjinSetCacheEventSetting(bool setting) {
@@ -412,7 +441,7 @@ void iosTenjinSetGoogleDMAParameters(bool adPersonalization, bool adUserData) {
 const char* iosTenjinGetAnalyticsInstallationId() {
     NSString *analyticsId = [TenjinSDK getAnalyticsInstallationId];
 
-    return strdup([analyticsId UTF8String]);
+    return strdup(analyticsId ? [analyticsId UTF8String] : "");
 }
 
 void iosTenjinGetUserProfileDictionary(TenjinUserProfileFunc userProfileFunc) {
