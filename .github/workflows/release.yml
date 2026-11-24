@@ -35,14 +35,20 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "format=$FORMAT" >> "$GITHUB_OUTPUT"
 
-      - name: Ensure tag does not already exist
+      # Only "Update SDK to x.y.z" sync PRs from tenjin/unity-sdk add a new version to
+      # RELEASE_NOTES.md. Any other push leaves the latest version already tagged, so skip.
+      - name: Check whether this version is already released
+        id: tag
         run: |
           if git rev-parse -q --verify "refs/tags/${{ steps.version.outputs.version }}" >/dev/null; then
-            echo "Tag ${{ steps.version.outputs.version }} already exists; skipping release."
-            exit 1
+            echo "::notice::Tag ${{ steps.version.outputs.version }} already exists, nothing to release. Releases come from the 'Update SDK to x.y.z' PRs opened by tenjin/unity-sdk."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Extract release notes
+        if: steps.tag.outputs.exists == 'false'
         id: release_notes
         run: |
           VERSION="${{ steps.version.outputs.version }}"
@@ -63,6 +69,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub Release
+        if: steps.tag.outputs.exists == 'false'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.version }}
