@@ -1,3 +1,10 @@
+## [1.23.3](https://github.com/tenjin/unity-sdk/compare/1.23.2...1.23.3) (2026-11-24)
+
+
+### Bug Fixes
+
+* guard iOS bridge against NULL C strings ([#220](https://github.com/tenjin/unity-sdk/issues/220)) ([9034407](https://github.com/tenjin/unity-sdk/commit/90344077795264db69d808921512ceb4899bf54c))
+
 ## [1.23.2](https://github.com/tenjin/unity-sdk/compare/1.23.1...1.23.2) (2026-10-27)
 
 
