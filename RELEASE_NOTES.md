@@ -1,3 +1,10 @@
+## [1.24.0](https://github.com/tenjin/unity-sdk/compare/1.23.3...1.24.0) (2026-11-26)
+
+
+### Features
+
+* update Android SDK to 2.1.0 and iOS SDK to 1.21.0 ([#222](https://github.com/tenjin/unity-sdk/issues/222)) ([74f7f84](https://github.com/tenjin/unity-sdk/commit/74f7f84d248bbfb67e89188e6886d1359fbe6856))
+
 ## [1.23.3](https://github.com/tenjin/unity-sdk/compare/1.23.2...1.23.3) (2026-11-24)
 
 
